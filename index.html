@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LP Generator Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F0F13;--surface:#18181F;--card:#1E1E28;--card2:#242432;
+  --border:#2E2E3E;--border2:#3A3A50;
+  --accent:#7C5CFC;--accent2:#FF6B6B;--accent3:#00D4AA;--accent4:#FFB800;
+  --text:#F0F0FF;--muted:#8888AA;--muted2:#5A5A78;
+  --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:100px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* HERO */
+.hero{
+  background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(124,92,252,0.25) 0%,transparent 70%),var(--bg);
+  padding:60px 20px 50px;text-align:center;position:relative;overflow:hidden;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(124,92,252,0.15);border:1px solid rgba(124,92,252,0.3);
+  color:#A78BFA;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  padding:5px 14px;border-radius:20px;margin-bottom:20px;
+}
+.hero-badge .dot{width:6px;height:6px;background:#7C5CFC;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.1;margin-bottom:14px;letter-spacing:-1px}
+.hero h1 .grad{background:linear-gradient(135deg,#7C5CFC,#FF6B6B,#FFB800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 28px;line-height:1.7}
+.hero-flow{display:flex;justify-content:center;align-items:center;gap:0;flex-wrap:wrap}
+.flow-step{display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--border);padding:8px 16px;font-size:12px;font-weight:600;color:var(--muted)}
+.flow-step:first-child{border-radius:10px 0 0 10px}
+.flow-step:last-child{border-radius:0 10px 10px 0}
+.flow-step .n{width:20px;height:20px;background:var(--accent);border-radius:50%;font-size:10px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.flow-arrow{color:var(--border2);font-size:12px;padding:0 2px}
+
+/* PROGRESS SIDEBAR */
+.layout{display:flex;max-width:1100px;margin:0 auto;padding:0 16px;gap:24px}
+.sidebar{width:200px;flex-shrink:0;position:sticky;top:24px;align-self:flex-start;padding-top:24px}
+.sidebar-steps{display:flex;flex-direction:column;gap:4px}
+.sidebar-step{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;cursor:pointer;transition:all 0.2s;color:var(--muted);font-size:12px;font-weight:600}
+.sidebar-step:hover{background:var(--glass);color:var(--text)}
+.sidebar-step.active{background:rgba(124,92,252,0.12);color:#A78BFA}
+.sidebar-step.done{color:var(--accent3)}
+.s-dot{width:8px;height:8px;border-radius:50%;background:var(--border2);flex-shrink:0;transition:all 0.2s}
+.sidebar-step.active .s-dot{background:var(--accent)}
+.sidebar-step.done .s-dot{background:var(--accent3)}
+.content{flex:1;min-width:0;padding-top:24px}
+
+/* SECTION BLOCKS */
+.block{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;transition:border-color 0.2s}
+.block:hover{border-color:var(--border2)}
+.block-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.block-num{width:30px;height:30px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.block-num.green{background:var(--accent3)}
+.block-num.orange{background:var(--accent2)}
+.block-num.gold{background:var(--accent4)}
+.block-title{font-size:15px;font-weight:700}
+.block-sub{font-size:12px;color:var(--muted);margin-left:auto}
+
+/* OPTION CARDS */
+.opt-grid{display:grid;gap:8px}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:1fr 1fr 1fr}
+.g4{grid-template-columns:1fr 1fr 1fr 1fr}
+.opt{
+  background:var(--card2);border:1.5px solid var(--border);border-radius:10px;
+  padding:12px;cursor:pointer;transition:all 0.18s;position:relative;
+}
+.opt:hover{border-color:var(--border2);transform:translateY(-1px)}
+.opt.on{background:rgba(124,92,252,0.08);border-color:var(--accent)}
+.opt.on::after{content:'✓';position:absolute;top:8px;right:10px;font-size:11px;color:var(--accent);font-weight:700}
+.opt-ico{font-size:20px;margin-bottom:5px}
+.opt-name{font-size:13px;font-weight:700;margin-bottom:2px}
+.opt-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.opt-tag{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:2px 7px;border-radius:4px;margin-top:6px}
+
+/* SOURCE TABS */
+.source-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.src-card{background:var(--card2);border:1.5px solid var(--border);border-radius:12px;padding:16px 12px;cursor:pointer;text-align:center;transition:all 0.18s}
+.src-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.src-card.on{background:rgba(124,92,252,0.08);border-color:var(--accent)}
+.src-ico{font-size:26px;margin-bottom:8px}
+.src-name{font-size:13px;font-weight:700;margin-bottom:3px}
+.src-desc{font-size:11px;color:var(--muted)}
+
+/* FIELDS */
+.field{margin-bottom:14px}
+.flabel{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px;display:block}
+.finput,.fselect,.ftextarea{
+  width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;
+  background:var(--card2);color:var(--text);font-family:'Inter',sans-serif;
+  font-size:14px;outline:none;transition:border-color 0.2s;
+}
+.finput:focus,.fselect:focus,.ftextarea:focus{border-color:var(--accent)}
+.finput::placeholder,.ftextarea::placeholder{color:var(--muted2)}
+.ftextarea{resize:vertical;min-height:90px;line-height:1.6}
+.frow{display:grid;gap:12px}
+.f2{grid-template-columns:1fr 1fr}
+.f3{grid-template-columns:1fr 1fr 1fr}
+
+/* SECTION BUILDER */
+.sec-builder{display:flex;flex-direction:column;gap:8px}
+.sec-item{
+  background:var(--card2);border:1.5px solid var(--border);border-radius:10px;
+  padding:12px 14px;display:flex;align-items:center;gap:12px;
+  cursor:pointer;transition:all 0.18s;user-select:none;
+}
+.sec-item:hover{border-color:var(--border2)}
+.sec-item.on{border-color:var(--accent);background:rgba(124,92,252,0.07)}
+.sec-drag{color:var(--muted2);font-size:14px;cursor:grab;flex-shrink:0}
+.sec-ico{font-size:18px;flex-shrink:0}
+.sec-info{flex:1}
+.sec-name{font-size:13px;font-weight:700}
+.sec-hint{font-size:11px;color:var(--muted);margin-top:1px}
+.sec-toggle{width:36px;height:20px;background:var(--border);border-radius:10px;position:relative;transition:background 0.2s;flex-shrink:0}
+.sec-toggle::after{content:'';position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform 0.2s}
+.sec-item.on .sec-toggle{background:var(--accent)}
+.sec-item.on .sec-toggle::after{transform:translateX(16px)}
+/* Layout picker per section */
+.sec-layouts{display:none;flex-wrap:wrap;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+.sec-item.on .sec-layouts{display:flex}
+.lay-opt{background:var(--card);border:1.5px solid var(--border);border-radius:6px;padding:5px 10px;font-size:10px;font-weight:600;cursor:pointer;color:var(--muted);transition:all 0.15s;white-space:nowrap}
+.lay-opt:hover{border-color:var(--border2);color:var(--text)}
+.lay-opt.on{border-color:var(--accent);color:#A78BFA;background:rgba(124,92,252,0.1)}
+
+/* COLOR SYSTEM */
+.palette-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.pal-tab{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);color:var(--muted);transition:all 0.15s}
+.pal-tab:hover{border-color:var(--border2);color:var(--text)}
+.pal-tab.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.palette-panel{display:none}
+.palette-panel.on{display:block}
+.color-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+.cswatch{border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all 0.18s;position:relative}
+.cswatch:hover{transform:translateY(-2px)}
+.cswatch.on{border-color:#fff}
+.cswatch.on::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:14px;font-weight:800;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,0.5)}
+.cprev{height:52px;width:100%}
+.cmeta{padding:5px 6px;background:var(--card2);text-align:center}
+.cname{font-size:9px;font-weight:700;color:var(--text)}
+.chex{font-size:8px;color:var(--muted);font-family:monospace}
+.custom-color-row{display:flex;gap:10px;align-items:center;margin-top:8px}
+.custom-color-row input[type=color]{width:44px;height:36px;border:none;background:none;cursor:pointer;border-radius:6px;padding:2px}
+.custom-color-row .finput{flex:1}
+
+/* IMAGE UPLOAD */
+.upload-zone{
+  border:2px dashed var(--border);border-radius:12px;padding:32px 20px;
+  text-align:center;cursor:pointer;transition:all 0.2s;position:relative;
+}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--accent);background:rgba(124,92,252,0.04)}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-ico{font-size:32px;margin-bottom:8px}
+.upload-title{font-size:14px;font-weight:600;margin-bottom:4px}
+.upload-hint{font-size:12px;color:var(--muted)}
+.img-preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.img-thumb{position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1.5px solid var(--border)}
+.img-thumb img{width:100%;height:100%;object-fit:cover}
+.img-thumb .img-label{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.65);padding:4px 6px;font-size:9px;font-weight:600;color:#fff;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.img-thumb .img-del{position:absolute;top:4px;right:4px;width:18px;height:18px;background:rgba(255,107,107,0.9);border-radius:50%;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+.img-thumb .img-type{position:absolute;top:4px;left:4px;background:rgba(124,92,252,0.85);color:#fff;font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px}
+
+/* TYPOGRAPHY */
+.font-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.font-card{background:var(--card2);border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all 0.18s;text-align:center}
+.font-card:hover{border-color:var(--border2)}
+.font-card.on{border-color:var(--accent);background:rgba(124,92,252,0.07)}
+.font-preview{font-size:20px;font-weight:700;margin-bottom:4px}
+.font-name{font-size:11px;font-weight:600;color:var(--muted)}
+
+/* TOGGLE ROWS */
+.tog-row{display:flex;align-items:center;justify-content:space-between;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:all 0.18s}
+.tog-row:hover{border-color:var(--border2)}
+.tog-row.on{border-color:var(--accent);background:rgba(124,92,252,0.05)}
+.tog-left{display:flex;align-items:center;gap:10px}
+.tog-ico{font-size:17px}
+.tog-label{font-size:13px;font-weight:600}
+.tog-hint{font-size:11px;color:var(--muted)}
+.tog-sw{width:36px;height:20px;background:var(--border);border-radius:10px;position:relative;transition:background 0.2s;flex-shrink:0}
+.tog-sw::after{content:'';position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform 0.2s}
+.tog-row.on .tog-sw{background:var(--accent)}
+.tog-row.on .tog-sw::after{transform:translateX(16px)}
+
+/* TAG ROW */
+.tag-row{display:flex;flex-wrap:wrap;gap:6px}
+.tag{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);color:var(--muted);transition:all 0.15s}
+.tag:hover{border-color:var(--border2);color:var(--text)}
+.tag.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* SUBLABEL */
+.sublabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted2);margin:16px 0 10px;display:flex;align-items:center;gap:8px}
+.sublabel::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* TIP */
+.tip{background:rgba(124,92,252,0.08);border:1px solid rgba(124,92,252,0.2);border-radius:8px;padding:10px 14px;font-size:12px;color:#A78BFA;margin-top:10px;line-height:1.6}
+.tip strong{color:var(--accent)}
+.info{background:rgba(0,212,170,0.07);border:1px solid rgba(0,212,170,0.2);border-radius:8px;padding:10px 14px;font-size:12px;color:#5EEAD4;margin-top:10px;line-height:1.6}
+
+/* OUTPUT */
+.output-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:0}
+.output-top{padding:14px 18px;background:var(--card2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.output-dots{display:flex;gap:5px}
+.odot{width:10px;height:10px;border-radius:50%}
+.output-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2)}
+.output-body{padding:20px;font-size:12px;line-height:1.9;color:#C8C8E8;white-space:pre-wrap;font-family:'Courier New',monospace;max-height:400px;overflow-y:auto;min-height:160px}
+.output-empty{color:var(--muted2);font-style:italic;font-family:'Inter',sans-serif;font-size:14px}
+
+/* ACTIONS */
+.action-bar{display:flex;gap:10px;padding:14px 18px;background:var(--card2);border-top:1px solid var(--border)}
+.btn{padding:11px 20px;border-radius:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all 0.18s;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{background:#6B4CE0;transform:translateY(-1px)}
+.btn-accent.done{background:var(--accent3)}
+.btn-outline{background:transparent;color:var(--muted);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--border2);color:var(--text)}
+
+/* GUIDE */
+.guide{background:rgba(0,212,170,0.05);border:1px solid rgba(0,212,170,0.15);border-radius:12px;padding:16px 18px;margin-top:14px}
+.guide-step{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid rgba(0,212,170,0.08)}
+.guide-step:last-child{border:none}
+.gnum{width:22px;height:22px;background:var(--accent3);border-radius:50%;font-size:10px;font-weight:700;color:#0F0F13;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.gtext{font-size:12px;color:#5EEAD4;line-height:1.7}
+.gtext strong{color:#00D4AA}
+
+/* DIVIDER */
+hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+
+/* PROGRESS BAR TOP */
+.prog-bar-wrap{max-width:1100px;margin:16px auto 0;padding:0 16px}
+.prog-bar-track{height:3px;background:var(--border);border-radius:2px}
+.prog-bar-fill{height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width 0.4s ease}
+.prog-text{font-size:11px;color:var(--muted);text-align:right;margin-top:4px}
+.prog-text span{color:var(--accent);font-weight:700}
+
+/* STYLE CARDS (visual) */
+.style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.style-card{background:var(--card2);border:2px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.18s;position:relative}
+.style-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.style-card.on{border-color:var(--accent)}
+.style-card.on::after{content:'✓';position:absolute;top:8px;right:10px;font-size:13px;color:var(--accent);font-weight:800;background:rgba(124,92,252,0.15);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;line-height:22px}
+.style-preview{height:90px;position:relative;overflow:hidden}
+.style-info{padding:10px 12px}
+.style-name{font-size:13px;font-weight:700;margin-bottom:2px}
+.style-desc{font-size:11px;color:var(--muted);line-height:1.4}
+
+@media(max-width:768px){
+  .sidebar{display:none}
+  .g3,.g4{grid-template-columns:1fr 1fr}
+  .source-grid{grid-template-columns:1fr 1fr}
+  .color-grid{grid-template-columns:repeat(3,1fr)}
+  .style-grid{grid-template-columns:1fr 1fr}
+  .font-grid{grid-template-columns:1fr 1fr}
+  .img-preview-grid{grid-template-columns:1fr 1fr}
+  .action-bar{flex-wrap:wrap}
+  .layout{padding:0 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><span class="dot"></span>AI-Powered · Miễn phí · Không cần tài khoản</div>
+  <h1>Landing Page<br><span class="grad">AI Generator Pro</span></h1>
+  <p>Tùy chỉnh từng section, chọn bố cục, upload ảnh — nhận prompt chuẩn để dán vào Claude.ai và lấy HTML hoàn chỉnh</p>
+  <div class="hero-flow">
+    <div class="flow-step"><span class="n">1</span>Điền thông tin</div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step"><span class="n">2</span>Upload ảnh</div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step"><span class="n">3</span>Copy prompt</div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step"><span class="n">4</span>Paste Claude.ai</div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step"><span class="n">5</span>Import LadiPage</div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="prog-bar-wrap">
+  <div class="prog-bar-track"><div class="prog-bar-fill" id="progFill" style="width:0%"></div></div>
+  <div class="prog-text">Hoàn thành <span id="doneCount">0</span>/9 bước</div>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-steps" id="sidebarSteps">
+    <div class="sidebar-step" onclick="scrollTo('s1')"><span class="s-dot"></span>Nguồn dữ liệu</div>
+    <div class="sidebar-step" onclick="scrollTo('s2')"><span class="s-dot"></span>Sản phẩm</div>
+    <div class="sidebar-step" onclick="scrollTo('s3')"><span class="s-dot"></span>Mục tiêu</div>
+    <div class="sidebar-step" onclick="scrollTo('s4')"><span class="s-dot"></span>Phong cách</div>
+    <div class="sidebar-step" onclick="scrollTo('s5')"><span class="s-dot"></span>Màu & Font</div>
+    <div class="sidebar-step" onclick="scrollTo('s6')"><span class="s-dot"></span>Upload ảnh</div>
+    <div class="sidebar-step" onclick="scrollTo('s7')"><span class="s-dot"></span>Sections</div>
+    <div class="sidebar-step" onclick="scrollTo('s8')"><span class="s-dot"></span>Nâng cao</div>
+    <div class="sidebar-step" onclick="scrollTo('s9')"><span class="s-dot"></span>Nội dung</div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+<!-- ── BLOCK 1: NGUỒN DỮ LIỆU ── -->
+<div class="block" id="s1">
+  <div class="block-header">
+    <div class="block-num">1</div>
+    <div class="block-title">Bạn có sẵn dữ liệu gì?</div>
+    <div class="block-sub">Chọn 1</div>
+  </div>
+  <div class="source-grid">
+    <div class="src-card" data-key="source" data-val="mô tả sản phẩm tự nhập — tôi sẽ điền thông tin chi tiết bên dưới" onclick="selOne(this)">
+      <div class="src-ico">✍️</div><div class="src-name">Mô tả tay</div><div class="src-desc">Tự nhập nội dung</div>
+    </div>
+    <div class="src-card" data-key="source" data-val="dữ liệu từ Excel/Google Sheet — tôi sẽ dán nội dung bảng tính vào phần nội dung bên dưới, hãy tổ chức thành landing page" onclick="selOne(this)">
+      <div class="src-ico">📊</div><div class="src-name">Excel / Sheet</div><div class="src-desc">Dán dữ liệu bảng tính</div>
+    </div>
+    <div class="src-card" data-key="source" data-val="tham khảo URL landing page mẫu — tôi dán link bên dưới, hãy làm tương tự cấu trúc nhưng với nội dung của tôi" onclick="selOne(this)">
+      <div class="src-ico">🔗</div><div class="src-name">URL mẫu tham khảo</div><div class="src-desc">Làm theo style trang có sẵn</div>
+    </div>
+    <div class="src-card" data-key="source" data-val="ý tưởng thô chưa đầy đủ — hãy sáng tạo nội dung copywriting hoàn chỉnh từ gợi ý của tôi" onclick="selOne(this)">
+      <div class="src-ico">💡</div><div class="src-name">Ý tưởng thô</div><div class="src-desc">Claude tự sáng tạo nội dung</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── BLOCK 2: THÔNG TIN SẢN PHẨM ── -->
+<div class="block" id="s2">
+  <div class="block-header">
+    <div class="block-num green">2</div>
+    <div class="block-title">Thông tin sản phẩm / dịch vụ</div>
+  </div>
+  <div class="frow f2">
+    <div class="field">
+      <label class="flabel">Tên sản phẩm / dịch vụ *</label>
+      <input class="finput" id="fProduct" type="text" placeholder="VD: Khóa học Digital Marketing Pro" oninput="build()">
+    </div>
+    <div class="field">
+      <label class="flabel">Ngành / Lĩnh vực *</label>
+      <select class="fselect" id="fIndustry" onchange="build()">
+        <option value="">-- Chọn ngành --</option>
+        <option>Giáo dục / Khóa học online</option>
+        <option>Làm đẹp / Mỹ phẩm / Spa</option>
+        <option>Sức khỏe / Thực phẩm chức năng</option>
+        <option>Bất động sản / Căn hộ</option>
+        <option>Phần mềm / SaaS / App</option>
+        <option>Thương mại điện tử / Sản phẩm vật lý</option>
+        <option>Dịch vụ tư vấn / Agency</option>
+        <option>Tài chính / Đầu tư</option>
+        <option>Nhà hàng / F&B / Cafe</option>
+        <option>Sự kiện / Workshop / Hội thảo</option>
+        <option>Thời trang / Phụ kiện</option>
+        <option>Bảo hiểm / Tài chính cá nhân</option>
+        <option>Xe cộ / Ô tô</option>
+        <option>Du lịch / Khách sạn</option>
+        <option>Khác</option>
+      </select>
+    </div>
+  </div>
+  <div class="frow f2">
+    <div class="field">
+      <label class="flabel">Đối tượng khách hàng *</label>
+      <input class="finput" id="fAudience" type="text" placeholder="VD: Phụ nữ 25–40 tuổi, dân văn phòng, muốn tăng thu nhập" oninput="build()">
+    </div>
+    <div class="field">
+      <label class="flabel">Nút CTA chính *</label>
+      <input class="finput" id="fCta" type="text" placeholder="VD: Đăng ký ngay, Nhận tư vấn miễn phí" oninput="build()">
+    </div>
+  </div>
+  <div class="frow f3">
+    <div class="field">
+      <label class="flabel">Giá gốc (nếu có)</label>
+      <input class="finput" id="fOldPrice" type="text" placeholder="VD: 2.000.000đ" oninput="build()">
+    </div>
+    <div class="field">
+      <label class="flabel">Giá ưu đãi / Giá bán</label>
+      <input class="finput" id="fPrice" type="text" placeholder="VD: 990.000đ" oninput="build()">
+    </div>
+    <div class="field">
+      <label class="flabel">Ưu đãi / Deadline</label>
+      <input class="finput" id="fDeal" type="text" placeholder="VD: Chỉ còn 20 suất, hết 31/12" oninput="build()">
+    </div>
+  </div>
+  <div class="field">
+    <label class="flabel">Điểm nổi bật / USP (mỗi dòng 1 điểm)</label>
+    <textarea class="ftextarea" id="fUsp" rows="4" placeholder="VD:&#10;Học online linh hoạt 24/7, xem lại không giới hạn&#10;Mentor 1-1 hỗ trợ cá nhân hoá&#10;Hoàn tiền 100% trong 7 ngày nếu không hài lòng&#10;Cộng đồng học viên 5.000+ người" oninput="build()"></textarea>
+  </div>
+  <div class="field">
+    <label class="flabel">Headline / Tagline gợi ý (để trống nếu muốn Claude tự tạo)</label>
+    <input class="finput" id="fHeadline" type="text" placeholder="VD: Học Digital Marketing trong 30 ngày — Tăng thu nhập 3X" oninput="build()">
+  </div>
+</div>
+
+<!-- ── BLOCK 3: MỤC TIÊU ── -->
+<div class="block" id="s3">
+  <div class="block-header">
+    <div class="block-num orange">3</div>
+    <div class="block-title">Mục tiêu chính & Đối tượng</div>
+    <div class="block-sub">Chọn 1 mỗi nhóm</div>
+  </div>
+  <div class="sublabel">Mục tiêu chuyển đổi</div>
+  <div class="opt-grid g3">
+    <div class="opt" data-key="goal" data-val="thu thập lead — form nổi bật, CTA 'Đăng ký nhận tư vấn miễn phí', tối thiểu link thoát ra ngoài" onclick="selOne(this)">
+      <div class="opt-ico">📋</div><div class="opt-name">Thu thập lead</div><div class="opt-desc">Lấy tên, SĐT, email</div>
+    </div>
+    <div class="opt" data-key="goal" data-val="bán hàng trực tiếp — nút mua nổi bật, giá rõ ràng, tạo urgency với số lượng giới hạn hoặc đếm ngược" onclick="selOne(this)">
+      <div class="opt-ico">💰</div><div class="opt-name">Bán hàng ngay</div><div class="opt-desc">Chuyển đổi thành đơn</div>
+    </div>
+    <div class="opt" data-key="goal" data-val="đăng ký sự kiện hoặc webinar — lịch, địa điểm, đếm ngược và lợi ích khi tham dự rõ ràng" onclick="selOne(this)">
+      <div class="opt-ico">🎟️</div><div class="opt-name">Đăng ký sự kiện</div><div class="opt-desc">Webinar, hội thảo, offline</div>
+    </div>
+    <div class="opt" data-key="goal" data-val="tải app hoặc dùng thử miễn phí — nút download/free trial nổi bật, rating và số người dùng hiển thị" onclick="selOne(this)">
+      <div class="opt-ico">📱</div><div class="opt-name">Tải app / Free trial</div><div class="opt-desc">Download, sign up, demo</div>
+    </div>
+    <div class="opt" data-key="goal" data-val="đặt lịch hẹn tư vấn — form đặt lịch hoặc booking link, nhấn mạnh quy trình tư vấn" onclick="selOne(this)">
+      <div class="opt-ico">📅</div><div class="opt-name">Đặt lịch tư vấn</div><div class="opt-desc">Book call, hẹn gặp</div>
+    </div>
+    <div class="opt" data-key="goal" data-val="xây dựng thương hiệu — storytelling, giá trị cốt lõi, không CTA mạnh, tập trung uy tín" onclick="selOne(this)">
+      <div class="opt-ico">✨</div><div class="opt-name">Brand awareness</div><div class="opt-desc">Giới thiệu & xây uy tín</div>
+    </div>
+  </div>
+  <div class="sublabel">Tone giọng văn</div>
+  <div class="opt-grid g4">
+    <div class="opt" data-key="tone" data-val="tone chuyên nghiệp và uy tín — từ ngữ rõ ràng, số liệu chứng minh, phù hợp B2B" onclick="selOne(this)">
+      <div class="opt-name">🏢 Chuyên nghiệp</div><div class="opt-desc">Rõ ràng, số liệu, B2B</div>
+    </div>
+    <div class="opt" data-key="tone" data-val="tone năng động truyền cảm hứng — ngôn ngữ action-oriented, tạo excitement" onclick="selOne(this)">
+      <div class="opt-name">🚀 Truyền cảm hứng</div><div class="opt-desc">Action-oriented, exciting</div>
+    </div>
+    <div class="opt" data-key="tone" data-val="tone thân thiện gần gũi — nói chuyện như bạn bè, warm, dễ tiếp cận" onclick="selOne(this)">
+      <div class="opt-name">🤝 Thân thiện</div><div class="opt-desc">Warm, gần gũi như bạn bè</div>
+    </div>
+    <div class="opt" data-key="tone" data-val="tone sang trọng tinh tế — từ ngữ cao cấp, không giải thích dài dòng, tạo cảm giác exclusive" onclick="selOne(this)">
+      <div class="opt-name">💎 Sang trọng</div><div class="opt-desc">Premium, exclusive feel</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── BLOCK 4: PHONG CÁCH THIẾT KẾ ── -->
+<div class="block" id="s4">
+  <div class="block-header">
+    <div class="block-num gold">4</div>
+    <div class="block-title">Phong cách thiết kế</div>
+    <div class="block-sub">Chọn 1</div>
+  </div>
+  <div class="style-grid">
+
+    <div class="style-card" data-key="style" data-val="dark mode premium: nền #0D0D0D, chữ trắng, accent màu nổi bật, glassmorphism effects, cảm giác Apple/Tesla/Stripe" onclick="selOne(this)">
+      <div class="style-preview" style="background:linear-gradient(135deg,#0D0D0D,#1A1A2E);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px">
+        <div style="width:80px;height:8px;background:linear-gradient(90deg,#7C5CFC,#FF6B6B);border-radius:4px"></div>
+        <div style="width:60px;height:5px;background:rgba(255,255,255,0.2);border-radius:3px"></div>
+        <div style="width:50px;height:5px;background:rgba(255,255,255,0.1);border-radius:3px"></div>
+        <div style="width:70px;height:24px;background:rgba(124,92,252,0.8);border-radius:6px;margin-top:4px"></div>
+      </div>
+      <div class="style-info"><div class="style-name">🌑 Dark Premium</div><div class="style-desc">Nền tối, gradient, glassmorphism. Kiểu Apple·Stripe</div></div>
+    </div>
+
+    <div class="style-card" data-key="style" data-val="minimal light: nền #FFFFFF, rất nhiều khoảng trắng, typography lớn, hình ảnh chất lượng cao là focal point chính, kiểu Webflow·Linear" onclick="selOne(this)">
+      <div class="style-preview" style="background:#F8F9FA;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px">
+        <div style="width:80px;height:8px;background:#1A1A2E;border-radius:4px"></div>
+        <div style="width:60px;height:5px;background:#DDD;border-radius:3px"></div>
+        <div style="width:50px;height:5px;background:#EEE;border-radius:3px"></div>
+        <div style="width:70px;height:24px;background:#1A1A2E;border-radius:6px;margin-top:4px"></div>
+      </div>
+      <div class="style-info"><div class="style-name">☀️ Minimal Light</div><div class="style-desc">Trắng sạch, khoảng trắng lớn. Kiểu Webflow·Notion</div></div>
+    </div>
+
+    <div class="style-card" data-key="style" data-val="bold gradient: màu nền gradient mạnh, section xen kẽ sáng tối, visual bold, năng động kiểu startup tech Framer·Vercel" onclick="selOne(this)">
+      <div class="style-preview" style="background:linear-gradient(135deg,#667EEA,#764BA2);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px">
+        <div style="width:80px;height:8px;background:rgba(255,255,255,0.9);border-radius:4px"></div>
+        <div style="width:60px;height:5px;background:rgba(255,255,255,0.5);border-radius:3px"></div>
+        <div style="width:70px;height:24px;background:rgba(255,255,255,0.25);border-radius:6px;margin-top:8px;border:1px solid rgba(255,255,255,0.4)"></div>
+      </div>
+      <div class="style-info"><div class="style-name">⚡ Bold Gradient</div><div class="style-desc">Gradient mạnh, bold, năng động. Kiểu Framer·Vercel</div></div>
+    </div>
+
+    <div class="style-card" data-key="style" data-val="luxury elegant: nền cream hoặc trắng đục, accent vàng gold, font serif thanh lịch, nhiều khoảng trắng, hình ảnh lớn đẹp kiểu fashion·luxury brand" onclick="selOne(this)">
+      <div class="style-preview" style="background:#FAF7F2;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px">
+        <div style="width:80px;height:7px;background:#8B6914;border-radius:2px"></div>
+        <div style="width:60px;height:4px;background:#C9A227;opacity:0.5;border-radius:2px"></div>
+        <div style="width:50px;height:4px;background:#D4B896;border-radius:2px"></div>
+        <div style="width:60px;height:20px;border:1.5px solid #C9A227;border-radius:2px;margin-top:6px"></div>
+      </div>
+      <div class="style-info"><div class="style-name">💛 Luxury Elegant</div><div class="style-desc">Cream, gold accent, serif. Kiểu luxury fashion</div></div>
+    </div>
+
+    <div class="style-card" data-key="style" data-val="warm vibrant: màu sắc tươi sáng pastel, playful, section card nổi màu, icon lớn, phù hợp giáo dục·F&B·lifestyle kiểu Canva·Mailchimp" onclick="selOne(this)">
+      <div class="style-preview" style="background:#FFF5F5;display:flex;align-items:center;justify-content:center;gap:6px">
+        <div style="width:32px;height:50px;background:#FFE4E1;border-radius:8px"></div>
+        <div style="width:32px;height:65px;background:#E8F5E9;border-radius:8px"></div>
+        <div style="width:32px;height:45px;background:#E3F2FD;border-radius:8px"></div>
+      </div>
+      <div class="style-info"><div class="style-name">🌈 Warm Vibrant</div><div class="style-desc">Pastel, playful, colorful. Giáo dục·F&B·Lifestyle</div></div>
+    </div>
+
+    <div class="style-card" data-key="style" data-val="corporate trust: layout grid chuẩn mực, navy blue hoặc deep blue chủ đạo, số liệu nổi bật, bảng so sánh rõ ràng, phù hợp B2B·tài chính·bảo hiểm·bất động sản" onclick="selOne(this)">
+      <div class="style-preview" style="background:#EEF2FF;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px">
+        <div style="width:85px;height:7px;background:#1B4FD8;border-radius:3px"></div>
+        <div style="display:flex;gap:4px;margin-top:4px">
+          <div style="width:38px;height:30px;background:#fff;border-radius:5px;border:1px solid #C7D2FE"></div>
+          <div style="width:38px;height:30px;background:#fff;border-radius:5px;border:1px solid #C7D2FE"></div>
+        </div>
+        <div style="width:70px;height:18px;background:#1B4FD8;border-radius:4px;margin-top:2px"></div>
+      </div>
+      <div class="style-info"><div class="style-name">🏛️ Corporate Trust</div><div class="style-desc">Navy, cân đối, tin cậy. B2B·Tài chính·BĐS</div></div>
+    </div>
+
+  </div>
+  <div class="tip">💡 <strong>Có website mẫu muốn bắt chước?</strong> Dán URL vào phần nội dung bên dưới + câu "Thiết kế tương tự style của [URL]" — Claude sẽ phân tích và làm theo.</div>
+</div>
+
+<!-- ── BLOCK 5: MÀU SẮC & FONT ── -->
+<div class="block" id="s5">
+  <div class="block-header">
+    <div class="block-num">5</div>
+    <div class="block-title">Màu sắc & Typography</div>
+  </div>
+
+  <div class="sublabel">Bảng màu chủ đạo</div>
+  <div class="palette-tabs">
+    <div class="pal-tab on" onclick="switchPal(this,'p-vibrant')">🎨 Màu nổi bật</div>
+    <div class="pal-tab" onclick="switchPal(this,'p-dark')">🌑 Dark & Premium</div>
+    <div class="pal-tab" onclick="switchPal(this,'p-warm')">🌸 Warm & Pastel</div>
+    <div class="pal-tab" onclick="switchPal(this,'p-luxury')">💛 Luxury</div>
+    <div class="pal-tab" onclick="switchPal(this,'p-nature')">🌿 Nature</div>
+    <div class="pal-tab" onclick="switchPal(this,'p-custom')">✏️ Tự chọn</div>
+  </div>
+
+  <div class="palette-panel on" id="p-vibrant">
+    <div class="color-grid">
+      <div class="cswatch" data-key="color" data-val="màu chủ: #7C5CFC (electric purple), phụ: #FF6B6B (coral red)" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#7C5CFC,#FF6B6B)"></div><div class="cmeta"><div class="cname">Purple Coral</div><div class="chex">#7C5CFC · #FF6B6B</div></div></div>
+      <div class="cswatch" data-key="color" data-val="màu chủ: #FF5C35 (vibrant orange), phụ: #FFB800 (golden)" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#FF5C35,#FFB800)"></div><div class="cmeta"><div class="cname">Orange Gold</div><div class="chex">#FF5C35 · #FFB800</div></div></div>
+      <div class="cswatch" data-key="color" data-val="màu chủ: #4F6EF7 (electric blue), phụ: #00D4AA (teal)" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#4F6EF7,#00D4AA)"></div><div class="cmeta"><div class="cname">Blue Teal</div><div class="chex">#4F6EF7 · #00D4AA</div></div></div>
+      <div class="cswatch" data-key="color" data-val="màu chủ: #E040C8 (neon pink), phụ: #7C5CFC (purple)" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#E040C8,#7C5CFC)"></div><div class="cmeta"><div class="cname">Pink Purple</div><div class="chex">#E040C8 · #7C5CFC</div></div></div>
+      <div class="cswatch" data-key="color" data-val="màu chủ: #00C48C (green teal), phụ: #4F6EF7 (blue)" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#00C48C,#4F6EF7)"></div><div class="cmeta"><div class="cname">Teal Blue</div><div class="chex">#00C48C · #4F6EF7</div></div></div>
+      <div class="cswatch" data-key="color" data-val="màu chủ: #E63946 (bold red), phụ: #FF9A00 (orange)" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#E63946,#FF9A00)"></div><div class="cmeta"><div class="cname">Red Orange</div><div class="chex">#E63946 · #FF9A00</div></div></div>
+      <div class="cswatch" data-key="color" data-val="màu chủ: #06B6D4 (cyan), phụ: #8B5CF6 (violet)" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#06B6D4,#8B5CF6)"></div><div class="cmeta"><div class="cname">Cyan Violet</div><div class="chex">#06B6D4 · #8B5CF6</div></div></div>
+      <div class="cswatch" data-key="color" data-val="màu chủ: #F59E0B (amber), phụ: #EF4444 (red)" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#F59E0B,#EF4444)"></div><div class="cmeta"><div class="cname">Amber Red</div><div class="chex">#F59E0B · #EF4444</div></div></div>
+      <div class="cswatch" data-key="color" data-val="màu chủ: #10B981 (emerald), phụ: #059669" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#10B981,#059669)"></div><div class="cmeta"><div class="cname">Emerald</div><div class="chex">#10B981 · #059669</div></div></div>
+      <div class="cswatch" data-key="color" data-val="màu chủ: #6366F1 (indigo), phụ: #EC4899 (pink)" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#6366F1,#EC4899)"></div><div class="cmeta"><div class="cname">Indigo Pink</div><div class="chex">#6366F1 · #EC4899</div></div></div>
+    </div>
+  </div>
+
+  <div class="palette-panel" id="p-dark">
+    <div class="color-grid">
+      <div class="cswatch" data-key="color" data-val="dark premium: nền #0D0D0D, accent #7C5CFC purple, text trắng" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#0D0D0D,#1A0A3E)"></div><div class="cmeta"><div class="cname">Dark Purple</div><div class="chex">#0D0D0D · #7C5CFC</div></div></div>
+      <div class="cswatch" data-key="color" data-val="dark premium: nền #0A0A0F, accent #00D4AA teal, text trắng xanh nhẹ" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#0A0A0F,#001A16)"></div><div class="cmeta"><div class="cname">Dark Teal</div><div class="chex">#0A0A0F · #00D4AA</div></div></div>
+      <div class="cswatch" data-key="color" data-val="dark blue premium: nền #030712 navy, accent #3B82F6 blue, text trắng" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#030712,#0C1A3E)"></div><div class="cmeta"><div class="cname">Dark Navy</div><div class="chex">#030712 · #3B82F6</div></div></div>
+      <div class="cswatch" data-key="color" data-val="dark charcoal: nền #111111, accent #FFB800 gold, text trắng ấm" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#111,#1A1500)"></div><div class="cmeta"><div class="cname">Dark Gold</div><div class="chex">#111111 · #FFB800</div></div></div>
+      <div class="cswatch" data-key="color" data-val="dark cinematic: nền #0D0D0D, accent #E63946 red, text trắng" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#0D0D0D,#1A0005)"></div><div class="cmeta"><div class="cname">Dark Red</div><div class="chex">#0D0D0D · #E63946</div></div></div>
+    </div>
+  </div>
+
+  <div class="palette-panel" id="p-warm">
+    <div class="color-grid">
+      <div class="cswatch" data-key="color" data-val="warm pastel: nền #FFF5F5, accent #FF6B6B coral, section pastel xen kẽ" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#FFF5F5,#FFE4E1)"></div><div class="cmeta"><div class="cname">Rose Pastel</div><div class="chex">#FFF5F5 · #FF6B6B</div></div></div>
+      <div class="cswatch" data-key="color" data-val="peach warm: nền #FFF8F0, accent #FF8C42 peach, section cream xen kẽ" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#FFF8F0,#FFE8CC)"></div><div class="cmeta"><div class="cname">Peach Cream</div><div class="chex">#FFF8F0 · #FF8C42</div></div></div>
+      <div class="cswatch" data-key="color" data-val="mint fresh: nền #F0FFF4, accent #00C48C mint green, tone tươi mát" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#F0FFF4,#DCFCE7)"></div><div class="cmeta"><div class="cname">Mint Fresh</div><div class="chex">#F0FFF4 · #00C48C</div></div></div>
+      <div class="cswatch" data-key="color" data-val="lavender soft: nền #F5F3FF, accent #7C5CFC lavender purple, nhẹ nhàng" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#F5F3FF,#EDE9FE)"></div><div class="cmeta"><div class="cname">Lavender</div><div class="chex">#F5F3FF · #7C5CFC</div></div></div>
+      <div class="cswatch" data-key="color" data-val="sky blue: nền #F0F9FF, accent #0EA5E9 sky blue, tươi sáng" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#F0F9FF,#E0F2FE)"></div><div class="cmeta"><div class="cname">Sky Blue</div><div class="chex">#F0F9FF · #0EA5E9</div></div></div>
+    </div>
+  </div>
+
+  <div class="palette-panel" id="p-luxury">
+    <div class="color-grid">
+      <div class="cswatch" data-key="color" data-val="gold luxury: nền #FAF7F2 cream, accent #C9A227 gold, text #1A1400 nâu đen, serif" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#FAF7F2,#F0E8D0)"></div><div class="cmeta"><div class="cname">Classic Gold</div><div class="chex">#FAF7F2 · #C9A227</div></div></div>
+      <div class="cswatch" data-key="color" data-val="black gold luxury: nền #0A0800, accent #D4AF37 gold, text trắng ấm, cao cấp tối" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#0A0800,#1A1400)"></div><div class="cmeta"><div class="cname">Black Gold</div><div class="chex">#0A0800 · #D4AF37</div></div></div>
+      <div class="cswatch" data-key="color" data-val="rose gold: nền #FFF5F5, accent #C0817C rose gold, text #3A1A1A, thanh lịch" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#FFF5F5,#F5E0DC)"></div><div class="cmeta"><div class="cname">Rose Gold</div><div class="chex">#FFF5F5 · #C0817C</div></div></div>
+      <div class="cswatch" data-key="color" data-val="platinum: nền #F8F9FA, accent #9CA3AF silver platinum, text #111827, minimal cao cấp" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#F8F9FA,#E5E7EB)"></div><div class="cmeta"><div class="cname">Platinum</div><div class="chex">#F8F9FA · #9CA3AF</div></div></div>
+    </div>
+  </div>
+
+  <div class="palette-panel" id="p-nature">
+    <div class="color-grid">
+      <div class="cswatch" data-key="color" data-val="forest green: nền #F0FAF0, accent #16A34A forest green, organic natural" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#F0FAF0,#DCFCE7)"></div><div class="cmeta"><div class="cname">Forest Green</div><div class="chex">#F0FAF0 · #16A34A</div></div></div>
+      <div class="cswatch" data-key="color" data-val="earth tone: nền #FAF5EF, accent #92400E earth brown, organic thân thiện thiên nhiên" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#FAF5EF,#FEF3C7)"></div><div class="cmeta"><div class="cname">Earth Tone</div><div class="chex">#FAF5EF · #92400E</div></div></div>
+      <div class="cswatch" data-key="color" data-val="ocean blue: nền #F0F9FF, accent #0369A1 ocean blue, sạch sẽ tươi mát" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#F0F9FF,#BAE6FD)"></div><div class="cmeta"><div class="cname">Ocean Blue</div><div class="chex">#F0F9FF · #0369A1</div></div></div>
+      <div class="cswatch" data-key="color" data-val="sunset: nền #FFF7ED, accent #EA580C sunset orange, ấm áp năng lượng" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#FFF7ED,#FED7AA)"></div><div class="cmeta"><div class="cname">Sunset</div><div class="chex">#FFF7ED · #EA580C</div></div></div>
+    </div>
+  </div>
+
+  <div class="palette-panel" id="p-custom">
+    <div class="info">✏️ Nhập mã màu hex của brand bạn bên dưới — Claude sẽ dùng chính xác màu đó</div>
+    <div class="custom-color-row" style="margin-top:12px">
+      <input type="color" id="customColor1" value="#7C5CFC" oninput="document.getElementById('customHex1').value=this.value;build()">
+      <input class="finput" id="customHex1" placeholder="Màu chủ đạo #7C5CFC" oninput="document.getElementById('customColor1').value=this.value;build()">
+    </div>
+    <div class="custom-color-row">
+      <input type="color" id="customColor2" value="#FF6B6B" oninput="document.getElementById('customHex2').value=this.value;build()">
+      <input class="finput" id="customHex2" placeholder="Màu phụ / Accent #FF6B6B" oninput="document.getElementById('customColor2').value=this.value;build()">
+    </div>
+    <div class="custom-color-row">
+      <input type="color" id="customColor3" value="#FFFFFF" oninput="document.getElementById('customHex3').value=this.value;build()">
+      <input class="finput" id="customHex3" placeholder="Màu nền #FFFFFF (để trống nếu dùng nền mặc định)" oninput="document.getElementById('customColor3').value=this.value;build()">
+    </div>
+  </div>
+
+  <div class="sublabel" style="margin-top:20px">Font chữ / Typography</div>
+  <div class="font-grid">
+    <div class="font-card" data-key="font" data-val="font Inter hoặc tương tự — sans-serif hiện đại, dễ đọc, phù hợp mọi loại landing page" onclick="selOne(this)">
+      <div class="font-preview" style="font-family:Inter,sans-serif">Aa Bb</div><div class="font-name">Inter — Modern Sans</div>
+    </div>
+    <div class="font-card" data-key="font" data-val="font Playfair Display hoặc tương tự — serif thanh lịch, phù hợp luxury, fashion, beauty" onclick="selOne(this)">
+      <div class="font-preview" style="font-family:Georgia,serif;font-style:italic">Aa Bb</div><div class="font-name">Playfair — Luxury Serif</div>
+    </div>
+    <div class="font-card" data-key="font" data-val="font Poppins hoặc tương tự — rounded sans-serif friendly, phù hợp giáo dục, startup, lifestyle" onclick="selOne(this)">
+      <div class="font-preview" style="font-family:'Arial Rounded MT Bold',sans-serif">Aa Bb</div><div class="font-name">Poppins — Friendly Round</div>
+    </div>
+    <div class="font-card" data-key="font" data-val="font Montserrat hoặc tương tự — bold geometric, mạnh mẽ, phù hợp fitness, bold brand" onclick="selOne(this)">
+      <div class="font-preview" style="font-family:Impact,sans-serif;letter-spacing:-1px">Aa Bb</div><div class="font-name">Montserrat — Bold Geo</div>
+    </div>
+    <div class="font-card" data-key="font" data-val="font DM Sans hoặc tương tự — editorial, clean, phù hợp SaaS, corporate, professional" onclick="selOne(this)">
+      <div class="font-preview" style="font-family:'Trebuchet MS',sans-serif">Aa Bb</div><div class="font-name">DM Sans — Editorial</div>
+    </div>
+    <div class="font-card" data-key="font" data-val="font Nunito hoặc tương tự — playful rounded, phù hợp kids, food, app, chill vibe" onclick="selOne(this)">
+      <div class="font-preview" style="font-family:'Comic Sans MS',cursive;font-weight:700">Aa Bb</div><div class="font-name">Nunito — Playful</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── BLOCK 6: UPLOAD ẢNH ── -->
+<div class="block" id="s6">
+  <div class="block-header">
+    <div class="block-num green">6</div>
+    <div class="block-title">Upload ảnh của bạn</div>
+    <div class="block-sub">Tùy chọn — tối đa 10 ảnh</div>
+  </div>
+  <div class="sublabel">Gán ảnh vào vị trí</div>
+  <div class="opt-grid g3" style="margin-bottom:14px">
+    <div class="opt" data-key="imguse_hero" data-val="hero_banner" onclick="selOne(this)"><div class="opt-ico">🖼️</div><div class="opt-name">Ảnh Hero Banner</div><div class="opt-desc">Ảnh lớn đầu trang</div></div>
+    <div class="opt" data-key="imguse_product" data-val="product_showcase" onclick="selOne(this)"><div class="opt-ico">📦</div><div class="opt-name">Ảnh sản phẩm</div><div class="opt-desc">Showcase sản phẩm</div></div>
+    <div class="opt" data-key="imguse_team" data-val="team_photo" onclick="selOne(this)"><div class="opt-ico">👥</div><div class="opt-name">Ảnh đội ngũ</div><div class="opt-desc">Giới thiệu team</div></div>
+    <div class="opt" data-key="imguse_result" data-val="result_before_after" onclick="selOne(this)"><div class="opt-ico">✅</div><div class="opt-name">Ảnh kết quả</div><div class="opt-desc">Trước/sau, thành quả</div></div>
+    <div class="opt" data-key="imguse_customer" data-val="customer_testimonial" onclick="selOne(this)"><div class="opt-ico">💬</div><div class="opt-name">Ảnh khách hàng</div><div class="opt-desc">Avatar testimonial</div></div>
+    <div class="opt" data-key="imguse_bg" data-val="section_background" onclick="selOne(this)"><div class="opt-ico">🎨</div><div class="opt-name">Ảnh nền section</div><div class="opt-desc">Background decoration</div></div>
+  </div>
+
+  <div class="upload-zone" id="uploadZone">
+    <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)">
+    <div class="upload-ico">📸</div>
+    <div class="upload-title">Kéo thả ảnh vào đây hoặc nhấn để chọn</div>
+    <div class="upload-hint">JPG, PNG, WebP · Tối đa 10 ảnh · Ảnh sẽ được mô tả trong prompt để Claude dùng đúng vị trí</div>
+  </div>
+  <div class="img-preview-grid" id="imgGrid"></div>
+  <div class="info" id="imgInfo" style="display:none"></div>
+</div>
+
+<!-- ── BLOCK 7: SECTIONS & LAYOUTS ── -->
+<div class="block" id="s7">
+  <div class="block-header">
+    <div class="block-num gold">7</div>
+    <div class="block-title">Cấu trúc sections & Bố cục</div>
+    <div class="block-sub">Bật/tắt + chọn layout từng section</div>
+  </div>
+  <div class="tip">🔀 Bật section nào thì chọn layout bố cục cho section đó — Claude sẽ làm đúng theo yêu cầu của bạn</div>
+  <div class="sec-builder" id="secBuilder" style="margin-top:14px"></div>
+</div>
+
+<!-- ── BLOCK 8: NÂNG CAO ── -->
+<div class="block" id="s8">
+  <div class="block-header">
+    <div class="block-num orange">8</div>
+    <div class="block-title">Tùy chọn nâng cao</div>
+    <div class="block-sub">Bật / tắt</div>
+  </div>
+  <div class="sublabel">Conversion Optimization</div>
+  <div class="tog-row" id="t_urgency" onclick="togRow(this,'urgency','thêm dòng thông báo số lượng giới hạn hoặc đếm ngược JavaScript countdown timer để tạo urgency FOMO')"><div class="tog-left"><div class="tog-ico">⏰</div><div><div class="tog-label">Đếm ngược / Urgency FOMO</div><div class="tog-hint">Giới hạn số lượng, countdown timer</div></div></div><div class="tog-sw"></div></div>
+  <div class="tog-row" id="t_sticky" onclick="togRow(this,'sticky','nút CTA sticky: luôn hiển thị khi scroll, không rời khỏi màn hình người dùng')"><div class="tog-left"><div class="tog-ico">📌</div><div><div class="tog-label">Nút CTA Sticky khi scroll</div><div class="tog-hint">Nút đăng ký luôn theo người dùng</div></div></div><div class="tog-sw"></div></div>
+  <div class="tog-row" id="t_popup" onclick="togRow(this,'popup','exit-intent popup: khi người dùng định rời trang hiện popup ưu đãi đặc biệt lần cuối')"><div class="tog-left"><div class="tog-ico">🎯</div><div><div class="tog-label">Exit-intent Popup</div><div class="tog-hint">Popup ưu đãi khi sắp thoát trang</div></div></div><div class="tog-sw"></div></div>
+
+  <div class="sublabel">Hình ảnh</div>
+  <div class="tog-row" id="t_gallery" onclick="togRow(this,'gallery','thêm section gallery ảnh dạng grid hoặc masonry layout đẹp để showcase nhiều hình')"><div class="tog-left"><div class="tog-ico">🖼️</div><div><div class="tog-label">Gallery ảnh (grid/masonry)</div><div class="tog-hint">Section trưng bày nhiều ảnh đẹp</div></div></div><div class="tog-sw"></div></div>
+  <div class="tog-row" id="t_lightbox" onclick="togRow(this,'lightbox','lightbox: click vào ảnh nhỏ để xem full screen với navigation prev/next')"><div class="tog-left"><div class="tog-ico">🔍</div><div><div class="tog-label">Lightbox xem ảnh full</div><div class="tog-hint">Click ảnh để phóng to xem chi tiết</div></div></div><div class="tog-sw"></div></div>
+  <div class="tog-row" id="t_video" onclick="togRow(this,'video','embed video YouTube hoặc placeholder video section với nút play nổi bật trung tâm hero')"><div class="tog-left"><div class="tog-ico">🎬</div><div><div class="tog-label">Video hero / Demo section</div><div class="tog-hint">YouTube embed hoặc video placeholder</div></div></div><div class="tog-sw"></div></div>
+
+  <div class="sublabel">Tích hợp & Chat</div>
+  <div class="tog-row" id="t_zalo" onclick="togRow(this,'zalo','nút Zalo floating góc dưới phải màu xanh Zalo, click mở chat trực tiếp')"><div class="tog-left"><div class="tog-ico">💬</div><div><div class="tog-label">Zalo floating button</div><div class="tog-hint">Chat Zalo trực tiếp từ trang</div></div></div><div class="tog-sw"></div></div>
+  <div class="tog-row" id="t_mess" onclick="togRow(this,'messenger','Facebook Messenger chat bubble góc dưới phải, màu xanh Messenger')"><div class="tog-left"><div class="tog-ico">📘</div><div><div class="tog-label">Messenger Chat Bubble</div><div class="tog-hint">Facebook Messenger từ trang</div></div></div><div class="tog-sw"></div></div>
+  <div class="tog-row" id="t_whatsapp" onclick="togRow(this,'whatsapp','WhatsApp floating button màu xanh lá, click mở WhatsApp web chat')"><div class="tog-left"><div class="tog-ico">📱</div><div><div class="tog-label">WhatsApp Button</div><div class="tog-hint">Click mở WhatsApp chat ngay</div></div></div><div class="tog-sw"></div></div>
+
+  <div class="sublabel">Kỹ thuật & SEO</div>
+  <div class="tog-row" id="t_seo" onclick="togRow(this,'seo','tối ưu SEO: title chuẩn, meta description hấp dẫn, Open Graph tags để share đẹp trên Facebook/Zalo')"><div class="tog-left"><div class="tog-ico">🔍</div><div><div class="tog-label">SEO + Open Graph Tags</div><div class="tog-hint">Meta tags, chia sẻ đẹp trên MXH</div></div></div><div class="tog-sw"></div></div>
+  <div class="tog-row" id="t_pixel" onclick="togRow(this,'pixel','placeholder Google Tag Manager + Facebook Pixel trong head để dễ cài tracking analytics sau')"><div class="tog-left"><div class="tog-ico">📊</div><div><div class="tog-label">GTM + Facebook Pixel Placeholder</div><div class="tog-hint">Tracking ready, dễ cài sau</div></div></div><div class="tog-sw"></div></div>
+  <div class="tog-row" id="t_ladipage" onclick="togRow(this,'ladipage','tối ưu import LadiPage: CSS inline, section id rõ, tránh JS phức tạp, dễ kéo thả chỉnh sửa sau khi import')"><div class="tog-left"><div class="tog-ico">📥</div><div><div class="tog-label">Tối ưu import LadiPage</div><div class="tog-hint">CSS inline, ID rõ, dễ chỉnh sửa</div></div></div><div class="tog-sw"></div></div>
+  <div class="tog-row" id="t_mobile" onclick="togRow(this,'mobile','mobile-first: sticky CTA bottom trên mobile, font adaptive, layout 1 cột trên điện thoại, touch-friendly')"><div class="tog-left"><div class="tog-ico">📱</div><div><div class="tog-label">Mobile-first Optimization</div><div class="tog-hint">Sticky bottom CTA, touch-friendly</div></div></div><div class="tog-sw"></div></div>
+  <div class="tog-row" id="t_anim" onclick="togRow(this,'animation','CSS animation: fade-in khi scroll vào viewport, hover effects mượt trên cards và buttons, không JS nặng')"><div class="tog-left"><div class="tog-ico">✨</div><div><div class="tog-label">Animation scroll & hover</div><div class="tog-hint">Fade-in, hover effects — CSS thuần</div></div></div><div class="tog-sw"></div></div>
+</div>
+
+<!-- ── BLOCK 9: NỘI DUNG ── -->
+<div class="block" id="s9">
+  <div class="block-header">
+    <div class="block-num" style="background:var(--accent2)">9</div>
+    <div class="block-title">Dán nội dung / dữ liệu của bạn</div>
+    <div class="block-sub">Bắt buộc</div>
+  </div>
+  <textarea class="ftextarea" id="fContent" rows="9" style="min-height:170px"
+    placeholder="Dán vào đây:&#10;• Mô tả sản phẩm / dịch vụ chi tiết&#10;• Dữ liệu từ Excel (copy bảng vào)&#10;• URL tham khảo: https://www.mktteam.io.vn/runbiz&#10;• Mã màu brand: #FF5500, #333333&#10;• Testimonials thực từ khách hàng&#10;• Giá, ưu đãi, thông tin chương trình&#10;• Bất kỳ nội dung thô nào — Claude tự tổ chức lại thành landing page"
+    oninput="build()"></textarea>
+  <div class="info">📎 Mẹo: Nếu bạn upload ảnh ở bước 6, Claude sẽ dùng mô tả ảnh đó để tạo placeholder đúng vị trí. Sau khi có HTML, thay URL ảnh thực vào là xong.</div>
+</div>
+
+<hr>
+
+<!-- ── OUTPUT ── -->
+<div class="block" style="padding:0" id="outputBlock">
+  <div class="output-wrap">
+    <div class="output-top">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="output-dots">
+          <div class="odot" style="background:#FF5F57"></div>
+          <div class="odot" style="background:#FFBD2E"></div>
+          <div class="odot" style="background:#28C940"></div>
+        </div>
+        <div class="output-label">Prompt · Sẵn sàng copy</div>
+      </div>
+      <button class="btn btn-accent" id="copyBtn" onclick="copyPrompt()">📋 Copy Prompt</button>
+    </div>
+    <div class="output-body" id="promptOut"><span class="output-empty">Điền thông tin ở trên — prompt tự tạo ở đây...</span></div>
+    <div class="action-bar">
+      <button class="btn btn-accent" onclick="copyPrompt()">📋 Copy Prompt</button>
+      <a class="btn btn-outline" href="https://claude.ai" target="_blank">🤖 Mở Claude.ai</a>
+      <a class="btn btn-outline" href="https://ladipage.vn" target="_blank">🚀 LadiPage</a>
+    </div>
+  </div>
+</div>
+
+<div class="guide" style="margin-top:14px">
+  <div class="guide-step"><div class="gnum">1</div><div class="gtext">Nhấn <strong>Copy Prompt</strong> ở trên</div></div>
+  <div class="guide-step"><div class="gnum">2</div><div class="gtext">Mở <strong>Claude.ai</strong> → tạo cuộc trò chuyện mới → paste prompt → nếu có upload ảnh thì đính kèm ảnh kèm theo → gửi</div></div>
+  <div class="guide-step"><div class="gnum">3</div><div class="gtext">Claude trả về <strong>code HTML hoàn chỉnh</strong> — copy toàn bộ code đó (từ &lt;!DOCTYPE&gt; đến &lt;/html&gt;)</div></div>
+  <div class="guide-step"><div class="gnum">4</div><div class="gtext">Vào <strong>LadiPage → Tạo trang mới → Import HTML</strong> → paste code → kéo thả chỉnh sửa nội dung, ảnh, màu sắc</div></div>
+  <div class="guide-step"><div class="gnum">5</div><div class="gtext">Thay ảnh placeholder bằng ảnh thực → chỉnh màu, font → <strong>Publish</strong> 🎉</div></div>
+</div>
+
+</div><!-- .content -->
+</div><!-- .layout -->
+
+<script>
+// ─── STATE ───
+const S={
+  source:'',industry:'',goal:'',tone:'',style:'',color:'',font:'',
+  sections:{},extras:{},images:[],
+  product:'',audience:'',cta:'',oldprice:'',price:'',deal:'',usp:'',headline:'',content:''
+};
+const TOTAL=9;
+
+// ─── SECTIONS CONFIG ───
+const SECTIONS=[
+  {id:'hero',ico:'🚀',name:'Hero Banner',hint:'Headline + CTA + ảnh lớn',layouts:['Full width ảnh nền','Split: Chữ trái · Ảnh phải','Split: Ảnh trái · Chữ phải','Centered + ảnh dưới','Video background']},
+  {id:'logo_bar',ico:'🏢',name:'Logo bar / Social proof',hint:'Logo khách hàng đã dùng',layouts:['Logo row 1 hàng','Logo 2 hàng cuộn','Số liệu + logo']},
+  {id:'features',ico:'⚡',name:'Tính năng / Lợi ích',hint:'Điểm nổi bật USP',layouts:['Grid 2 cột (icon + text)','Grid 3 cột cards','Grid 4 cột nhỏ','List dọc có ảnh','Alternating: chữ-ảnh xen kẽ']},
+  {id:'howit',ico:'🔄',name:'Quy trình / Cách hoạt động',hint:'Timeline các bước',layouts:['3 bước ngang','4–5 bước có số lớn','Timeline dọc','Bước dạng card flip']},
+  {id:'stats',ico:'📊',name:'Số liệu ấn tượng',hint:'Big numbers gây impact',layouts:['4 số lớn ngang','3 số + mô tả','Số nền tối fullwidth','Số với icon lớn']},
+  {id:'video',ico:'🎬',name:'Video / Demo',hint:'Giới thiệu video sản phẩm',layouts:['Video trung tâm fullwidth','Video trái + text phải','Video nền hero']},
+  {id:'testimonials',ico:'💬',name:'Testimonials / Đánh giá',hint:'Reviews từ khách hàng',layouts:['Grid 3 cột cards','Carousel 1 review lớn','Grid 2 cột với ảnh','Wall of love dạng masonry','Trước/sau + quote']},
+  {id:'pricing',ico:'💰',name:'Bảng giá',hint:'So sánh gói / Giá bán',layouts:['1 gói duy nhất nổi bật','2 gói đặt cạnh','3 gói có featured','Bảng so sánh feature']},
+  {id:'team',ico:'👥',name:'Đội ngũ / Chuyên gia',hint:'Giới thiệu mentor/team',layouts:['Grid 3 avatar + tên','Grid 4 nhỏ','1 người lớn + bio chi tiết']},
+  {id:'gallery',ico:'🖼️',name:'Gallery / Portfolio',hint:'Trưng bày ảnh nhiều',layouts:['Grid đều 3×N','Masonry bất đối xứng','Carousel cuộn ngang','2 cột lớn-nhỏ xen kẽ']},
+  {id:'faq',ico:'❓',name:'FAQ',hint:'Câu hỏi thường gặp',layouts:['Accordion expand/collapse','2 cột Q&A','List đơn giản']},
+  {id:'cta_section',ico:'🎯',name:'CTA Section / Urgency',hint:'Kêu gọi hành động mạnh',layouts:['Fullwidth màu đậm','Card nổi giữa trang','Countdown timer + form','Split: text + form']},
+  {id:'contact',ico:'📋',name:'Form đăng ký / Liên hệ',hint:'Thu thập lead',layouts:['Form đơn giản 3 field','Form chi tiết 5+ field','Form trái + thông tin phải','Popup/modal form']},
+  {id:'footer',ico:'🔻',name:'Footer',hint:'Thông tin liên hệ & links',layouts:['Tối giản 1 dòng','3 cột: logo / links / contact','Full footer với map']},
+];
+
+function initSections(){
+  const el=document.getElementById('secBuilder');
+  SECTIONS.forEach(sec=>{
+    S.sections[sec.id]={on:['hero','features','testimonials','faq','contact','cta_section'].includes(sec.id),layout:''};
+    const d=document.createElement('div');
+    d.className='sec-item'+(S.sections[sec.id].on?' on':'');
+    d.id='sec_'+sec.id;
+    const lyopts=sec.layouts.map((l,i)=>`<span class="lay-opt${i===0?' on':''}" onclick="selLayout(event,'${sec.id}','${l}')">${l}</span>`).join('');
+    if(S.sections[sec.id].on) S.sections[sec.id].layout=sec.layouts[0];
+    d.innerHTML=`<span class="sec-drag">⠿</span><span class="sec-ico">${sec.ico}</span><div class="sec-info"><div class="sec-name">${sec.name}</div><div class="sec-hint">${sec.hint}</div></div><div class="sec-toggle"></div>`;
+    const lyRow=document.createElement('div');
+    lyRow.className='sec-layouts';
+    lyRow.innerHTML=lyopts;
+    d.appendChild(lyRow);
+    d.querySelector('.sec-toggle').addEventListener('click',e=>{e.stopPropagation();toggleSec(sec.id,d)});
+    el.appendChild(d);
+  });
+}
+
+function toggleSec(id,el){
+  S.sections[id].on=!S.sections[id].on;
+  el.classList.toggle('on',S.sections[id].on);
+  if(S.sections[id].on && !S.sections[id].layout){
+    const sec=SECTIONS.find(s=>s.id===id);
+    if(sec) S.sections[id].layout=sec.layouts[0];
+  }
+  build();
+}
+
+function selLayout(e,secId,val){
+  e.stopPropagation();
+  S.sections[secId].layout=val;
+  const row=document.getElementById('sec_'+secId).querySelector('.sec-layouts');
+  row.querySelectorAll('.lay-opt').forEach(o=>o.classList.toggle('on',o.textContent===val));
+  build();
+}
+
+// ─── SELECTORS ───
+function selOne(el){
+  const k=el.dataset.key;
+  document.querySelectorAll('[data-key="'+k+'"]').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  S[k]=el.dataset.val||el.dataset.val;
+  if(!el.dataset.val&&el.dataset.val!==undefined) S[k]=el.dataset.val;
+  // map to state field
+  const map={source:'source',industry:'industry',goal:'goal',tone:'tone',style:'style',font:'font'};
+  if(map[k]) S[map[k]]=el.dataset.val;
+  build();
+}
+
+function selColor(el){
+  document.querySelectorAll('.cswatch').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  S.color=el.dataset.val;
+  build();
+}
+
+function switchPal(tabEl,panelId){
+  document.querySelectorAll('.pal-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.palette-panel').forEach(p=>p.classList.remove('on'));
+  tabEl.classList.add('on');
+  document.getElementById(panelId).classList.add('on');
+}
+
+function togRow(el,key,val){
+  const on=el.classList.toggle('on');
+  if(on) S.extras[key]=val; else delete S.extras[key];
+  build();
+}
+
+// ─── IMAGE UPLOAD ───
+const imgs=[];
+function handleFiles(files){
+  if(imgs.length+files.length>10){alert('Tối đa 10 ảnh!');return}
+  Array.from(files).forEach(f=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const obj={name:f.name,url:e.target.result,size:Math.round(f.size/1024)+'KB'};
+      imgs.push(obj);
+      renderImgGrid();
+      build();
+    };
+    reader.readAsDataURL(f);
+  });
+}
+function renderImgGrid(){
+  const g=document.getElementById('imgGrid');
+  g.innerHTML=imgs.map((img,i)=>`
+    <div class="img-thumb">
+      <img src="${img.url}" alt="${img.name}">
+      <div class="img-type">Ảnh ${i+1}</div>
+      <div class="img-label">${img.name}</div>
+      <div class="img-del" onclick="delImg(${i})">✕</div>
+    </div>
+  `).join('');
+  document.getElementById('imgInfo').style.display=imgs.length?'block':'none';
+  document.getElementById('imgInfo').textContent=`✅ Đã upload ${imgs.length} ảnh — Claude sẽ nhận mô tả để đặt đúng vị trí trong landing page. Sau khi có HTML, bạn thay URL ảnh thực vào.`;
+}
+function delImg(i){imgs.splice(i,1);renderImgGrid();build()}
+
+// drag upload
+const uz=document.getElementById('uploadZone');
+uz.addEventListener('dragover',e=>{e.preventDefault();uz.classList.add('drag')});
+uz.addEventListener('dragleave',()=>uz.classList.remove('drag'));
+uz.addEventListener('drop',e=>{e.preventDefault();uz.classList.remove('drag');handleFiles(e.dataTransfer.files)});
+
+// ─── BUILD PROMPT ───
+function build(){
+  // read fields
+  S.product=document.getElementById('fProduct').value.trim();
+  S.industry=document.getElementById('fIndustry').value;
+  S.audience=document.getElementById('fAudience').value.trim();
+  S.cta=document.getElementById('fCta').value.trim();
+  S.oldprice=document.getElementById('fOldPrice').value.trim();
+  S.price=document.getElementById('fPrice').value.trim();
+  S.deal=document.getElementById('fDeal').value.trim();
+  S.usp=document.getElementById('fUsp').value.trim();
+  S.headline=document.getElementById('fHeadline').value.trim();
+  S.content=document.getElementById('fContent').value.trim();
+
+  // custom color
+  const cp=document.querySelector('#p-custom.on');
+  if(cp){
+    const h1=document.getElementById('customHex1').value.trim();
+    const h2=document.getElementById('customHex2').value.trim();
+    const h3=document.getElementById('customHex3').value.trim();
+    S.color=(h1?'màu chủ: '+h1:'')+(h2?', màu phụ: '+h2:'')+(h3?', màu nền: '+h3:'');
+  }
+
+  updateProgress();
+
+  const L=[];
+  L.push('Bạn là chuyên gia thiết kế landing page chuyển đổi cao. Tạo MỘT file HTML hoàn chỉnh theo yêu cầu:\n');
+
+  L.push('════════════════════════════════════════');
+  L.push('  THÔNG TIN SẢN PHẨM');
+  L.push('════════════════════════════════════════');
+  if(S.product)   L.push('Tên sản phẩm   : '+S.product);
+  if(S.industry)  L.push('Ngành          : '+S.industry);
+  if(S.audience)  L.push('Khách hàng     : '+S.audience);
+  if(S.cta)       L.push('CTA chính      : '+S.cta);
+  if(S.oldprice)  L.push('Giá gốc        : '+S.oldprice);
+  if(S.price)     L.push('Giá bán        : '+S.price);
+  if(S.deal)      L.push('Ưu đãi         : '+S.deal);
+  if(S.headline)  L.push('Headline gợi ý : '+S.headline);
+  if(S.usp){L.push('Điểm nổi bật:');S.usp.split('\n').filter(Boolean).forEach(u=>L.push('  • '+u))}
+  if(S.source)    L.push('\nNguồn dữ liệu  : '+S.source);
+  if(S.goal)      L.push('Mục tiêu       : '+S.goal);
+  if(S.tone)      L.push('Tone giọng văn : '+S.tone);
+
+  L.push('\n════════════════════════════════════════');
+  L.push('  THIẾT KẾ & PHONG CÁCH');
+  L.push('════════════════════════════════════════');
+  if(S.style) L.push('Phong cách     : '+S.style);
+  if(S.color) L.push('Màu sắc        : '+S.color);
+  if(S.font)  L.push('Typography     : '+S.font);
+
+  // Sections with layouts
+  const onSecs=SECTIONS.filter(sec=>S.sections[sec.id]&&S.sections[sec.id].on);
+  if(onSecs.length){
+    L.push('\n── Cấu trúc sections theo thứ tự ──');
+    onSecs.forEach((sec,i)=>{
+      const lay=S.sections[sec.id].layout;
+      L.push(`  ${i+1}. ${sec.ico} ${sec.name}${lay?' [Layout: '+lay+']':''}`);
+    });
+  }
+
+  // Images
+  if(imgs.length){
+    L.push('\n── Ảnh người dùng upload ──');
+    L.push(`Có ${imgs.length} ảnh được upload, dùng làm placeholder URL (thay bằng ảnh thực sau):`);
+    imgs.forEach((img,i)=>L.push(`  Ảnh ${i+1}: ${img.name} (${img.size})`));
+    L.push('→ Dùng https://placehold.co/ làm src tạm. Comment rõ "<!-- REPLACE: img_name -->" để dễ tìm.');
+  }
+
+  // Extras
+  const extVals=Object.values(S.extras);
+  if(extVals.length){
+    L.push('\n── Tùy chọn nâng cao ──');
+    extVals.forEach(v=>L.push('  • '+v));
+  }
+
+  L.push('\n════════════════════════════════════════');
+  L.push('  YÊU CẦU KỸ THUẬT (BẮT BUỘC)');
+  L.push('════════════════════════════════════════');
+  L.push('• 1 file HTML duy nhất — đầy đủ <!DOCTYPE html> → </html>');
+  L.push('• CSS trong <style> ở <head> — KHÔNG dùng CDN Bootstrap/Tailwind');
+  L.push('• Responsive: mobile (375px) + tablet (768px) + desktop (1280px)');
+  L.push('• Placeholder ảnh: https://placehold.co/WxH/HEX/FFF?text=Label');
+  L.push('• Mỗi section: id rõ ràng + comment <!-- ── SECTION_NAME ── -->');
+  L.push('• Copywriting: headline power word, benefit-focused, CTA nổi bật');
+  L.push('• Nhiều hình ảnh placeholder đẹp, đúng ratio mỗi section');
+  L.push('• Section xen kẽ nền sáng/tối hoặc màu nhạt để tạo nhịp điệu đẹp');
+  L.push('• Không dùng alert() hay JS phức tạp gây lỗi import LadiPage');
+
+  L.push('\n════════════════════════════════════════');
+  L.push('  NỘI DUNG / DỮ LIỆU');
+  L.push('════════════════════════════════════════');
+  L.push(S.content||'[Chưa có nội dung — dán tài liệu vào Block 9 trước khi copy prompt]');
+
+  const out=document.getElementById('promptOut');
+  const hasData=S.product||S.content||S.industry||S.style;
+  out.innerHTML=hasData?'':'<span class="output-empty">Điền thông tin ở trên — prompt tự tạo ở đây...</span>';
+  if(hasData) out.textContent=L.join('\n');
+}
+
+function updateProgress(){
+  let done=0;
+  if(S.source) done++;
+  if(S.product&&S.audience&&S.cta) done++;
+  if(S.industry) done++;
+  if(S.goal) done++;
+  if(S.style) done++;
+  if(S.color) done++;
+  if(imgs.length>0) done++;
+  if(SECTIONS.some(s=>S.sections[s.id]&&S.sections[s.id].on)) done++;
+  if(S.content) done++;
+  document.getElementById('doneCount').textContent=done;
+  document.getElementById('progFill').style.width=Math.round(done/TOTAL*100)+'%';
+  document.querySelectorAll('.sidebar-step').forEach((el,i)=>el.classList.toggle('active',i===done-1));
+}
+
+function copyPrompt(){
+  const text=document.getElementById('promptOut').textContent;
+  if(!text||text.includes('Điền thông tin')){alert('Vui lòng điền ít nhất tên sản phẩm và nội dung!');return}
+  navigator.clipboard.writeText(text).then(()=>{
+    const b=document.getElementById('copyBtn');
+    b.textContent='✓ Đã copy!';b.classList.add('done');
+    setTimeout(()=>{b.textContent='📋 Copy Prompt';b.classList.remove('done')},2500);
+  });
+}
+
+function scrollTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
+
+// ─── INIT ───
+initSections();
+build();
+</script>
+</body>
+</html>
