@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>LP Generator Pro</title>
+<title>Landing Page Generator Pro</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -17,109 +17,98 @@ html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;font-size:14px;line-height:1.5}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--b2);border-radius:3px}
 button{font-family:'Inter',sans-serif;cursor:pointer;border:none}
+a{color:inherit;text-decoration:none}
 
 /* HERO */
-.hero{padding:52px 20px 40px;text-align:center;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(124,92,252,.2),transparent 70%)}
-.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(124,92,252,.12);border:1px solid rgba(124,92,252,.3);color:#A78BFA;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:20px}
+.hero{padding:48px 20px 36px;text-align:center;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(124,92,252,.22),transparent 70%)}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(124,92,252,.12);border:1px solid rgba(124,92,252,.3);color:#A78BFA;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:18px}
 .bdot{width:6px;height:6px;background:#7C5CFC;border-radius:50%;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;letter-spacing:-1.5px;line-height:1.08;margin-bottom:14px}
+.hero h1{font-size:clamp(26px,4.5vw,48px);font-weight:900;letter-spacing:-1.5px;line-height:1.08;margin-bottom:12px}
 .grad{background:linear-gradient(135deg,#A78BFA,#FF6B6B,#FFB800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{color:var(--t2);font-size:15px;max-width:520px;margin:0 auto 28px;line-height:1.7}
+.hero-sub{color:var(--t2);font-size:14px;max-width:480px;margin:0 auto 24px;line-height:1.7}
 .flow{display:flex;justify-content:center;align-items:center;gap:0;flex-wrap:wrap}
-.fstep{display:flex;align-items:center;gap:7px;background:var(--s2);border:1px solid var(--b1);padding:8px 14px;font-size:11px;font-weight:600;color:var(--t2)}
+.fstep{display:flex;align-items:center;gap:7px;background:var(--s2);border:1px solid var(--b1);padding:7px 13px;font-size:11px;font-weight:600;color:var(--t2)}
 .fstep:first-child{border-radius:10px 0 0 10px}
 .fstep:last-child{border-radius:0 10px 10px 0}
-.fnum{width:18px;height:18px;background:var(--acc);border-radius:50%;font-size:9px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fnum{width:17px;height:17px;background:var(--acc);border-radius:50%;font-size:9px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .farr{color:var(--b2);font-size:10px}
 
-/* LAYOUT */
-.app{display:grid;grid-template-columns:190px 1fr;gap:20px;max-width:1140px;margin:24px auto 80px;padding:0 16px}
+/* APP LAYOUT */
+.app{display:grid;grid-template-columns:180px 1fr;gap:18px;max-width:1120px;margin:20px auto 80px;padding:0 16px}
 
 /* SIDEBAR */
-.sidebar{position:sticky;top:20px;align-self:flex-start}
-.prog-ring{margin:0 auto 16px;display:flex;flex-direction:column;align-items:center;gap:4px}
-.ring-wrap{position:relative;width:68px;height:68px}
+.sidebar{position:sticky;top:16px;align-self:flex-start}
+.prog-ring{margin:0 auto 14px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.ring-wrap{position:relative;width:66px;height:66px}
 .ring-wrap svg{transform:rotate(-90deg)}
 .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.ring-pct{font-size:17px;font-weight:800}
+.ring-pct{font-size:16px;font-weight:800}
 .ring-lbl{font-size:8px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 .ring-txt{font-size:10px;color:var(--t3);text-align:center}
-.nav-steps{display:flex;flex-direction:column;gap:2px}
-.nav-i{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;cursor:pointer;transition:.15s;font-size:11px;font-weight:600;color:var(--t3)}
+.nav-steps{display:flex;flex-direction:column;gap:1px}
+.nav-i{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:7px;cursor:pointer;transition:.15s;font-size:11px;font-weight:600;color:var(--t3)}
 .nav-i:hover{background:var(--s2);color:var(--t2)}
 .nav-i.done{color:var(--acc3)}
 .nav-i.active{background:rgba(124,92,252,.1);color:#A78BFA}
-.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--b2);flex-shrink:0;transition:.2s}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--b2);flex-shrink:0;transition:.2s}
 .nav-i.active .nav-dot{background:var(--acc)}
 .nav-i.done .nav-dot{background:var(--acc3)}
-.sid-div{border:none;border-top:1px solid var(--b1);margin:10px 0}
-.qcopy{width:100%;padding:9px;background:var(--acc);color:#fff;border-radius:8px;font-size:11px;font-weight:700;transition:.15s}
+.sid-div{border:none;border-top:1px solid var(--b1);margin:8px 0}
+.qcopy{width:100%;padding:8px;background:var(--acc);color:#fff;border-radius:8px;font-size:11px;font-weight:700;transition:.15s;margin-bottom:6px}
 .qcopy:hover{background:#6B4CE0}
 .qcopy.ok{background:var(--acc3)}
+.preview-side{width:100%;padding:8px;background:rgba(0,212,170,.1);color:var(--acc3);border-radius:8px;font-size:11px;font-weight:700;border:1px solid rgba(0,212,170,.2);transition:.15s}
+.preview-side:hover{background:rgba(0,212,170,.15)}
 
 /* CONTENT */
-.content{display:flex;flex-direction:column;gap:12px}
+.content{display:flex;flex-direction:column;gap:10px}
 
 /* QUALITY BAR */
-.qbar{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.qbar{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .qlbl{font-size:11px;font-weight:700;color:var(--t2);white-space:nowrap}
-.qtrack{flex:1;height:6px;background:var(--b1);border-radius:3px;min-width:80px}
-.qfill{height:6px;border-radius:3px;transition:.4s;background:linear-gradient(90deg,var(--acc2),var(--acc4),var(--acc3))}
-.qscore{font-size:12px;font-weight:700;color:var(--t1);white-space:nowrap}
-.qitems{display:flex;gap:6px;flex-wrap:wrap;width:100%}
-.qi{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600}
+.qtrack{flex:1;height:5px;background:var(--b1);border-radius:3px;min-width:80px}
+.qfill{height:5px;border-radius:3px;transition:.4s;background:linear-gradient(90deg,var(--acc2),var(--acc4),var(--acc3))}
+.qscore{font-size:11px;font-weight:700;white-space:nowrap}
+.qitems{display:flex;gap:5px;flex-wrap:wrap;width:100%}
+.qi{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600}
 .qi.ok{background:rgba(0,212,170,.1);color:var(--acc3)}
 .qi.miss{background:rgba(255,107,107,.1);color:var(--acc2)}
 
 /* CARD */
 .card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;transition:.2s}
 .card:hover{border-color:var(--b2)}
-.card-head{display:flex;align-items:center;gap:10px;padding:14px 18px;cursor:pointer;user-select:none}
-.cnum{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.card-head{display:flex;align-items:center;gap:10px;padding:13px 17px;cursor:pointer;user-select:none}
+.cnum{width:25px;height:25px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
 .cn-p{background:var(--acc)}.cn-g{background:var(--acc3)}.cn-o{background:var(--acc2)}.cn-y{background:var(--acc4)}
 .ctitle{font-size:13px;font-weight:700;flex:1}
 .cbadge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--s3);color:var(--t3);white-space:nowrap}
 .cbadge.done{background:rgba(0,212,170,.1);color:var(--acc3)}
-.ccaret{font-size:11px;color:var(--t3);transition:.3s;flex-shrink:0}
-.card-body{display:none;padding:0 18px 18px;border-top:1px solid var(--b1)}
+.ccaret{font-size:10px;color:var(--t3);transition:.3s;flex-shrink:0}
+.card-body{display:none;padding:0 17px 17px;border-top:1px solid var(--b1)}
 .card-body.open{display:block}
 .card-head.open .ccaret{transform:rotate(180deg)}
 
-/* ═══ OPTION GRID — KEY FIX ═══
-   Dùng grid với min-width:0 trên mọi cell,
-   text KHÔNG overflow hidden, hiện đầy đủ */
-.og{display:grid;gap:8px;width:100%}
+/* OPTIONS */
+.og{display:grid;gap:7px;width:100%}
 .og2{grid-template-columns:1fr 1fr}
-.og3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.og4{grid-template-columns:repeat(4,minmax(0,1fr))}
-
-/* OPTION CARD — text hiện đầy đủ */
-.opt{
-  background:var(--s3);
-  border:1.5px solid var(--b1);
-  border-radius:var(--r2);
-  padding:12px;
-  cursor:pointer;
-  transition:.15s;
-  position:relative;
-  /* KHÔNG có overflow:hidden */
-}
+.og3{grid-template-columns:1fr 1fr 1fr}
+.og4{grid-template-columns:1fr 1fr 1fr 1fr}
+.opt{background:var(--s3);border:1.5px solid var(--b1);border-radius:var(--r2);padding:10px 11px;cursor:pointer;transition:.15s;position:relative;min-width:0}
 .opt:hover{border-color:var(--b3);transform:translateY(-1px)}
 .opt.on{background:rgba(124,92,252,.08);border-color:var(--acc)}
-.opt.on::after{content:'✓';position:absolute;top:8px;right:10px;font-size:11px;color:var(--acc);font-weight:800}
-/* Text elements — block + full wrap */
-.opt .oi{font-size:18px;margin-bottom:5px;display:block;line-height:1}
-.opt .on2{font-size:13px;font-weight:700;margin-bottom:3px;display:block;line-height:1.4;padding-right:16px;white-space:normal;word-break:break-word}
-.opt .od{font-size:11px;color:var(--t2);line-height:1.5;display:block;white-space:normal;word-break:break-word}
+.opt.on::after{content:'✓';position:absolute;top:6px;right:8px;font-size:10px;color:var(--acc);font-weight:800}
+.oi{font-size:17px;margin-bottom:3px;line-height:1;display:block}
+.on2{font-size:12px;font-weight:700;margin-bottom:2px;line-height:1.4;display:block;padding-right:14px}
+.od{font-size:10px;color:var(--t2);line-height:1.5;display:block;white-space:normal}
 
 /* SOURCE */
-.src-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%}
-.stab{background:var(--s3);border:1.5px solid var(--b1);border-radius:var(--r2);padding:14px 10px;cursor:pointer;text-align:center;transition:.15s;position:relative}
+.src-g{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;width:100%}
+.stab{background:var(--s3);border:1.5px solid var(--b1);border-radius:var(--r2);padding:13px 10px;cursor:pointer;text-align:center;transition:.15s;position:relative}
 .stab:hover{border-color:var(--b3);transform:translateY(-1px)}
 .stab.on{background:rgba(124,92,252,.08);border-color:var(--acc)}
 .stab.on::after{content:'✓';position:absolute;top:6px;right:8px;font-size:10px;color:var(--acc);font-weight:800}
-.stab-ico{font-size:24px;margin-bottom:6px}
+.stab-ico{font-size:22px;margin-bottom:6px}
 .stab-name{font-size:12px;font-weight:700;margin-bottom:2px}
 .stab-desc{font-size:10px;color:var(--t2)}
 .src-iw{display:none;margin-top:10px}
@@ -128,20 +117,20 @@ button{font-family:'Inter',sans-serif;cursor:pointer;border:none}
 .src-ilbl::before{content:'↳';color:var(--acc)}
 
 /* FIELDS */
-.fg{display:grid;gap:10px;width:100%}
+.fg{display:grid;gap:9px;width:100%}
 .fg2{grid-template-columns:1fr 1fr}
 .fg3{grid-template-columns:1fr 1fr 1fr}
 .f{min-width:0}
-.fl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin-bottom:5px;display:block}
-.fi,.fs,.ft{width:100%;padding:10px 13px;border:1.5px solid var(--b1);border-radius:var(--r2);background:var(--s3);color:var(--t1);font-family:'Inter',sans-serif;font-size:13px;outline:none;transition:.15s}
+.fl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin-bottom:4px;display:block}
+.fi,.fs,.ft{width:100%;padding:9px 11px;border:1.5px solid var(--b1);border-radius:var(--r2);background:var(--s3);color:var(--t1);font-family:'Inter',sans-serif;font-size:13px;outline:none;transition:.15s;min-width:0}
 .fi:focus,.fs:focus,.ft:focus{border-color:var(--acc);background:var(--s4)}
 .fi::placeholder,.ft::placeholder{color:var(--t3)}
 .ft{resize:vertical;min-height:80px;line-height:1.6}
 .fs option{background:var(--s3)}
 
 /* PALETTE */
-.pal-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
-.ptab{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid var(--b1);color:var(--t3);transition:.13s;white-space:nowrap}
+.pal-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:11px}
+.ptab{padding:5px 11px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid var(--b1);color:var(--t3);transition:.13s;white-space:nowrap}
 .ptab:hover{border-color:var(--b3);color:var(--t2)}
 .ptab.on{background:var(--acc);border-color:var(--acc);color:#fff}
 .pal{display:none}.pal.on{display:block}
@@ -149,21 +138,21 @@ button{font-family:'Inter',sans-serif;cursor:pointer;border:none}
 .csw{border-radius:7px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:.18s;position:relative}
 .csw:hover{transform:translateY(-2px)}
 .csw.on{border-color:#fff}
-.csw.on::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);font-size:13px;font-weight:800;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6)}
-.cprev{height:44px;width:100%}
+.csw.on::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);font-size:12px;font-weight:800;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.cprev{height:42px;width:100%}
 .cmeta{padding:4px 5px;background:var(--s3);text-align:center}
 .cname{font-size:9px;font-weight:700;color:var(--t1)}
 .chex{font-size:7px;color:var(--t3);font-family:monospace}
 .crow{display:flex;gap:7px;align-items:center;margin-top:7px}
-.crow input[type=color]{width:38px;height:34px;border:none;background:none;cursor:pointer;border-radius:5px;padding:2px;flex-shrink:0}
+.crow input[type=color]{width:36px;height:32px;border:none;background:none;cursor:pointer;border-radius:5px;padding:2px;flex-shrink:0}
 
-/* FONT CARDS */
+/* FONTS */
 .fontg{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.fc{background:var(--s3);border:1.5px solid var(--b1);border-radius:var(--r2);padding:11px;cursor:pointer;transition:.15s;text-align:center;position:relative}
+.fc{background:var(--s3);border:1.5px solid var(--b1);border-radius:var(--r2);padding:10px;cursor:pointer;transition:.15s;text-align:center;position:relative;overflow:hidden}
 .fc:hover{border-color:var(--b3);transform:translateY(-1px)}
 .fc.on{border-color:var(--acc);background:rgba(124,92,252,.08)}
 .fc.on::after{content:'✓';position:absolute;top:6px;right:8px;font-size:10px;color:var(--acc);font-weight:800}
-.fprev{font-size:20px;font-weight:700;margin-bottom:3px;line-height:1}
+.fprev{font-size:19px;font-weight:700;margin-bottom:3px;line-height:1}
 .fname{font-size:10px;font-weight:600;color:var(--t3)}
 .fuse{font-size:9px;color:var(--t3);margin-top:1px}
 
@@ -172,123 +161,139 @@ button{font-family:'Inter',sans-serif;cursor:pointer;border:none}
 .sc{background:var(--s3);border:2px solid var(--b1);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:.18s;position:relative}
 .sc:hover{border-color:var(--b3);transform:translateY(-2px)}
 .sc.on{border-color:var(--acc)}
-.sc.on::after{content:'✓';position:absolute;top:7px;right:8px;width:18px;height:18px;background:rgba(124,92,252,.9);border-radius:50%;font-size:9px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:18px}
-.sprev{height:76px;overflow:hidden;position:relative}
+.sc.on::after{content:'✓';position:absolute;top:7px;right:8px;width:17px;height:17px;background:rgba(124,92,252,.9);border-radius:50%;font-size:9px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:17px}
+.sprev{height:72px;overflow:hidden;position:relative}
 .sinfo{padding:8px 10px}
-.sname{font-size:12px;font-weight:700;margin-bottom:2px;line-height:1.3}
+.sname{font-size:12px;font-weight:700;margin-bottom:2px}
 .sdesc{font-size:10px;color:var(--t3);line-height:1.4}
 
 /* IMAGE UPLOAD */
 .img-cat-list{display:flex;flex-direction:column;gap:7px}
 .img-cat{background:var(--s3);border:1.5px solid var(--b1);border-radius:var(--r2);overflow:hidden;transition:.15s}
 .img-cat:hover{border-color:var(--b2)}
-.img-cat-head{display:flex;align-items:center;gap:9px;padding:10px 12px;cursor:pointer;user-select:none}
-.img-cat-ico{font-size:15px;flex-shrink:0}
+.img-cat-head{display:flex;align-items:center;gap:9px;padding:9px 11px;cursor:pointer;user-select:none}
+.img-cat-ico{font-size:15px;flex-shrink:0;font-style:normal}
 .img-cat-info{flex:1;min-width:0}
 .img-cat-name{font-size:12px;font-weight:700;line-height:1.3;color:var(--t1)}
 .img-cat-desc{font-size:10px;color:var(--t3)}
-.img-cat-cnt{font-size:10px;font-weight:600;color:var(--acc3);background:rgba(0,212,170,.1);padding:2px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0}
-.img-cat-body{display:none;padding:0 12px 12px;border-top:1px solid var(--b1)}
+.img-cat-cnt{font-size:10px;font-weight:600;color:var(--acc3);background:rgba(0,212,170,.1);padding:2px 7px;border-radius:10px;white-space:nowrap;flex-shrink:0}
+.img-cat-body{display:none;padding:0 11px 11px;border-top:1px solid var(--b1)}
 .img-cat.open .img-cat-body{display:block}
-.mini-up{border:1.5px dashed var(--b2);border-radius:8px;padding:14px;text-align:center;cursor:pointer;transition:.15s;position:relative;margin-top:9px;background:var(--s2)}
+.mini-up{border:1.5px dashed var(--b2);border-radius:7px;padding:13px;text-align:center;cursor:pointer;transition:.15s;position:relative;margin-top:9px;background:var(--s2)}
 .mini-up:hover,.mini-up.drag{border-color:var(--acc);background:rgba(124,92,252,.04)}
 .mini-up input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.mini-up-ico{font-size:18px;margin-bottom:4px;display:block}
+.mini-up-ico{font-size:18px;margin-bottom:4px;display:block;font-style:normal}
 .mini-up-txt{font-size:11px;font-weight:600;margin-bottom:2px;color:var(--t1)}
 .mini-up-hint{font-size:10px;color:var(--t3)}
 .img-thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:8px}
 .ithumb{position:relative;aspect-ratio:4/3;border-radius:5px;overflow:hidden;border:1.5px solid var(--b1);background:var(--s2)}
 .ithumb img{width:100%;height:100%;object-fit:cover;display:block}
-.ithumb-del{position:absolute;top:2px;right:2px;width:15px;height:15px;background:rgba(255,107,107,.9);border-radius:50%;cursor:pointer;font-size:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;z-index:2}
+.ithumb-del{position:absolute;top:2px;right:2px;width:14px;height:14px;background:rgba(255,107,107,.9);border-radius:50%;cursor:pointer;font-size:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;z-index:2}
 .ithumb-n{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);padding:2px 4px;font-size:7px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#fff;font-family:'Inter',sans-serif}
 
 /* SECTIONS */
-.sec-list{display:flex;flex-direction:column;gap:6px}
+.sec-list{display:flex;flex-direction:column;gap:5px}
 .si{background:var(--s3);border:1.5px solid var(--b1);border-radius:var(--r2);transition:.15s}
 .si:hover{border-color:var(--b2)}
 .si.on{border-color:var(--acc)}
-.si-head{display:flex;align-items:center;gap:9px;padding:10px 12px;cursor:pointer;user-select:none}
+.si-head{display:flex;align-items:center;gap:8px;padding:9px 11px;cursor:pointer;user-select:none}
 .si-drag{color:var(--t3);font-size:11px;cursor:grab;flex-shrink:0}
-.si-ico{font-size:15px;flex-shrink:0}
+.si-ico{font-size:14px;flex-shrink:0}
 .si-info{flex:1;min-width:0}
 .si-name{font-size:12px;font-weight:700;line-height:1.3}
 .si-hint{font-size:10px;color:var(--t3)}
-.si-sw{width:32px;height:17px;background:var(--b1);border-radius:9px;position:relative;transition:.2s;flex-shrink:0}
-.si-sw::after{content:'';position:absolute;width:11px;height:11px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s}
+.si-sw{width:30px;height:16px;background:var(--b1);border-radius:8px;position:relative;transition:.2s;flex-shrink:0}
+.si-sw::after{content:'';position:absolute;width:10px;height:10px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s}
 .si.on .si-sw{background:var(--acc)}
-.si.on .si-sw::after{transform:translateX(15px)}
-.si-body{display:none;padding:0 12px 10px;border-top:1px solid var(--b1)}
+.si.on .si-sw::after{transform:translateX(14px)}
+.si-body{display:none;padding:0 11px 9px;border-top:1px solid var(--b1)}
 .si.on .si-body{display:block}
-.lo-wrap{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
-.lo{background:var(--s2);border:1.5px solid var(--b1);border-radius:5px;padding:3px 8px;font-size:9px;font-weight:600;cursor:pointer;color:var(--t3);transition:.13s;white-space:nowrap}
+.lo-wrap{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.lo{background:var(--s2);border:1.5px solid var(--b1);border-radius:4px;padding:3px 7px;font-size:9px;font-weight:600;cursor:pointer;color:var(--t3);transition:.13s;white-space:nowrap}
 .lo:hover{border-color:var(--b3);color:var(--t2)}
 .lo.on{border-color:var(--acc);color:#A78BFA;background:rgba(124,92,252,.1)}
-.si-cols{display:flex;align-items:center;gap:5px;margin-top:7px}
+.si-cols{display:flex;align-items:center;gap:5px;margin-top:6px}
 .si-cols-lbl{font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
-.col-o{width:26px;height:26px;border-radius:4px;border:1.5px solid var(--b1);background:var(--s2);cursor:pointer;font-size:9px;font-weight:700;color:var(--t3);display:flex;align-items:center;justify-content:center;transition:.13s}
+.col-o{width:24px;height:24px;border-radius:4px;border:1.5px solid var(--b1);background:var(--s2);cursor:pointer;font-size:9px;font-weight:700;color:var(--t3);display:flex;align-items:center;justify-content:center;transition:.13s}
 .col-o:hover{border-color:var(--b3)}
 .col-o.on{border-color:var(--acc);color:#A78BFA;background:rgba(124,92,252,.12)}
 
 /* TOGGLES */
-.tog{display:flex;flex-direction:column;background:var(--s3);border:1.5px solid var(--b1);border-radius:var(--r2);margin-bottom:7px;transition:.15s;overflow:hidden}
+.tog{display:flex;flex-direction:column;background:var(--s3);border:1.5px solid var(--b1);border-radius:var(--r2);margin-bottom:6px;transition:.15s;overflow:hidden}
 .tog:hover{border-color:var(--b2)}
 .tog.on{border-color:var(--acc)}
-.tog-top{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;cursor:pointer}
+.tog-top{display:flex;align-items:center;justify-content:space-between;padding:8px 11px;cursor:pointer}
 .tog-l{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
-.tog-ico{font-size:14px;flex-shrink:0}
+.tog-ico{font-size:13px;flex-shrink:0}
 .tog-name{font-size:12px;font-weight:600;line-height:1.3}
 .tog-sub{font-size:10px;color:var(--t3);line-height:1.3}
-.tsw{width:32px;height:17px;background:var(--b1);border-radius:9px;position:relative;transition:.2s;flex-shrink:0}
-.tsw::after{content:'';position:absolute;width:11px;height:11px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s}
+.tsw{width:30px;height:16px;background:var(--b1);border-radius:8px;position:relative;transition:.2s;flex-shrink:0}
+.tsw::after{content:'';position:absolute;width:10px;height:10px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s}
 .tog.on .tsw{background:var(--acc)}
-.tog.on .tsw::after{transform:translateX(15px)}
-.tog-in{display:none;padding:0 12px 10px;border-top:1px solid var(--b1)}
+.tog.on .tsw::after{transform:translateX(14px)}
+.tog-in{display:none;padding:0 11px 9px;border-top:1px solid var(--b1)}
 .tog.on .tog-in{display:block}
-.tog-in-lbl{font-size:10px;color:var(--t2);margin-bottom:5px;margin-top:8px;display:block}
+.tog-in-lbl{font-size:10px;color:var(--t2);margin-bottom:4px;margin-top:7px;display:block}
 
 /* SUBLABEL */
-.sub{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin:14px 0 8px;display:flex;align-items:center;gap:7px}
+.sub{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin:12px 0 7px;display:flex;align-items:center;gap:7px}
 .sub::after{content:'';flex:1;height:1px;background:var(--b1)}
 
 /* CALLOUTS */
-.tip{background:rgba(124,92,252,.07);border:1px solid rgba(124,92,252,.2);border-radius:7px;padding:8px 12px;font-size:11px;color:#A78BFA;margin-top:8px;line-height:1.6}
+.tip{background:rgba(124,92,252,.07);border:1px solid rgba(124,92,252,.2);border-radius:7px;padding:8px 11px;font-size:11px;color:#A78BFA;margin-top:8px;line-height:1.6}
 .tip strong{color:var(--acc)}
-.info{background:rgba(0,212,170,.06);border:1px solid rgba(0,212,170,.18);border-radius:7px;padding:8px 12px;font-size:11px;color:#5EEAD4;margin-top:8px;line-height:1.6}
+.info{background:rgba(0,212,170,.06);border:1px solid rgba(0,212,170,.18);border-radius:7px;padding:8px 11px;font-size:11px;color:#5EEAD4;margin-top:8px;line-height:1.6}
 
-/* ═══ LIVE PROMPT OUTPUT ═══ */
-.prompt-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden}
-.prompt-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--s2);border-bottom:1px solid var(--b1)}
-.prompt-header-left{display:flex;align-items:center;gap:10px}
-.prompt-dots{display:flex;gap:5px}
-.pdot{width:10px;height:10px;border-radius:50%}
-.prompt-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3)}
-.prompt-live-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;background:rgba(0,212,170,.1);color:var(--acc3);letter-spacing:.5px;text-transform:uppercase}
-.prompt-body{padding:16px;font-size:12px;line-height:1.9;color:#C0C0E0;white-space:pre-wrap;font-family:'Courier New',monospace;max-height:480px;overflow-y:auto;min-height:120px;background:var(--bg)}
-.prompt-empty{color:var(--t3);font-style:italic;font-family:'Inter',sans-serif;font-size:13px;display:flex;align-items:center;gap:8px}
-.prompt-empty::before{content:'⌨';font-style:normal;font-size:18px}
-.prompt-actions{display:flex;gap:8px;padding:12px 16px;background:var(--s2);border-top:1px solid var(--b1);flex-wrap:wrap}
+/* GENERATE BUTTON */
+.gen-btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--acc),#9B59F5);color:#fff;border-radius:var(--r);font-size:15px;font-weight:700;cursor:pointer;transition:.2s;border:none;position:relative;overflow:hidden}
+.gen-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,92,252,.35)}
+.gen-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.gen-btn .loading{display:none;align-items:center;justify-content:center;gap:8px}
+.gen-btn.generating .label{display:none}
+.gen-btn.generating .loading{display:flex}
+.spinner{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* BUTTONS */
-.btn{padding:9px 18px;border-radius:8px;font-size:12px;font-weight:700;transition:.15s;display:flex;align-items:center;gap:6px;white-space:nowrap;cursor:pointer;border:none}
-.btn-p{background:var(--acc);color:#fff}
-.btn-p:hover{background:#6B4CE0;transform:translateY(-1px)}
+/* OUTPUT AREA */
+.output-wrap{display:none}
+.output-wrap.show{display:block}
+.out-tabs{display:flex;gap:0;margin-bottom:0}
+.out-tab{padding:9px 18px;font-size:12px;font-weight:600;cursor:pointer;background:var(--s2);color:var(--t3);border:1px solid var(--b1);transition:.15s}
+.out-tab:first-child{border-radius:var(--r) 0 0 0;border-right:none}
+.out-tab:last-child{border-radius:0 var(--r) 0 0}
+.out-tab.on{background:var(--s1);color:var(--t1);border-bottom-color:var(--s1)}
+.out-card{background:var(--s1);border:1px solid var(--b1);border-top:none;border-radius:0 0 var(--r) var(--r);overflow:hidden}
+.out-toolbar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border-bottom:1px solid var(--b1);flex-wrap:wrap;gap:8px}
+.out-dots{display:flex;gap:5px}
+.od{width:9px;height:9px;border-radius:50%}
+.out-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t3)}
+.out-actions{display:flex;gap:7px;flex-wrap:wrap}
+.btn{padding:7px 14px;border-radius:7px;font-size:11px;font-weight:700;transition:.15s;display:flex;align-items:center;gap:5px;white-space:nowrap;cursor:pointer}
+.btn-p{background:var(--acc);color:#fff;border:none}
+.btn-p:hover{background:#6B4CE0}
 .btn-p.ok{background:var(--acc3)}
 .btn-o{background:transparent;color:var(--t2);border:1.5px solid var(--b1)}
 .btn-o:hover{border-color:var(--b3);color:var(--t1)}
 .btn-g{background:rgba(0,212,170,.1);color:var(--acc3);border:1.5px solid rgba(0,212,170,.2)}
 .btn-g:hover{background:rgba(0,212,170,.15)}
+/* Preview iframe */
+.preview-frame{width:100%;height:600px;border:none;background:#fff;display:block}
+/* HTML source */
+.html-src{padding:16px;font-size:11px;line-height:1.8;color:#B0B0D0;white-space:pre-wrap;font-family:'Courier New',monospace;max-height:550px;overflow-y:auto;background:var(--s1)}
+
+/* ERROR */
+.error-box{background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2);border-radius:var(--r);padding:12px 14px;font-size:12px;color:var(--acc2);margin-top:10px;line-height:1.6;display:none}
+.error-box.show{display:block}
 
 /* GUIDE */
-.guide{background:rgba(0,212,170,.04);border:1px solid rgba(0,212,170,.12);border-radius:var(--r);padding:12px 14px;margin-top:10px}
+.guide{background:rgba(0,212,170,.04);border:1px solid rgba(0,212,170,.12);border-radius:var(--r);padding:11px 13px;margin-top:10px}
 .gs{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid rgba(0,212,170,.07)}
 .gs:last-child{border:none}
-.gn{width:18px;height:18px;background:var(--acc3);border-radius:50%;font-size:9px;font-weight:700;color:#0A0A0A;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.gn{width:17px;height:17px;background:var(--acc3);border-radius:50%;font-size:9px;font-weight:700;color:#0A0A0A;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .gt{font-size:11px;color:#5EEAD4;line-height:1.7}
 .gt strong{color:var(--acc3)}
 
 hr.div{border:none;border-top:1px solid var(--b1);margin:0}
-
-.char-cnt{font-size:9px;color:var(--t3);text-align:right;margin-top:3px}
 
 @media(max-width:800px){
   .app{grid-template-columns:1fr;padding:0 12px}
@@ -296,24 +301,22 @@ hr.div{border:none;border-top:1px solid var(--b1);margin:0}
   .og3,.og4{grid-template-columns:1fr 1fr}
   .src-g,.stylg,.fontg{grid-template-columns:1fr 1fr}
   .cg{grid-template-columns:repeat(3,1fr)}
-  .img-thumbs{grid-template-columns:repeat(3,1fr)}
   .fg2,.fg3{grid-template-columns:1fr}
-  .prompt-actions{flex-direction:column}
+  .img-thumbs{grid-template-columns:repeat(3,1fr)}
 }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <div class="hero">
-  <div class="badge"><span class="bdot"></span>AI-Powered · Miễn phí · Không cần tài khoản</div>
+  <div class="badge"><span class="bdot"></span>AI · Tự động tạo HTML · Không cần code</div>
   <h1>Landing Page<br><span class="grad">Generator Pro</span></h1>
-  <p class="hero-sub">Tùy chỉnh từng section · Upload ảnh · Prompt tự cập nhật → Copy → Paste vào Claude.ai → HTML hoàn chỉnh</p>
+  <p class="hero-sub">Điền thông tin → AI tạo HTML hoàn chỉnh → Preview ngay → Download → Import LadiPage</p>
   <div class="flow">
     <div class="fstep"><span class="fnum">1</span>Điền form</div><div class="farr">›</div>
-    <div class="fstep"><span class="fnum">2</span>Prompt tự tạo</div><div class="farr">›</div>
-    <div class="fstep"><span class="fnum">3</span>Copy → Claude.ai</div><div class="farr">›</div>
-    <div class="fstep"><span class="fnum">4</span>Lấy HTML</div><div class="farr">›</div>
+    <div class="fstep"><span class="fnum">2</span>Upload ảnh</div><div class="farr">›</div>
+    <div class="fstep"><span class="fnum">3</span>Nhấn Tạo LP</div><div class="farr">›</div>
+    <div class="fstep"><span class="fnum">4</span>Preview & Download</div><div class="farr">›</div>
     <div class="fstep"><span class="fnum">5</span>Import LadiPage ✓</div>
   </div>
 </div>
@@ -323,16 +326,16 @@ hr.div{border:none;border-top:1px solid var(--b1);margin:0}
 <div class="sidebar">
   <div class="prog-ring">
     <div class="ring-wrap">
-      <svg width="68" height="68" viewBox="0 0 68 68">
-        <circle cx="34" cy="34" r="26" fill="none" stroke="#1C1C27" stroke-width="5"/>
-        <circle id="ringC" cx="34" cy="34" r="26" fill="none" stroke="#7C5CFC" stroke-width="5" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="163.4" style="transition:.5s"/>
+      <svg width="66" height="66" viewBox="0 0 66 66">
+        <circle cx="33" cy="33" r="25" fill="none" stroke="#1C1C27" stroke-width="5"/>
+        <circle id="ringC" cx="33" cy="33" r="25" fill="none" stroke="#7C5CFC" stroke-width="5" stroke-linecap="round" stroke-dasharray="157.08" stroke-dashoffset="157.08" style="transition:.5s"/>
       </svg>
       <div class="ring-center">
         <div class="ring-pct" id="ringPct">0%</div>
         <div class="ring-lbl">Done</div>
       </div>
     </div>
-    <div class="ring-txt" id="ringTxt">0 / 9 bước</div>
+    <div class="ring-txt" id="ringTxt">0 / 8 bước</div>
   </div>
   <div class="nav-steps" id="navS">
     <div class="nav-i" onclick="goTo('b1')"><span class="nav-dot"></span>Nguồn dữ liệu</div>
@@ -343,10 +346,13 @@ hr.div{border:none;border-top:1px solid var(--b1);margin:0}
     <div class="nav-i" onclick="goTo('b6')"><span class="nav-dot"></span>Upload ảnh</div>
     <div class="nav-i" onclick="goTo('b7')"><span class="nav-dot"></span>Sections</div>
     <div class="nav-i" onclick="goTo('b8')"><span class="nav-dot"></span>Nâng cao</div>
-    <div class="nav-i" onclick="goTo('b9')"><span class="nav-dot"></span>Nội dung</div>
   </div>
   <hr class="sid-div">
-  <button class="qcopy" id="qcopyBtn" onclick="copyPrompt()">📋 Copy Prompt</button>
+  <button class="gen-btn" onclick="generate()" style="padding:9px;font-size:11px;border-radius:8px;margin-bottom:6px">
+    <span class="label">⚡ Tạo Landing Page</span>
+    <span class="loading"><span class="spinner"></span>Đang tạo...</span>
+  </button>
+  <button class="preview-side" onclick="goTo('outputSection')">👁 Xem kết quả</button>
 </div>
 
 <!-- CONTENT -->
@@ -354,206 +360,221 @@ hr.div{border:none;border-top:1px solid var(--b1);margin:0}
 
 <!-- QUALITY BAR -->
 <div class="qbar">
-  <div class="qlbl">Chất lượng prompt</div>
+  <div class="qlbl">Độ hoàn thiện</div>
   <div class="qtrack"><div class="qfill" id="qFill" style="width:0%"></div></div>
-  <div class="qscore" id="qScore">0/9</div>
+  <div class="qscore" id="qScore">0/8</div>
   <div class="qitems" id="qItems"></div>
 </div>
 
-<!-- ═══ BLOCK 1 ═══ -->
+<!-- BLOCK 1 -->
 <div class="card" id="b1">
   <div class="card-head open" onclick="toggleCard(this)">
-    <div class="cnum cn-p">1</div><div class="ctitle">Bạn có sẵn dữ liệu gì?</div>
-    <div class="cbadge" id="b1b">Chưa chọn</div><div class="ccaret">▼</div>
+    <div class="cnum cn-p">1</div>
+    <div class="ctitle">Bạn có sẵn dữ liệu gì?</div>
+    <div class="cbadge" id="b1b">Chưa chọn</div>
+    <div class="ccaret">▼</div>
   </div>
   <div class="card-body open" id="b1body">
-    <div style="padding-top:14px">
+    <div style="padding-top:13px">
     <div class="src-g" id="g_source">
-      <div class="stab" data-key="source" data-val="mo_ta" onclick="selSrc(this,'siw_mo_ta')"><div class="stab-ico">✍️</div><div class="stab-name">Mô tả tay</div><div class="stab-desc">Tự nhập thông tin</div></div>
-      <div class="stab" data-key="source" data-val="excel" onclick="selSrc(this,'siw_excel')"><div class="stab-ico">📊</div><div class="stab-name">Excel / Sheet</div><div class="stab-desc">Dán dữ liệu bảng tính</div></div>
-      <div class="stab" data-key="source" data-val="url" onclick="selSrc(this,'siw_url')"><div class="stab-ico">🔗</div><div class="stab-name">URL mẫu</div><div class="stab-desc">Làm theo trang có sẵn</div></div>
-      <div class="stab" data-key="source" data-val="idea" onclick="selSrc(this,'siw_idea')"><div class="stab-ico">💡</div><div class="stab-name">Ý tưởng thô</div><div class="stab-desc">Claude tự sáng tạo</div></div>
+      <div class="stab" data-key="source" data-val="mo_ta" onclick="selSrc(this,'siw_mo_ta')">
+        <div class="stab-ico">✍️</div><div class="stab-name">Mô tả tay</div><div class="stab-desc">Tự nhập thông tin</div>
+      </div>
+      <div class="stab" data-key="source" data-val="excel" onclick="selSrc(this,'siw_excel')">
+        <div class="stab-ico">📊</div><div class="stab-name">Excel / Sheet</div><div class="stab-desc">Dán từ bảng tính</div>
+      </div>
+      <div class="stab" data-key="source" data-val="url" onclick="selSrc(this,'siw_url')">
+        <div class="stab-ico">🔗</div><div class="stab-name">URL mẫu</div><div class="stab-desc">Làm theo trang có sẵn</div>
+      </div>
+      <div class="stab" data-key="source" data-val="idea" onclick="selSrc(this,'siw_idea')">
+        <div class="stab-ico">💡</div><div class="stab-name">Ý tưởng thô</div><div class="stab-desc">AI tự sáng tạo</div>
+      </div>
     </div>
-    <div class="src-iw" id="siw_mo_ta"><div class="src-ilbl">Mô tả sơ bộ sản phẩm của bạn</div><textarea class="ft" id="fSrcMoTa" rows="3" placeholder="VD: Tôi bán khóa học Digital Marketing 990k, học viên là dân văn phòng muốn tăng thu nhập..." oninput="build()"></textarea></div>
-    <div class="src-iw" id="siw_excel"><div class="src-ilbl">Dán nội dung từ Excel / Sheet vào đây</div><textarea class="ft" id="fSrcExcel" rows="5" placeholder="Copy toàn bộ bảng tính vào đây — Claude sẽ tổ chức thành landing page..." oninput="build()"></textarea></div>
-    <div class="src-iw" id="siw_url"><div class="src-ilbl">URL landing page mẫu muốn làm theo</div><input class="fi" id="fSrcUrl" placeholder="VD: https://www.mktteam.io.vn/runbiz" oninput="build()"><div class="tip">💡 Claude sẽ phân tích cấu trúc và tái tạo tương tự với nội dung của bạn</div></div>
-    <div class="src-iw" id="siw_idea"><div class="src-ilbl">Mô tả ý tưởng sơ bộ</div><textarea class="ft" id="fSrcIdea" rows="3" placeholder="VD: Landing page cho dịch vụ thiết kế logo, khách hàng startup, giá 500k–2 triệu..." oninput="build()"></textarea><div class="tip">💡 Claude sẽ tự sáng tạo copywriting, headline, USP từ ý tưởng bạn mô tả</div></div>
+    <div class="src-iw" id="siw_mo_ta">
+      <div class="src-ilbl">Mô tả sơ bộ sản phẩm của bạn</div>
+      <textarea class="ft" id="fSrcMoTa" rows="3" placeholder="VD: Tôi bán khóa học Digital Marketing online, 990k, học viên dân văn phòng..." oninput="updateProgress()"></textarea>
+    </div>
+    <div class="src-iw" id="siw_excel">
+      <div class="src-ilbl">Dán nội dung từ Excel / Sheet vào đây</div>
+      <textarea class="ft" id="fSrcExcel" rows="5" placeholder="Copy toàn bộ bảng tính vào đây..." oninput="updateProgress()"></textarea>
+    </div>
+    <div class="src-iw" id="siw_url">
+      <div class="src-ilbl">URL landing page mẫu muốn làm theo</div>
+      <input class="fi" id="fSrcUrl" placeholder="VD: https://www.mktteam.io.vn/runbiz" oninput="updateProgress()">
+      <div class="tip">💡 AI sẽ phân tích cấu trúc và làm tương tự với nội dung của bạn</div>
+    </div>
+    <div class="src-iw" id="siw_idea">
+      <div class="src-ilbl">Mô tả ý tưởng sơ bộ</div>
+      <textarea class="ft" id="fSrcIdea" rows="3" placeholder="VD: Landing page cho dịch vụ thiết kế logo, startup, giá 500k–2 triệu..." oninput="updateProgress()"></textarea>
+    </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ BLOCK 2 ═══ -->
+<!-- BLOCK 2 -->
 <div class="card" id="b2">
   <div class="card-head" onclick="toggleCard(this)">
-    <div class="cnum cn-g">2</div><div class="ctitle">Thông tin sản phẩm / dịch vụ</div>
-    <div class="cbadge" id="b2b">Chưa điền</div><div class="ccaret">▼</div>
+    <div class="cnum cn-g">2</div>
+    <div class="ctitle">Thông tin sản phẩm / dịch vụ</div>
+    <div class="cbadge" id="b2b">Chưa điền</div>
+    <div class="ccaret">▼</div>
   </div>
   <div class="card-body" id="b2body">
-    <div style="padding-top:14px">
+    <div style="padding-top:13px">
     <div class="fg fg2">
-      <div class="f"><label class="fl">Tên sản phẩm *</label><input class="fi" id="fProd" placeholder="VD: Khóa học Digital Marketing Pro" oninput="build()"></div>
+      <div class="f"><label class="fl">Tên sản phẩm *</label><input class="fi" id="fProd" placeholder="VD: Khóa học Digital Marketing Pro" oninput="updateProgress()"></div>
       <div class="f"><label class="fl">Ngành *</label>
-        <select class="fs" id="fInd" onchange="build()">
+        <select class="fs" id="fInd" onchange="updateProgress()">
           <option value="">-- Chọn ngành --</option>
-          <option>Giáo dục / Khóa học online</option><option>Làm đẹp / Mỹ phẩm / Spa</option>
-          <option>Sức khỏe / Thực phẩm chức năng</option><option>Bất động sản / Căn hộ</option>
-          <option>Phần mềm / SaaS / App</option><option>Thương mại điện tử</option>
-          <option>Dịch vụ tư vấn / Agency</option><option>Tài chính / Đầu tư</option>
-          <option>Nhà hàng / F&B / Cafe</option><option>Sự kiện / Workshop</option>
-          <option>Thời trang / Phụ kiện</option><option>Du lịch / Khách sạn</option>
-          <option>Y tế / Nha khoa</option><option>Nội thất / Kiến trúc</option><option>Khác</option>
+          <option>Giáo dục / Khóa học online</option>
+          <option>Làm đẹp / Mỹ phẩm / Spa</option>
+          <option>Sức khỏe / Thực phẩm chức năng</option>
+          <option>Bất động sản / Căn hộ</option>
+          <option>Phần mềm / SaaS / App</option>
+          <option>Thương mại điện tử / Sản phẩm vật lý</option>
+          <option>Dịch vụ tư vấn / Agency</option>
+          <option>Tài chính / Đầu tư / Bảo hiểm</option>
+          <option>Nhà hàng / F&B / Cafe</option>
+          <option>Sự kiện / Workshop</option>
+          <option>Thời trang / Phụ kiện</option>
+          <option>Du lịch / Khách sạn</option>
+          <option>Y tế / Nha khoa</option>
+          <option>Nội thất / Kiến trúc</option>
+          <option>Khác</option>
         </select>
       </div>
     </div>
-    <div class="fg fg2" style="margin-top:10px">
-      <div class="f"><label class="fl">Đối tượng khách hàng *</label><input class="fi" id="fAud" placeholder="VD: Phụ nữ 25–40, văn phòng, muốn tăng thu nhập" oninput="build()"></div>
-      <div class="f"><label class="fl">CTA chính *</label><input class="fi" id="fCta" placeholder="VD: Đăng ký ngay, Nhận tư vấn miễn phí" oninput="build()"></div>
+    <div class="fg fg2" style="margin-top:9px">
+      <div class="f"><label class="fl">Đối tượng KH *</label><input class="fi" id="fAud" placeholder="VD: Phụ nữ 25–40, văn phòng, muốn tăng thu nhập" oninput="updateProgress()"></div>
+      <div class="f"><label class="fl">CTA chính *</label><input class="fi" id="fCta" placeholder="VD: Đăng ký ngay, Nhận tư vấn miễn phí" oninput="updateProgress()"></div>
     </div>
-    <div class="fg fg3" style="margin-top:10px">
-      <div class="f"><label class="fl">Giá gốc</label><input class="fi" id="fOld" placeholder="VD: 2.000.000đ" oninput="build()"></div>
-      <div class="f"><label class="fl">Giá bán</label><input class="fi" id="fPrc" placeholder="VD: 990.000đ" oninput="build()"></div>
-      <div class="f"><label class="fl">Deadline</label><input class="fi" id="fDeal" placeholder="VD: Còn 20 suất, hết 31/12" oninput="build()"></div>
+    <div class="fg fg3" style="margin-top:9px">
+      <div class="f"><label class="fl">Giá gốc</label><input class="fi" id="fOld" placeholder="VD: 2.000.000đ" oninput="updateProgress()"></div>
+      <div class="f"><label class="fl">Giá bán</label><input class="fi" id="fPrc" placeholder="VD: 990.000đ" oninput="updateProgress()"></div>
+      <div class="f"><label class="fl">Deadline</label><input class="fi" id="fDeal" placeholder="VD: Còn 20 suất" oninput="updateProgress()"></div>
     </div>
-    <div class="f" style="margin-top:10px"><label class="fl">Headline gợi ý (để trống → Claude tự tạo)</label><input class="fi" id="fHead" placeholder="VD: Học Digital Marketing 30 ngày — Tăng thu nhập 3X" oninput="build()"></div>
-    <div class="f" style="margin-top:10px"><label class="fl">USP / Điểm nổi bật (mỗi dòng 1 điểm)</label><textarea class="ft" id="fUsp" rows="4" placeholder="VD:&#10;Học online linh hoạt 24/7&#10;Mentor 1-1 hỗ trợ cá nhân hoá&#10;Hoàn tiền 100% trong 7 ngày" oninput="build()"></textarea></div>
-    <div class="fg fg2" style="margin-top:10px">
-      <div class="f"><label class="fl">Testimonials (mỗi dòng 1 review)</label><textarea class="ft" id="fTest" rows="3" placeholder="VD:&#10;Nguyễn A (HN): Kiếm thêm 5tr/tháng sau 30 ngày&#10;Trần B (HCM): Nội dung thực chiến 100%" oninput="build()"></textarea></div>
-      <div class="f"><label class="fl">Số liệu ấn tượng</label><textarea class="ft" id="fStats" rows="3" placeholder="VD:&#10;5.000+ học viên&#10;93% hài lòng&#10;500+ doanh nghiệp" oninput="build()"></textarea></div>
+    <div class="f" style="margin-top:9px"><label class="fl">Headline gợi ý (để trống → AI tự tạo)</label><input class="fi" id="fHead" placeholder="VD: Học Marketing 30 ngày — Tăng thu nhập 3X" oninput="updateProgress()"></div>
+    <div class="f" style="margin-top:9px"><label class="fl">USP / Điểm nổi bật (mỗi dòng 1 điểm)</label><textarea class="ft" id="fUsp" rows="4" placeholder="VD:&#10;Học online linh hoạt 24/7&#10;Mentor 1-1 hỗ trợ cá nhân hoá&#10;Hoàn tiền 100% trong 7 ngày" oninput="updateProgress()"></textarea></div>
+    <div class="fg fg2" style="margin-top:9px">
+      <div class="f"><label class="fl">Testimonials (mỗi dòng 1 review)</label><textarea class="ft" id="fTest" rows="3" placeholder="VD:&#10;Nguyễn A (HN): Kiếm thêm 5tr/tháng sau 30 ngày&#10;Trần B (HCM): Nội dung thực chiến 100%" oninput="updateProgress()"></textarea></div>
+      <div class="f"><label class="fl">Số liệu ấn tượng</label><textarea class="ft" id="fStats" rows="3" placeholder="VD:&#10;5.000+ học viên&#10;93% hài lòng&#10;500+ doanh nghiệp tin dùng" oninput="updateProgress()"></textarea></div>
     </div>
+    <div class="f" style="margin-top:9px"><label class="fl">Thông tin liên hệ (SĐT, Zalo, địa chỉ, email)</label><input class="fi" id="fContact" placeholder="VD: 0901234567 | info@company.com | 123 Nguyễn Văn A, Q1, HCM" oninput="updateProgress()"></div>
     </div>
   </div>
 </div>
 
-<!-- ═══ BLOCK 3 — FIXED LAYOUT ═══ -->
+<!-- BLOCK 3 -->
 <div class="card" id="b3">
   <div class="card-head" onclick="toggleCard(this)">
-    <div class="cnum cn-o">3</div><div class="ctitle">Mục tiêu chuyển đổi & Giọng văn</div>
-    <div class="cbadge" id="b3b">Chưa chọn</div><div class="ccaret">▼</div>
+    <div class="cnum cn-o">3</div>
+    <div class="ctitle">Mục tiêu chuyển đổi & Giọng văn</div>
+    <div class="cbadge" id="b3b">Chưa chọn</div>
+    <div class="ccaret">▼</div>
   </div>
   <div class="card-body" id="b3body">
-    <div style="padding-top:14px">
-
+    <div style="padding-top:13px">
     <div class="sub">Mục tiêu chính</div>
-    <!-- 3 cột, minmax(0,1fr) đảm bảo không tràn -->
     <div class="og og3">
-      <div class="opt" data-key="goal" data-val="thu thập lead — form nổi bật, CTA đăng ký, tối thiểu link thoát" onclick="selOne(this)">
-        <span class="oi">📋</span><span class="on2">Thu thập Lead</span><span class="od">Form lấy tên, SĐT, email</span>
-      </div>
-      <div class="opt" data-key="goal" data-val="bán hàng trực tiếp — nút mua nổi bật, giá rõ, urgency đếm ngược" onclick="selOne(this)">
-        <span class="oi">💰</span><span class="on2">Bán hàng ngay</span><span class="od">Chuyển đổi thành đơn hàng</span>
-      </div>
-      <div class="opt" data-key="goal" data-val="đăng ký sự kiện / webinar — lịch, địa điểm, đếm ngược rõ ràng" onclick="selOne(this)">
-        <span class="oi">🎟️</span><span class="on2">Đăng ký sự kiện</span><span class="od">Webinar, hội thảo, offline</span>
-      </div>
-      <div class="opt" data-key="goal" data-val="tải app hoặc free trial — download nổi bật, rating, số người dùng" onclick="selOne(this)">
-        <span class="oi">📱</span><span class="on2">Tải App / Free Trial</span><span class="od">Download, sign up, demo</span>
-      </div>
-      <div class="opt" data-key="goal" data-val="đặt lịch hẹn tư vấn 1-1 — form booking, quy trình tư vấn rõ" onclick="selOne(this)">
-        <span class="oi">📅</span><span class="on2">Đặt lịch tư vấn</span><span class="od">Book call, hẹn gặp</span>
-      </div>
-      <div class="opt" data-key="goal" data-val="xây dựng thương hiệu — storytelling, giá trị cốt lõi, uy tín" onclick="selOne(this)">
-        <span class="oi">✨</span><span class="on2">Brand Awareness</span><span class="od">Xây uy tín, nhận diện brand</span>
-      </div>
+      <div class="opt" data-key="goal" data-val="thu thập lead — form nổi bật nhiều vị trí, CTA rõ, tối thiểu link thoát" onclick="selOne(this)"><div class="oi">📋</div><div class="on2">Thu thập Lead</div><div class="od">Form lấy tên, SĐT, email</div></div>
+      <div class="opt" data-key="goal" data-val="bán hàng trực tiếp — nút mua nổi bật, giá rõ, urgency, đếm ngược" onclick="selOne(this)"><div class="oi">💰</div><div class="on2">Bán hàng ngay</div><div class="od">Chuyển đổi thành đơn hàng</div></div>
+      <div class="opt" data-key="goal" data-val="đăng ký sự kiện / webinar — lịch, địa điểm, đếm ngược rõ ràng" onclick="selOne(this)"><div class="oi">🎟️</div><div class="on2">Đăng ký sự kiện</div><div class="od">Webinar, hội thảo, offline</div></div>
+      <div class="opt" data-key="goal" data-val="tải app hoặc free trial — download nổi bật, rating, số người dùng" onclick="selOne(this)"><div class="oi">📱</div><div class="on2">Tải App / Free Trial</div><div class="od">Download, sign up, demo</div></div>
+      <div class="opt" data-key="goal" data-val="đặt lịch hẹn tư vấn 1-1 — form booking, quy trình tư vấn rõ" onclick="selOne(this)"><div class="oi">📅</div><div class="on2">Đặt lịch tư vấn</div><div class="od">Book call, hẹn gặp</div></div>
+      <div class="opt" data-key="goal" data-val="xây dựng thương hiệu — storytelling, giá trị cốt lõi, uy tín" onclick="selOne(this)"><div class="oi">✨</div><div class="on2">Brand Awareness</div><div class="od">Xây uy tín thương hiệu</div></div>
     </div>
-
     <div class="sub">Tone giọng văn</div>
     <div class="og og4">
-      <div class="opt" data-key="tone" data-val="chuyên nghiệp và uy tín — số liệu rõ ràng, B2B" onclick="selOne(this)">
-        <span class="on2">🏢 Chuyên nghiệp</span><span class="od">Uy tín, số liệu, B2B</span>
-      </div>
-      <div class="opt" data-key="tone" data-val="truyền cảm hứng và năng động — action words, excitement" onclick="selOne(this)">
-        <span class="on2">🚀 Truyền cảm hứng</span><span class="od">Exciting, action-oriented</span>
-      </div>
-      <div class="opt" data-key="tone" data-val="thân thiện gần gũi như người bạn — ấm áp, dễ tiếp cận" onclick="selOne(this)">
-        <span class="on2">🤝 Thân thiện</span><span class="od">Warm, gần gũi, dễ đọc</span>
-      </div>
-      <div class="opt" data-key="tone" data-val="sang trọng và tinh tế — từ ngữ cao cấp, exclusive feel" onclick="selOne(this)">
-        <span class="on2">💎 Sang trọng</span><span class="od">Premium, exclusive vibe</span>
-      </div>
+      <div class="opt" data-key="tone" data-val="chuyên nghiệp và uy tín — số liệu rõ ràng, câu văn mạnh, B2B" onclick="selOne(this)"><div class="on2">🏢 Chuyên nghiệp</div><div class="od">Uy tín, số liệu, B2B</div></div>
+      <div class="opt" data-key="tone" data-val="truyền cảm hứng và năng động — action words, tạo excitement" onclick="selOne(this)"><div class="on2">🚀 Truyền cảm hứng</div><div class="od">Exciting, action-oriented</div></div>
+      <div class="opt" data-key="tone" data-val="thân thiện gần gũi như người bạn — ấm áp, dễ tiếp cận" onclick="selOne(this)"><div class="on2">🤝 Thân thiện</div><div class="od">Warm, gần gũi, dễ đọc</div></div>
+      <div class="opt" data-key="tone" data-val="sang trọng và tinh tế — từ ngữ cao cấp, exclusive feel" onclick="selOne(this)"><div class="on2">💎 Sang trọng</div><div class="od">Premium, exclusive vibe</div></div>
     </div>
-
     <div class="sub">Ngôn ngữ</div>
     <div class="og og4">
-      <div class="opt" data-key="lang" data-val="Tiếng Việt" onclick="selOne(this)"><span class="on2">🇻🇳 Tiếng Việt</span></div>
-      <div class="opt" data-key="lang" data-val="English only" onclick="selOne(this)"><span class="on2">🇺🇸 English</span></div>
-      <div class="opt" data-key="lang" data-val="Song ngữ Việt - Anh" onclick="selOne(this)"><span class="on2">🌐 Việt + Anh</span></div>
-      <div class="opt" data-key="lang" data-val="Tiếng Việt, giữ thuật ngữ Anh" onclick="selOne(this)"><span class="on2">💬 Việt + Thuật ngữ EN</span></div>
+      <div class="opt" data-key="lang" data-val="Tiếng Việt" onclick="selOne(this)"><div class="on2">🇻🇳 Tiếng Việt</div></div>
+      <div class="opt" data-key="lang" data-val="English only" onclick="selOne(this)"><div class="on2">🇺🇸 English</div></div>
+      <div class="opt" data-key="lang" data-val="Song ngữ Việt - Anh" onclick="selOne(this)"><div class="on2">🌐 Việt + Anh</div></div>
+      <div class="opt" data-key="lang" data-val="Tiếng Việt, giữ thuật ngữ Anh" onclick="selOne(this)"><div class="on2">💬 Việt + Thuật ngữ EN</div></div>
     </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ BLOCK 4 ═══ -->
+<!-- BLOCK 4 -->
 <div class="card" id="b4">
   <div class="card-head" onclick="toggleCard(this)">
-    <div class="cnum cn-y">4</div><div class="ctitle">Phong cách thiết kế</div>
-    <div class="cbadge" id="b4b">Chưa chọn</div><div class="ccaret">▼</div>
+    <div class="cnum cn-y">4</div>
+    <div class="ctitle">Phong cách thiết kế</div>
+    <div class="cbadge" id="b4b">Chưa chọn</div>
+    <div class="ccaret">▼</div>
   </div>
   <div class="card-body" id="b4body">
-    <div style="padding-top:14px">
+    <div style="padding-top:13px">
     <div class="stylg" id="g_style">
-      <div class="sc" data-key="style" data-val="Dark Premium: nền #0D0D0D, chữ trắng, accent màu nổi bật, glassmorphism, kiểu Apple/Stripe/Linear" onclick="selOne(this)">
+      <div class="sc" data-key="style" data-val="Dark Premium: nền #0D0D0D, chữ trắng, accent màu nổi bật, glassmorphism, gradient text, kiểu Apple/Stripe/Linear" onclick="selOne(this)">
         <div class="sprev" style="background:linear-gradient(160deg,#0D0D18,#1A0D30);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:10px">
-          <div style="width:88px;height:8px;background:linear-gradient(90deg,#7C5CFC,#FF6B6B);border-radius:4px"></div>
-          <div style="width:68px;height:4px;background:rgba(255,255,255,.2);border-radius:2px"></div>
-          <div style="display:flex;gap:4px;margin-top:3px"><div style="width:46px;height:18px;background:rgba(124,92,252,.8);border-radius:4px"></div><div style="width:46px;height:18px;border:1px solid rgba(124,92,252,.4);border-radius:4px"></div></div>
+          <div style="width:86px;height:7px;background:linear-gradient(90deg,#7C5CFC,#FF6B6B);border-radius:4px"></div>
+          <div style="width:66px;height:4px;background:rgba(255,255,255,.2);border-radius:2px"></div>
+          <div style="display:flex;gap:4px;margin-top:3px"><div style="width:44px;height:16px;background:rgba(124,92,252,.8);border-radius:3px"></div><div style="width:44px;height:16px;border:1px solid rgba(124,92,252,.4);border-radius:3px"></div></div>
         </div>
         <div class="sinfo"><div class="sname">🌑 Dark Premium</div><div class="sdesc">Tối · Gradient · Glassmorphism · Apple/Stripe</div></div>
       </div>
-      <div class="sc" data-key="style" data-val="Minimal Light: nền trắng, khoảng trắng lớn, typography bold, kiểu Webflow/Notion/Framer" onclick="selOne(this)">
+      <div class="sc" data-key="style" data-val="Minimal Light: nền trắng, khoảng trắng lớn, typography bold, ảnh lớn focal point, kiểu Webflow/Notion" onclick="selOne(this)">
         <div class="sprev" style="background:#F8F9FA;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:10px">
-          <div style="width:88px;height:8px;background:#1A1A2E;border-radius:4px"></div>
-          <div style="width:68px;height:4px;background:#CCC;border-radius:2px"></div>
-          <div style="display:flex;gap:10px;margin-top:4px"><div style="width:28px;height:28px;background:#EEE;border-radius:5px"></div><div style="width:28px;height:28px;background:#EEE;border-radius:5px"></div><div style="width:28px;height:28px;background:#EEE;border-radius:5px"></div></div>
+          <div style="width:86px;height:7px;background:#1A1A2E;border-radius:4px"></div>
+          <div style="width:66px;height:4px;background:#CCC;border-radius:2px"></div>
+          <div style="display:flex;gap:8px;margin-top:4px"><div style="width:26px;height:26px;background:#EEE;border-radius:4px"></div><div style="width:26px;height:26px;background:#EEE;border-radius:4px"></div><div style="width:26px;height:26px;background:#EEE;border-radius:4px"></div></div>
         </div>
         <div class="sinfo"><div class="sname">☀️ Minimal Light</div><div class="sdesc">Trắng sạch · Khoảng trắng lớn · Webflow/Notion</div></div>
       </div>
-      <div class="sc" data-key="style" data-val="Bold Gradient: gradient mạnh cho hero, section xen kẽ, visual bold, kiểu Vercel/Prisma" onclick="selOne(this)">
+      <div class="sc" data-key="style" data-val="Bold Gradient: gradient mạnh cho hero, section xen kẽ màu và trắng, visual bold, kiểu Vercel/Framer" onclick="selOne(this)">
         <div class="sprev" style="background:linear-gradient(135deg,#4F6EF7,#7C3AED);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:10px">
-          <div style="width:88px;height:8px;background:rgba(255,255,255,.95);border-radius:4px"></div>
-          <div style="width:68px;height:4px;background:rgba(255,255,255,.5);border-radius:2px"></div>
-          <div style="width:76px;height:20px;background:rgba(255,255,255,.2);border-radius:4px;border:1px solid rgba(255,255,255,.4);margin-top:4px"></div>
+          <div style="width:86px;height:7px;background:rgba(255,255,255,.95);border-radius:4px"></div>
+          <div style="width:66px;height:4px;background:rgba(255,255,255,.5);border-radius:2px"></div>
+          <div style="width:74px;height:18px;background:rgba(255,255,255,.2);border-radius:4px;border:1px solid rgba(255,255,255,.4);margin-top:4px"></div>
         </div>
         <div class="sinfo"><div class="sname">⚡ Bold Gradient</div><div class="sdesc">Gradient mạnh · Bold · Startup tech · Vercel</div></div>
       </div>
-      <div class="sc" data-key="style" data-val="Luxury Elegant: nền cream #FAF7F2, accent gold #C9A227, font serif, kiểu luxury fashion" onclick="selOne(this)">
+      <div class="sc" data-key="style" data-val="Luxury Elegant: nền cream #FAF7F2, accent gold #C9A227, font serif thanh lịch, ảnh nghệ thuật lớn" onclick="selOne(this)">
         <div class="sprev" style="background:#FAF7F2;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:10px">
-          <div style="width:58px;height:6px;background:#8B6914;border-radius:2px"></div>
-          <div style="width:76px;height:1px;background:#C9A227;opacity:.4;margin:2px 0"></div>
-          <div style="width:60px;height:16px;border:1.5px solid #C9A227;border-radius:2px;margin-top:5px"></div>
+          <div style="width:56px;height:5px;background:#8B6914;border-radius:2px"></div>
+          <div style="width:74px;height:1px;background:#C9A227;opacity:.4;margin:2px 0"></div>
+          <div style="width:58px;height:14px;border:1.5px solid #C9A227;border-radius:2px;margin-top:5px"></div>
         </div>
-        <div class="sinfo"><div class="sname">💛 Luxury Elegant</div><div class="sdesc">Cream · Gold accent · Serif · Luxury brand</div></div>
+        <div class="sinfo"><div class="sname">💛 Luxury Elegant</div><div class="sdesc">Cream · Gold · Serif · Luxury brand</div></div>
       </div>
-      <div class="sc" data-key="style" data-val="Warm Vibrant: màu pastel tươi xen kẽ, playful, icon lớn, kiểu Canva/Mailchimp/giáo dục" onclick="selOne(this)">
+      <div class="sc" data-key="style" data-val="Warm Vibrant: màu pastel tươi xen kẽ, playful, icon lớn đầy màu, kiểu Canva/Mailchimp/giáo dục" onclick="selOne(this)">
         <div class="sprev" style="background:#FFF9F0;display:flex;align-items:center;justify-content:center;gap:5px;padding:10px">
-          <div style="width:28px;height:50px;background:#FFE4E1;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px">🎓</div>
-          <div style="width:28px;height:62px;background:#E8F5E9;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px">🚀</div>
-          <div style="width:28px;height:44px;background:#E3F2FD;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px">⭐</div>
+          <div style="width:26px;height:48px;background:#FFE4E1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px">🎓</div>
+          <div style="width:26px;height:60px;background:#E8F5E9;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px">🚀</div>
+          <div style="width:26px;height:42px;background:#E3F2FD;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px">⭐</div>
         </div>
         <div class="sinfo"><div class="sname">🌈 Warm Vibrant</div><div class="sdesc">Pastel · Playful · Icon lớn · Giáo dục/F&B</div></div>
       </div>
-      <div class="sc" data-key="style" data-val="Corporate Trust: navy blue, layout grid chuẩn, số liệu nổi bật, kiểu B2B/tài chính/BĐS" onclick="selOne(this)">
+      <div class="sc" data-key="style" data-val="Corporate Trust: navy blue, layout grid chuẩn mực, số liệu nổi bật, bảng so sánh, kiểu B2B/tài chính/BĐS" onclick="selOne(this)">
         <div class="sprev" style="background:#EEF2FF;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:10px">
-          <div style="width:88px;height:7px;background:#1B4FD8;border-radius:3px"></div>
-          <div style="display:flex;gap:4px;margin-top:4px"><div style="width:34px;height:26px;background:#fff;border-radius:4px;border:1px solid #C7D2FE"></div><div style="width:34px;height:26px;background:#fff;border-radius:4px;border:1px solid #C7D2FE"></div><div style="width:34px;height:26px;background:#fff;border-radius:4px;border:1px solid #C7D2FE"></div></div>
-          <div style="width:60px;height:14px;background:#1B4FD8;border-radius:3px;margin-top:2px"></div>
+          <div style="width:86px;height:6px;background:#1B4FD8;border-radius:3px"></div>
+          <div style="display:flex;gap:4px;margin-top:4px"><div style="width:32px;height:24px;background:#fff;border-radius:3px;border:1px solid #C7D2FE"></div><div style="width:32px;height:24px;background:#fff;border-radius:3px;border:1px solid #C7D2FE"></div><div style="width:32px;height:24px;background:#fff;border-radius:3px;border:1px solid #C7D2FE"></div></div>
+          <div style="width:58px;height:13px;background:#1B4FD8;border-radius:3px;margin-top:2px"></div>
         </div>
         <div class="sinfo"><div class="sname">🏛️ Corporate Trust</div><div class="sdesc">Navy · Grid chuẩn · B2B/Tài chính/BĐS</div></div>
       </div>
     </div>
-    <div class="tip">💡 <strong>Có website mẫu?</strong> Dán URL vào Block 9 + ghi "Thiết kế tương tự style của [URL]"</div>
     </div>
   </div>
 </div>
 
-<!-- ═══ BLOCK 5 ═══ -->
+<!-- BLOCK 5 -->
 <div class="card" id="b5">
   <div class="card-head" onclick="toggleCard(this)">
-    <div class="cnum cn-p">5</div><div class="ctitle">Màu sắc & Typography</div>
-    <div class="cbadge" id="b5b">Chưa chọn</div><div class="ccaret">▼</div>
+    <div class="cnum cn-p">5</div>
+    <div class="ctitle">Màu sắc & Typography</div>
+    <div class="cbadge" id="b5b">Chưa chọn</div>
+    <div class="ccaret">▼</div>
   </div>
   <div class="card-body" id="b5body">
-    <div style="padding-top:14px">
+    <div style="padding-top:13px">
     <div class="sub">Bảng màu</div>
     <div class="pal-tabs">
       <div class="ptab on" onclick="swPal(this,'pv')">🎨 Vibrant</div>
@@ -576,8 +597,8 @@ hr.div{border:none;border-top:1px solid var(--b1);margin:0}
       <div class="csw" data-key="color" data-val="chủ: #14B8A6 teal + phụ: #3B82F6 blue" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#14B8A6,#3B82F6)"></div><div class="cmeta"><div class="cname">Teal Blue</div><div class="chex">#14B8A6+#3B82F6</div></div></div>
     </div></div>
     <div class="pal" id="pd"><div class="cg">
-      <div class="csw" data-key="color" data-val="dark: nền #0D0D0D + accent #7C5CFC purple" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(160deg,#0D0D0D,#1A0A3E)"></div><div class="cmeta"><div class="cname">Dark Purple</div><div class="chex">#0D0D0D+#7C5CFC</div></div></div>
-      <div class="csw" data-key="color" data-val="dark: nền #070B14 + accent #3B82F6 blue" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(160deg,#070B14,#0C1E40)"></div><div class="cmeta"><div class="cname">Dark Navy</div><div class="chex">#070B14+#3B82F6</div></div></div>
+      <div class="csw" data-key="color" data-val="dark: nền #0D0D0D + accent #7C5CFC purple, glassmorphism" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(160deg,#0D0D0D,#1A0A3E)"></div><div class="cmeta"><div class="cname">Dark Purple</div><div class="chex">#0D0D0D+#7C5CFC</div></div></div>
+      <div class="csw" data-key="color" data-val="dark: nền #070B14 navy + accent #3B82F6 blue" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(160deg,#070B14,#0C1E40)"></div><div class="cmeta"><div class="cname">Dark Navy</div><div class="chex">#070B14+#3B82F6</div></div></div>
       <div class="csw" data-key="color" data-val="dark: nền #0A0A0F + accent #00D4AA teal" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(160deg,#0A0A0F,#001A16)"></div><div class="cmeta"><div class="cname">Dark Teal</div><div class="chex">#0A0A0F+#00D4AA</div></div></div>
       <div class="csw" data-key="color" data-val="dark: nền #111111 + accent #D4AF37 gold" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(160deg,#111,#1A1500)"></div><div class="cmeta"><div class="cname">Dark Gold</div><div class="chex">#111111+#D4AF37</div></div></div>
       <div class="csw" data-key="color" data-val="dark: nền #0D0D0D + accent #E63946 red" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(160deg,#0D0D0D,#1A0005)"></div><div class="cmeta"><div class="cname">Dark Red</div><div class="chex">#0D0D0D+#E63946</div></div></div>
@@ -594,158 +615,169 @@ hr.div{border:none;border-top:1px solid var(--b1);margin:0}
       <div class="csw" data-key="color" data-val="luxury: nền #0A0800 midnight + accent #D4AF37 gold" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#0A0800,#1A1400)"></div><div class="cmeta"><div class="cname">Black Gold</div><div class="chex">#0A0800+#D4AF37</div></div></div>
       <div class="csw" data-key="color" data-val="luxury: nền #FFF5F5 + accent #C0817C rose-gold" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#FFF5F5,#F5E0DC)"></div><div class="cmeta"><div class="cname">Rose Gold</div><div class="chex">#FFF5F5+#C0817C</div></div></div>
       <div class="csw" data-key="color" data-val="luxury: nền #F8F9FA + accent #9CA3AF silver, minimal cao cấp" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#F8F9FA,#E5E7EB)"></div><div class="cmeta"><div class="cname">Platinum</div><div class="chex">#F8F9FA+#9CA3AF</div></div></div>
-      <div class="csw" data-key="color" data-val="luxury: nền #0F1117 midnight + accent #E8D5A3 champagne" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#0F1117,#1A1430)"></div><div class="cmeta"><div class="cname">Champagne</div><div class="chex">#0F1117+#E8D5A3</div></div></div>
     </div></div>
     <div class="pal" id="pn"><div class="cg">
       <div class="csw" data-key="color" data-val="nature: nền #F0FAF0 + accent #16A34A forest green" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#F0FAF0,#DCFCE7)"></div><div class="cmeta"><div class="cname">Forest</div><div class="chex">#F0FAF0+#16A34A</div></div></div>
       <div class="csw" data-key="color" data-val="nature: nền #FAF5EF earth + accent #92400E brown" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#FAF5EF,#FEF3C7)"></div><div class="cmeta"><div class="cname">Earth Tone</div><div class="chex">#FAF5EF+#92400E</div></div></div>
-      <div class="csw" data-key="color" data-val="nature: nền #F0F9FF + accent #0369A1 ocean" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#F0F9FF,#BAE6FD)"></div><div class="cmeta"><div class="cname">Ocean</div><div class="chex">#F0F9FF+#0369A1</div></div></div>
+      <div class="csw" data-key="color" data-val="nature: nền #F0F9FF + accent #0369A1 ocean blue" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#F0F9FF,#BAE6FD)"></div><div class="cmeta"><div class="cname">Ocean</div><div class="chex">#F0F9FF+#0369A1</div></div></div>
       <div class="csw" data-key="color" data-val="nature: nền #FFF7ED + accent #EA580C sunset" onclick="selColor(this)"><div class="cprev" style="background:linear-gradient(135deg,#FFF7ED,#FED7AA)"></div><div class="cmeta"><div class="cname">Sunset</div><div class="chex">#FFF7ED+#EA580C</div></div></div>
     </div></div>
     <div class="pal" id="pc">
       <div class="info">✏️ Nhập mã màu hex thương hiệu của bạn</div>
-      <div class="crow" style="margin-top:10px"><input type="color" id="cc1" value="#7C5CFC" oninput="syncHex('cc1','ch1')"><input class="fi" id="ch1" placeholder="Màu chủ #7C5CFC" oninput="syncColor('ch1','cc1');build()"></div>
-      <div class="crow"><input type="color" id="cc2" value="#FF6B6B" oninput="syncHex('cc2','ch2')"><input class="fi" id="ch2" placeholder="Màu phụ #FF6B6B" oninput="syncColor('ch2','cc2');build()"></div>
-      <div class="crow"><input type="color" id="cc3" value="#FFFFFF" oninput="syncHex('cc3','ch3')"><input class="fi" id="ch3" placeholder="Màu nền (để trống = mặc định)" oninput="syncColor('ch3','cc3');build()"></div>
+      <div class="crow" style="margin-top:10px"><input type="color" id="cc1" value="#7C5CFC" oninput="syncHex('cc1','ch1')"><input class="fi" id="ch1" placeholder="Màu chủ #7C5CFC" oninput="syncColor('ch1','cc1');updateProgress()"></div>
+      <div class="crow"><input type="color" id="cc2" value="#FF6B6B" oninput="syncHex('cc2','ch2')"><input class="fi" id="ch2" placeholder="Màu phụ #FF6B6B" oninput="syncColor('ch2','cc2');updateProgress()"></div>
+      <div class="crow"><input type="color" id="cc3" value="#FFFFFF" oninput="syncHex('cc3','ch3')"><input class="fi" id="ch3" placeholder="Màu nền (để trống = mặc định)" oninput="syncColor('ch3','cc3');updateProgress()"></div>
     </div>
-    <div class="sub" style="margin-top:16px">Font chữ</div>
+    <div class="sub" style="margin-top:14px">Font chữ</div>
     <div class="fontg" id="g_font">
-      <div class="fc" data-key="font" data-val="Inter — sans-serif hiện đại, clean" onclick="selOne(this)"><div class="fprev" style="font-family:system-ui">Aa</div><div class="fname">Inter</div><div class="fuse">Mọi loại LP</div></div>
+      <div class="fc" data-key="font" data-val="Inter — sans-serif hiện đại" onclick="selOne(this)"><div class="fprev" style="font-family:system-ui">Aa</div><div class="fname">Inter</div><div class="fuse">Mọi loại LP</div></div>
       <div class="fc" data-key="font" data-val="Playfair Display — serif thanh lịch luxury" onclick="selOne(this)"><div class="fprev" style="font-family:Georgia,serif;font-style:italic">Aa</div><div class="fname">Playfair</div><div class="fuse">Luxury · Beauty</div></div>
       <div class="fc" data-key="font" data-val="Poppins — rounded friendly startup" onclick="selOne(this)"><div class="fprev" style="font-family:'Arial Rounded MT Bold',Arial">Aa</div><div class="fname">Poppins</div><div class="fuse">Edu · Startup</div></div>
       <div class="fc" data-key="font" data-val="Montserrat — geometric bold lifestyle" onclick="selOne(this)"><div class="fprev" style="font-family:Impact;letter-spacing:-1px">Aa</div><div class="fname">Montserrat</div><div class="fuse">Fitness · Bold</div></div>
       <div class="fc" data-key="font" data-val="DM Sans — editorial corporate" onclick="selOne(this)"><div class="fprev" style="font-family:'Trebuchet MS'">Aa</div><div class="fname">DM Sans</div><div class="fuse">SaaS · B2B</div></div>
-      <div class="fc" data-key="font" data-val="Nunito — playful rounded" onclick="selOne(this)"><div class="fprev" style="font-family:'Comic Sans MS';font-weight:700">Aa</div><div class="fname">Nunito</div><div class="fuse">Food · Fun</div></div>
+      <div class="fc" data-key="font" data-val="Nunito — playful rounded fun" onclick="selOne(this)"><div class="fprev" style="font-family:'Comic Sans MS';font-weight:700">Aa</div><div class="fname">Nunito</div><div class="fuse">Food · Fun</div></div>
     </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ BLOCK 6 ═══ -->
+<!-- BLOCK 6 -->
 <div class="card" id="b6">
   <div class="card-head" onclick="toggleCard(this)">
-    <div class="cnum cn-g">6</div><div class="ctitle">Upload ảnh theo từng vị trí</div>
-    <div class="cbadge" id="b6b">0 ảnh</div><div class="ccaret">▼</div>
+    <div class="cnum cn-g">6</div>
+    <div class="ctitle">Upload ảnh theo từng vị trí</div>
+    <div class="cbadge" id="b6b">0 ảnh</div>
+    <div class="ccaret">▼</div>
   </div>
   <div class="card-body" id="b6body">
-    <div style="padding-top:14px">
-    <div class="info">📸 Tối đa 100 ảnh · Mỗi vị trí upload riêng · Ảnh ghi vào prompt đúng vị trí</div>
-    <div class="img-cat-list" id="imgCatList" style="margin-top:12px"></div>
+    <div style="padding-top:13px">
+    <div class="info">📸 Tối đa 100 ảnh · Mỗi vị trí có khu upload riêng · Ảnh được ghi vào prompt đúng vị trí</div>
+    <div class="img-cat-list" id="imgCatList" style="margin-top:10px"></div>
     </div>
   </div>
 </div>
 
-<!-- ═══ BLOCK 7 ═══ -->
+<!-- BLOCK 7 -->
 <div class="card" id="b7">
   <div class="card-head" onclick="toggleCard(this)">
-    <div class="cnum cn-y">7</div><div class="ctitle">Cấu trúc Sections & Bố cục</div>
-    <div class="cbadge" id="b7b">Chưa cấu hình</div><div class="ccaret">▼</div>
+    <div class="cnum cn-y">7</div>
+    <div class="ctitle">Cấu trúc Sections & Bố cục</div>
+    <div class="cbadge" id="b7b">Chưa cấu hình</div>
+    <div class="ccaret">▼</div>
   </div>
   <div class="card-body" id="b7body">
-    <div style="padding-top:12px">
+    <div style="padding-top:10px">
     <div class="tip">🔀 <strong>Bật section</strong> → chọn <strong>layout</strong> → chọn <strong>số cột</strong></div>
-    <div class="sec-list" id="secList" style="margin-top:10px"></div>
+    <div class="sec-list" id="secList" style="margin-top:9px"></div>
     </div>
   </div>
 </div>
 
-<!-- ═══ BLOCK 8 ═══ -->
+<!-- BLOCK 8 -->
 <div class="card" id="b8">
   <div class="card-head" onclick="toggleCard(this)">
-    <div class="cnum cn-o">8</div><div class="ctitle">Tùy chọn nâng cao</div>
-    <div class="cbadge" id="b8b">0 tùy chọn</div><div class="ccaret">▼</div>
+    <div class="cnum cn-o">8</div>
+    <div class="ctitle">Tùy chọn nâng cao</div>
+    <div class="cbadge" id="b8b">0 tùy chọn</div>
+    <div class="ccaret">▼</div>
   </div>
   <div class="card-body" id="b8body">
-    <div style="padding-top:12px">
+    <div style="padding-top:10px">
     <div class="sub">Conversion</div>
-    <div class="tog" id="tUrg" onclick="togRow(this,'urgency')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">⏰</div><div><div class="tog-name">Countdown Timer / Urgency</div><div class="tog-sub">Đếm ngược + số lượng giới hạn</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Deadline cụ thể (để trống = tự tạo)</label><input class="fi" id="inUrg" placeholder="VD: Ưu đãi hết 23:59 ngày 31/12/2024, còn 20 suất" oninput="build()"></div></div>
-    <div class="tog" id="tStk" onclick="togRow(this,'sticky')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">📌</div><div><div class="tog-name">Sticky CTA Bar khi scroll</div><div class="tog-sub">Nút đăng ký luôn hiển thị</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Text nút sticky (để trống = CTA chính)</label><input class="fi" id="inStk" placeholder="VD: 🔥 Đăng ký ngay — Còn 20 suất" oninput="build()"></div></div>
-    <div class="tog" id="tPop" onclick="togRow(this,'popup')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">🎯</div><div><div class="tog-name">Exit-Intent Popup</div><div class="tog-sub">Popup ưu đãi khi sắp thoát trang</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Nội dung popup (để trống = tự tạo)</label><textarea class="ft" id="inPop" rows="2" placeholder="VD: Khoan! Nhận ngay ưu đãi GIẢM 50%" oninput="build()"></textarea></div></div>
+    <div class="tog" id="tUrg" onclick="togRow(this,'urgency')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">⏰</div><div><div class="tog-name">Countdown Timer / FOMO</div><div class="tog-sub">Đếm ngược + số lượng giới hạn</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Deadline cụ thể (để trống = AI tự tạo)</label><input class="fi" id="inUrg" placeholder="VD: Ưu đãi hết 23:59 ngày 31/12/2024, còn 20 suất" oninput="updateProgress()"></div></div>
+    <div class="tog" id="tStk" onclick="togRow(this,'sticky')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">📌</div><div><div class="tog-name">Sticky CTA Bar khi scroll</div><div class="tog-sub">Nút đăng ký luôn hiển thị</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Text nút sticky (để trống = CTA chính)</label><input class="fi" id="inStk" placeholder="VD: 🔥 Đăng ký ngay — Còn 20 suất" oninput="updateProgress()"></div></div>
+    <div class="tog" id="tPop" onclick="togRow(this,'popup')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">🎯</div><div><div class="tog-name">Exit-Intent Popup</div><div class="tog-sub">Popup ưu đãi khi sắp thoát trang</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Nội dung popup (để trống = AI tự tạo)</label><textarea class="ft" id="inPop" rows="2" placeholder="VD: Khoan! Nhận ưu đãi GIẢM 50% — Nhập email để nhận code" oninput="updateProgress()"></textarea></div></div>
     <div class="sub">Chat & Liên hệ</div>
-    <div class="tog" id="tZalo" onclick="togRow(this,'zalo')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">💬</div><div><div class="tog-name">Zalo Floating Button</div><div class="tog-sub">Chat Zalo trực tiếp từ trang</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Số điện thoại Zalo</label><input class="fi" id="inZalo" placeholder="VD: 0901234567" oninput="build()"></div></div>
-    <div class="tog" id="tMess" onclick="togRow(this,'messenger')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">📘</div><div><div class="tog-name">Messenger Chat Bubble</div><div class="tog-sub">Facebook Messenger từ trang</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Facebook Page ID hoặc username</label><input class="fi" id="inMess" placeholder="VD: YourPageName" oninput="build()"></div></div>
-    <div class="sub">Kỹ thuật & SEO</div>
-    <div class="tog" id="tSeo" onclick="togRow(this,'seo')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">🔍</div><div><div class="tog-name">SEO + Open Graph Tags</div><div class="tog-sub">Meta tags, share đẹp trên MXH</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Meta description (để trống = tự tạo)</label><input class="fi" id="inSeo" placeholder="VD: Học Digital Marketing 30 ngày..." oninput="build()"></div></div>
-    <div class="tog" id="tAnim" onclick="togRow(this,'animation')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">✨</div><div><div class="tog-name">Scroll Animation</div><div class="tog-sub">Fade-in khi scroll vào section</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Kiểu animation</label><select class="fs" id="inAnim" onchange="build()"><option value="fade-up">Fade up</option><option value="fade-in">Fade in</option><option value="slide-left">Slide trái</option><option value="zoom-in">Zoom in</option></select></div></div>
-    <div class="tog" id="tLadi" onclick="togRow(this,'ladipage')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">📥</div><div><div class="tog-name">Tối ưu Import LadiPage</div><div class="tog-sub">CSS inline, section ID rõ, dễ chỉnh sửa</div></div></div><div class="tsw"></div></div><div class="tog-in"></div></div>
+    <div class="tog" id="tZalo" onclick="togRow(this,'zalo')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">💬</div><div><div class="tog-name">Zalo Floating Button</div><div class="tog-sub">Chat Zalo trực tiếp từ trang</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Số điện thoại Zalo</label><input class="fi" id="inZalo" placeholder="VD: 0901234567" oninput="updateProgress()"></div></div>
+    <div class="tog" id="tMess" onclick="togRow(this,'messenger')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">📘</div><div><div class="tog-name">Messenger Chat Bubble</div><div class="tog-sub">Facebook Messenger từ trang</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Facebook Page username hoặc ID</label><input class="fi" id="inMess" placeholder="VD: YourPageName" oninput="updateProgress()"></div></div>
+    <div class="sub">Kỹ thuật</div>
+    <div class="tog" id="tSeo" onclick="togRow(this,'seo')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">🔍</div><div><div class="tog-name">SEO + Open Graph Tags</div><div class="tog-sub">Meta tags, share đẹp trên MXH</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Meta description (để trống = AI tự tạo)</label><input class="fi" id="inSeo" placeholder="VD: Học Digital Marketing 30 ngày, tăng thu nhập 3X..." oninput="updateProgress()"></div></div>
+    <div class="tog" id="tAnim" onclick="togRow(this,'animation')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">✨</div><div><div class="tog-name">Scroll Animation</div><div class="tog-sub">Fade-in khi scroll vào section</div></div></div><div class="tsw"></div></div><div class="tog-in"><label class="tog-in-lbl">Kiểu animation</label><select class="fs" id="inAnim" onchange="updateProgress()"><option value="fade-up">Fade up</option><option value="fade-in">Fade in</option><option value="slide-left">Slide trái</option><option value="zoom-in">Zoom in</option></select></div></div>
+    <div class="tog" id="tLadi" onclick="togRow(this,'ladipage')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">📥</div><div><div class="tog-name">Tối ưu Import LadiPage</div><div class="tog-sub">CSS inline, section ID rõ</div></div></div><div class="tsw"></div></div><div class="tog-in"></div></div>
     <div class="tog" id="tMob" onclick="togRow(this,'mobile')"><div class="tog-top"><div class="tog-l"><div class="tog-ico">📲</div><div><div class="tog-name">Mobile-First Optimization</div><div class="tog-sub">Sticky bottom CTA, touch-friendly</div></div></div><div class="tsw"></div></div><div class="tog-in"></div></div>
     </div>
   </div>
 </div>
 
-<!-- ═══ BLOCK 9 ═══ -->
-<div class="card" id="b9">
-  <div class="card-head" onclick="toggleCard(this)">
-    <div class="cnum cn-p">9</div><div class="ctitle">Dán nội dung / dữ liệu của bạn</div>
-    <div class="cbadge" id="b9b">Bắt buộc</div><div class="ccaret">▼</div>
+<!-- NỘI DUNG BỔ SUNG -->
+<div class="card">
+  <div class="card-head open" onclick="toggleCard(this)">
+    <div class="cnum" style="background:var(--acc2)">+</div>
+    <div class="ctitle">Nội dung / dữ liệu bổ sung</div>
+    <div class="cbadge" id="bExtra">Tuỳ chọn</div>
+    <div class="ccaret">▼</div>
   </div>
-  <div class="card-body" id="b9body">
-    <div style="padding-top:12px">
-    <textarea class="ft" id="fContent" rows="10" style="min-height:160px"
-      placeholder="Dán vào đây bất kỳ:&#10;• Mô tả sản phẩm dịch vụ chi tiết&#10;• Dữ liệu Excel — copy bảng vào đây&#10;• URL tham khảo: https://www.mktteam.io.vn/runbiz&#10;• Màu brand hex: #FF5500&#10;• Testimonials thực từ khách hàng&#10;• Giá, ưu đãi, thông tin chương trình&#10;• FAQ câu hỏi thực tế · Thông tin liên hệ"
-      oninput="build()"></textarea>
-    <div class="char-cnt" id="charCnt">0 ký tự</div>
-    <div class="info">📎 Khi paste prompt vào Claude.ai, đính kèm ảnh đã upload để Claude sắp xếp đúng vị trí.</div>
+  <div class="card-body open">
+    <div style="padding-top:13px">
+    <textarea class="ft" id="fExtra" rows="8" style="min-height:140px"
+      placeholder="Dán thêm vào đây bất kỳ:&#10;• Nội dung sản phẩm chi tiết hơn&#10;• Dữ liệu Excel (copy bảng vào)&#10;• URL tham khảo cần làm theo&#10;• Màu brand hex: #FF5500&#10;• FAQ câu hỏi thực tế của khách hàng&#10;• Thông tin thêm bất kỳ..."
+      oninput="updateProgress()"></textarea>
     </div>
   </div>
 </div>
 
-<hr class="div">
+<!-- GENERATE BUTTON -->
+<button class="gen-btn" onclick="generate()" id="genBtn">
+  <span class="label">⚡ Tạo Landing Page ngay</span>
+  <span class="loading"><span class="spinner"></span>AI đang tạo landing page... (~30–60 giây)</span>
+</button>
 
-<!-- ═══ LIVE PROMPT OUTPUT ═══ -->
-<div class="prompt-card">
-  <div class="prompt-header">
-    <div class="prompt-header-left">
-      <div class="prompt-dots">
-        <div class="pdot" style="background:#FF5F57"></div>
-        <div class="pdot" style="background:#FFBD2E"></div>
-        <div class="pdot" style="background:#28C940"></div>
+<div class="error-box" id="errBox"></div>
+
+<!-- OUTPUT -->
+<div class="output-wrap" id="outputSection">
+  <div class="out-tabs">
+    <div class="out-tab on" onclick="switchTab('preview')">👁 Preview</div>
+    <div class="out-tab" onclick="switchTab('source')">📋 HTML Source</div>
+  </div>
+  <div class="out-card">
+    <div class="out-toolbar">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div class="out-dots">
+          <div class="od" style="background:#FF5F57"></div>
+          <div class="od" style="background:#FFBD2E"></div>
+          <div class="od" style="background:#28C940"></div>
+        </div>
+        <div class="out-lbl" id="outLbl">Landing Page · Sẵn sàng</div>
       </div>
-      <div class="prompt-label">Prompt · Sẵn sàng copy</div>
-      <div class="prompt-live-badge">● Live</div>
+      <div class="out-actions">
+        <button class="btn btn-p" id="copyHtmlBtn" onclick="copyHtml()">📋 Copy HTML</button>
+        <button class="btn btn-g" onclick="downloadHtml()">⬇️ Download</button>
+        <button class="btn btn-o" onclick="openFullPreview()">🔗 Mở full tab</button>
+        <a class="btn btn-o" href="https://ladipage.vn" target="_blank">🚀 LadiPage</a>
+      </div>
     </div>
-    <button class="btn btn-p" id="mainCopy" onclick="copyPrompt()">📋 Copy Prompt</button>
-  </div>
-  <div class="prompt-body" id="outBody">
-    <span class="prompt-empty">Điền thông tin ở trên — prompt tự tạo ở đây...</span>
-  </div>
-  <div class="prompt-actions">
-    <button class="btn btn-p" onclick="copyPrompt()">📋 Copy Prompt</button>
-    <a class="btn btn-g" href="https://claude.ai" target="_blank">🤖 Mở Claude.ai</a>
-    <a class="btn btn-o" href="https://ladipage.vn" target="_blank">🚀 LadiPage</a>
-    <button class="btn btn-o" onclick="resetAll()">🔄 Reset</button>
+    <iframe id="previewFrame" class="preview-frame" style="display:block"></iframe>
+    <div id="htmlSrc" class="html-src" style="display:none"></div>
   </div>
 </div>
 
 <div class="guide">
-  <div class="gs"><div class="gn">1</div><div class="gt">Điền thông tin ở trên → <strong>Prompt tự cập nhật</strong> bên dưới</div></div>
-  <div class="gs"><div class="gn">2</div><div class="gt">Nhấn <strong>Copy Prompt</strong> → Mở <strong>Claude.ai</strong> → Paste vào chat → Đính kèm ảnh → Gửi</div></div>
-  <div class="gs"><div class="gn">3</div><div class="gt">Claude trả về <strong>HTML hoàn chỉnh</strong> — copy từ &lt;!DOCTYPE&gt; đến &lt;/html&gt;</div></div>
-  <div class="gs"><div class="gn">4</div><div class="gt"><strong>LadiPage → Tạo trang → Import HTML</strong> → paste → kéo thả chỉnh sửa</div></div>
-  <div class="gs"><div class="gn">5</div><div class="gt">Thay ảnh placeholder → chỉnh màu font → <strong>Publish ✓</strong></div></div>
+  <div class="gs"><div class="gn">1</div><div class="gt">Điền thông tin → nhấn <strong>Tạo Landing Page</strong></div></div>
+  <div class="gs"><div class="gn">2</div><div class="gt">AI tạo HTML hoàn chỉnh trong ~30–60 giây</div></div>
+  <div class="gs"><div class="gn">3</div><div class="gt">Preview ngay trong trang · <strong>Copy HTML</strong> hoặc <strong>Download file</strong></div></div>
+  <div class="gs"><div class="gn">4</div><div class="gt"><strong>LadiPage → Tạo trang → Import HTML</strong> → kéo thả chỉnh sửa</div></div>
+  <div class="gs"><div class="gn">5</div><div class="gt">Thay ảnh placeholder → chỉnh màu → <strong>Publish ✓</strong></div></div>
 </div>
 
 </div><!-- .content -->
 </div><!-- .app -->
 
 <script>
-// ════════════════════════════════════
-// STATE
-// ════════════════════════════════════
+// ══ STATE ══
 const S={source:'',goal:'',tone:'',lang:'',style:'',color:'',font:'',extras:{}};
-const TOTAL=9;
+const TOTAL=8;
+let generatedHtml='';
 
-// ════════════════════════════════════
-// IMAGE CATEGORIES
-// ════════════════════════════════════
+// ══ IMAGE CATEGORIES ══
 const IMG_CATS=[
   {id:'hero',ico:'🖼️',name:'Hero Banner',desc:'Ảnh lớn đầu trang'},
-  {id:'product',ico:'📦',name:'Sản phẩm',desc:'Showcase sản phẩm, kết quả'},
-  {id:'team',ico:'👥',name:'Đội ngũ / Mentor',desc:'Ảnh team, chuyên gia'},
+  {id:'product',ico:'📦',name:'Sản phẩm',desc:'Showcase sản phẩm'},
+  {id:'team',ico:'👥',name:'Đội ngũ',desc:'Ảnh team, mentor'},
   {id:'result',ico:'✅',name:'Kết quả / Trước-Sau',desc:'Before/after'},
   {id:'customer',ico:'💬',name:'Avatar KH',desc:'Ảnh testimonial'},
-  {id:'background',ico:'🎨',name:'Nền section',desc:'Background decoration'},
-  {id:'gallery',ico:'🖼️',name:'Gallery',desc:'Showcase nhiều ảnh'},
+  {id:'background',ico:'🎨',name:'Nền section',desc:'Background'},
+  {id:'gallery',ico:'🖼️',name:'Gallery',desc:'Nhiều ảnh showcase'},
   {id:'logo',ico:'🏢',name:'Logo',desc:'Logo công ty, đối tác'},
 ];
 const imgStore={};
@@ -784,8 +816,10 @@ function handleCatFiles(catId,files){
   if(totalImgs+files.length>100){alert('Tối đa 100 ảnh!');return}
   Array.from(files).forEach(f=>{
     const r=new FileReader();
-    r.onload=e=>{imgStore[catId].push({name:f.name,url:e.target.result,sz:Math.round(f.size/1024)+'KB'});totalImgs++;renderCatThumbs(catId);updateImgBadge();build()};
-    r.readAsDataURL(f);
+    r.onload=e=>{
+      imgStore[catId].push({name:f.name,url:e.target.result,sz:Math.round(f.size/1024)+'KB'});
+      totalImgs++;renderCatThumbs(catId);updateImgBadge();updateProgress();
+    };r.readAsDataURL(f);
   });
 }
 function renderCatThumbs(catId){
@@ -793,18 +827,21 @@ function renderCatThumbs(catId){
   const cnt=document.getElementById('icnt_'+catId);
   const imgs=imgStore[catId];
   cnt.textContent=imgs.length+' ảnh';
-  g.innerHTML=imgs.map((img,i)=>`<div class="ithumb"><img src="${img.url}" alt="${img.name}"><div class="ithumb-del" onclick="delCatImg('${catId}',${i})">✕</div><div class="ithumb-n">${img.name.length>12?img.name.slice(0,12)+'...':img.name}</div></div>`).join('');
+  g.innerHTML=imgs.map((img,i)=>`
+    <div class="ithumb">
+      <img src="${img.url}" alt="${img.name}">
+      <div class="ithumb-del" onclick="delCatImg('${catId}',${i})">✕</div>
+      <div class="ithumb-n">${img.name.length>12?img.name.slice(0,12)+'...':img.name}</div>
+    </div>`).join('');
   if(imgs.length)document.getElementById('icat_'+catId).classList.add('open');
 }
-function delCatImg(catId,i){imgStore[catId].splice(i,1);totalImgs--;renderCatThumbs(catId);updateImgBadge();build()}
+function delCatImg(catId,i){imgStore[catId].splice(i,1);totalImgs--;renderCatThumbs(catId);updateImgBadge();updateProgress()}
 function updateImgBadge(){const b=document.getElementById('b6b');b.textContent=totalImgs+' ảnh';b.className='cbadge'+(totalImgs>0?' done':'')}
 
-// ════════════════════════════════════
-// SECTIONS
-// ════════════════════════════════════
+// ══ SECTIONS ══
 const SECS=[
   {id:'hero',ico:'🚀',name:'Hero Banner',hint:'Headline + CTA + ảnh lớn',layouts:['Full width ảnh nền','Chữ trái · ảnh phải','Ảnh trái · chữ phải','Centered + ảnh dưới','Video background','Gradient thuần'],cols:[]},
-  {id:'logos',ico:'🏢',name:'Logo Bar',hint:'Logo khách hàng, đối tác',layouts:['Row 1 hàng','Grid 2 hàng','Logo + số liệu'],cols:[]},
+  {id:'logos',ico:'🏢',name:'Logo Bar',hint:'Logo khách hàng đã dùng',layouts:['Row 1 hàng','Grid 2 hàng','Logo + số liệu'],cols:[]},
   {id:'features',ico:'⚡',name:'Tính năng / Lợi ích',hint:'USP nổi bật',layouts:['Card grid icon','List icon+text','Alternating chữ-ảnh','Tabs','Feature highlight'],cols:['2','3','4']},
   {id:'howit',ico:'🔄',name:'Quy trình',hint:'Các bước step-by-step',layouts:['Bước số lớn ngang','Timeline dọc','Cards bước'],cols:['3','4','5']},
   {id:'stats',ico:'📊',name:'Số liệu ấn tượng',hint:'Big numbers impact',layouts:['Số lớn ngang','Số + icon + mô tả','Nền tối số sáng'],cols:['3','4']},
@@ -815,7 +852,7 @@ const SECS=[
   {id:'gallery',ico:'🖼️',name:'Gallery',hint:'Showcase hình ảnh',layouts:['Grid đều','Masonry','Carousel ngang'],cols:['2','3','4']},
   {id:'faq',ico:'❓',name:'FAQ',hint:'Câu hỏi thường gặp',layouts:['Accordion','2 cột Q&A','List đơn giản'],cols:[]},
   {id:'compare',ico:'⚖️',name:'So sánh / Trước-Sau',hint:'Kết quả, đối thủ',layouts:['Bảng checkmark','Slider trước/sau','Cards 2 cột'],cols:[]},
-  {id:'cta_sec',ico:'🎯',name:'CTA Section',hint:'Kêu gọi hành động bold',layouts:['Fullwidth màu đậm','Card nổi','Countdown + form','Split: text + form'],cols:[]},
+  {id:'cta_sec',ico:'🎯',name:'CTA Section',hint:'Kêu gọi hành động',layouts:['Fullwidth màu đậm','Card nổi','Countdown + form','Split: text + form'],cols:[]},
   {id:'contact',ico:'📋',name:'Form đăng ký',hint:'Thu thập lead',layouts:['Form 3 field','Form chi tiết','Form + info cạnh','Card form center'],cols:[]},
   {id:'footer',ico:'🔻',name:'Footer',hint:'Liên hệ, links',layouts:['Tối giản 1 dòng','2 cột','3 cột','Full footer'],cols:[]},
 ];
@@ -826,119 +863,98 @@ function initSections(){
   SECS.forEach(sec=>{
     secState[sec.id]={on:defaultOn.includes(sec.id),layout:sec.layouts[0],cols:sec.cols[0]||''};
     const div=document.createElement('div');
-    div.className='si'+(secState[sec.id].on?' on':'');div.id='si_'+sec.id;
+    div.className='si'+(secState[sec.id].on?' on':'');
+    div.id='si_'+sec.id;
     const lyHTML=sec.layouts.map((l,i)=>`<span class="lo${i===0?' on':''}" onclick="selLay(event,'${sec.id}','${l}',this)">${l}</span>`).join('');
     const colHTML=sec.cols.length?`<div class="si-cols"><span class="si-cols-lbl">Cột:</span>${sec.cols.map((c,i)=>`<div class="col-o${i===0?' on':''}" onclick="selCol(event,'${sec.id}','${c}',this)">${c}</div>`).join('')}</div>`:'';
-    div.innerHTML=`<div class="si-head"><span class="si-drag">⠿</span><span class="si-ico">${sec.ico}</span><div class="si-info"><div class="si-name">${sec.name}</div><div class="si-hint">${sec.hint}</div></div><div class="si-sw" onclick="togSec(event,'${sec.id}',this.closest('.si'))"></div></div><div class="si-body"><div class="lo-wrap">${lyHTML}</div>${colHTML}</div>`;
+    div.innerHTML=`
+      <div class="si-head">
+        <span class="si-drag">⠿</span><span class="si-ico">${sec.ico}</span>
+        <div class="si-info"><div class="si-name">${sec.name}</div><div class="si-hint">${sec.hint}</div></div>
+        <div class="si-sw" onclick="togSec(event,'${sec.id}',this.closest('.si'))"></div>
+      </div>
+      <div class="si-body"><div class="lo-wrap">${lyHTML}</div>${colHTML}</div>`;
     el.appendChild(div);
   });
 }
-function togSec(e,id,el){e.stopPropagation();secState[id].on=!secState[id].on;el.classList.toggle('on',secState[id].on);updB7();build()}
-function selLay(e,id,val,el){e.stopPropagation();secState[id].layout=val;el.closest('.lo-wrap').querySelectorAll('.lo').forEach(o=>o.classList.remove('on'));el.classList.add('on');build()}
-function selCol(e,id,val,el){e.stopPropagation();secState[id].cols=val;el.closest('.si-cols').querySelectorAll('.col-o').forEach(o=>o.classList.remove('on'));el.classList.add('on');build()}
+function togSec(e,id,el){e.stopPropagation();secState[id].on=!secState[id].on;el.classList.toggle('on',secState[id].on);updB7();updateProgress()}
+function selLay(e,id,val,el){e.stopPropagation();secState[id].layout=val;el.closest('.lo-wrap').querySelectorAll('.lo').forEach(o=>o.classList.remove('on'));el.classList.add('on')}
+function selCol(e,id,val,el){e.stopPropagation();secState[id].cols=val;el.closest('.si-cols').querySelectorAll('.col-o').forEach(o=>o.classList.remove('on'));el.classList.add('on')}
 function updB7(){const n=SECS.filter(s=>secState[s.id]?.on).length;const b=document.getElementById('b7b');b.textContent=n+' sections';b.className='cbadge'+(n>0?' done':'')}
 
-// ════════════════════════════════════
-// CARD ACCORDION
-// ════════════════════════════════════
-function toggleCard(h){
-  const body=h.nextElementSibling;
-  const open=body.classList.contains('open');
-  body.classList.toggle('open',!open);
-  h.classList.toggle('open',!open);
-}
+// ══ CARD ACCORDION ══
+function toggleCard(h){const body=h.nextElementSibling;const open=body.classList.contains('open');body.classList.toggle('open',!open);h.classList.toggle('open',!open)}
 
-// ════════════════════════════════════
-// SELECTORS — tìm đúng scope
-// ════════════════════════════════════
+// ══ SOURCE SELECT ══
 function selSrc(el,inputId){
   document.querySelectorAll('.stab').forEach(e=>e.classList.remove('on'));
   el.classList.add('on');S.source=el.dataset.val;
   document.querySelectorAll('.src-iw').forEach(w=>w.classList.remove('show'));
   document.getElementById(inputId)?.classList.add('show');
-  updateBadges();build();
+  updateBadges();updateProgress();
 }
 
+// ══ SELECTORS ══
 function selOne(el){
   const k=el.dataset.key;
-  // Tìm container gần nhất để deselect đúng nhóm
-  const parent=el.closest('.og,.og2,.og3,.og4,.stylg,.fontg');
-  if(parent){
-    parent.querySelectorAll('[data-key="'+k+'"]').forEach(e=>e.classList.remove('on'));
-  } else {
-    document.querySelectorAll('[data-key="'+k+'"]').forEach(e=>e.classList.remove('on'));
-  }
-  el.classList.add('on');
-  S[k]=el.dataset.val;
-  updateBadges();
-  build(); // ← gọi build() ngay sau mỗi lần chọn
+  const parent=el.closest('.og,.og2,.og3,.og4,.stylg,.fontg,.card-body');
+  if(parent) parent.querySelectorAll('[data-key="'+k+'"]').forEach(e=>e.classList.remove('on'));
+  else document.querySelectorAll('[data-key="'+k+'"]').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');S[k]=el.dataset.val;
+  updateBadges();updateProgress();
 }
-
 function selColor(el){
   document.querySelectorAll('.csw').forEach(e=>e.classList.remove('on'));
-  el.classList.add('on');S.color=el.dataset.val;
-  updateBadges();build();
+  el.classList.add('on');S.color=el.dataset.val;updateBadges();updateProgress();
 }
 function swPal(t,pid){
   document.querySelectorAll('.ptab').forEach(x=>x.classList.remove('on'));
   document.querySelectorAll('.pal').forEach(x=>x.classList.remove('on'));
   t.classList.add('on');document.getElementById(pid).classList.add('on');
 }
-function syncHex(colorId,textId){document.getElementById(textId).value=document.getElementById(colorId).value;build()}
+function syncHex(colorId,textId){document.getElementById(textId).value=document.getElementById(colorId).value;updateProgress()}
 function syncColor(textId,colorId){try{document.getElementById(colorId).value=document.getElementById(textId).value}catch(e){}}
 
-function togRow(el,key){
-  const on=el.classList.toggle('on');
-  if(on)S.extras[key]=key;else delete S.extras[key];
-  updateBadges();build();
-}
+// ══ TOGGLES ══
+function togRow(el,key){const on=el.classList.toggle('on');if(on)S.extras[key]=key;else delete S.extras[key];updateBadges();updateProgress()}
 
-// ════════════════════════════════════
-// BADGES
-// ════════════════════════════════════
+// ══ BADGES ══
 function updateBadges(){
   const sb=(id,txt,done)=>{const b=document.getElementById(id);if(b){b.textContent=txt;b.className='cbadge'+(done?' done':'')}};
   sb('b1b',S.source?'✓ Đã chọn':'Chưa chọn',!!S.source);
-  const p2=gv('fProd')&&gv('fAud')&&gv('fCta');
-  sb('b2b',p2?'✓ Đã điền':'Chưa điền',!!p2);
+  const p=v('fProd')&&v('fAud')&&v('fCta');
+  sb('b2b',p?'✓ Đã điền':'Chưa điền',!!p);
   sb('b3b',S.goal&&S.tone?'✓ Đã chọn':'Chưa chọn',!!(S.goal&&S.tone));
   sb('b4b',S.style?'✓ Đã chọn':'Chưa chọn',!!S.style);
   sb('b5b',S.color?'✓ Đã chọn':'Chưa chọn',!!S.color);
   const ec=Object.keys(S.extras).length;
   sb('b8b',ec>0?ec+' tùy chọn':'0 tùy chọn',ec>0);
-  const ct=gv('fContent');
-  sb('b9b',ct?'✓ Có nội dung':'Bắt buộc',!!ct);
 }
-const gv=id=>document.getElementById(id)?.value.trim()||'';
+const v=id=>document.getElementById(id)?.value.trim()||'';
 
-// ════════════════════════════════════
-// PROGRESS RING + QUALITY BAR
-// ════════════════════════════════════
+// ══ PROGRESS ══
 function updateProgress(){
-  // Custom color from brand tab
+  // custom color from brand tab
   const cp=document.querySelector('.pal.on');
   if(cp&&cp.id==='pc'){
-    const h1=gv('ch1'),h2=gv('ch2'),h3=gv('ch3');
+    const h1=v('ch1'),h2=v('ch2'),h3=v('ch3');
     if(h1||h2) S.color=(h1?'chủ: '+h1:'')+(h2?', phụ: '+h2:'')+(h3?', nền: '+h3:'');
   }
-  const content=gv('fContent');
-  const cc=document.getElementById('charCnt');
-  if(cc) cc.textContent=content.length.toLocaleString()+' ký tự';
+  updateBadges();
 
   const checks=[
     {lbl:'Nguồn dữ liệu',v:!!S.source},
-    {lbl:'Thông tin SP',v:!!(gv('fProd')&&gv('fAud')&&gv('fCta'))},
+    {lbl:'Thông tin SP',v:!!(v('fProd')&&v('fAud')&&v('fCta'))},
     {lbl:'Mục tiêu',v:!!S.goal},
     {lbl:'Phong cách',v:!!S.style},
     {lbl:'Màu sắc',v:!!S.color},
     {lbl:'Font',v:!!S.font},
-    {lbl:'Upload ảnh',v:totalImgs>0},
     {lbl:'Sections',v:SECS.some(s=>secState[s.id]?.on)},
-    {lbl:'Nội dung',v:!!content},
+    {lbl:'Nội dung',v:!!(v('fExtra')||v('fProd'))},
   ];
   let done=0;checks.forEach(c=>{if(c.v)done++});
   const pct=Math.round(done/TOTAL*100);
-  const C=163.4;
+  const C=157.08;
   const rc=document.getElementById('ringC');
   if(rc)rc.style.strokeDashoffset=C-(C*pct/100);
   const rp=document.getElementById('ringPct');if(rp)rp.textContent=pct+'%';
@@ -952,49 +968,33 @@ function updateProgress(){
     if(i<done-1)el.classList.add('done');
     else if(i===done-1)el.classList.add('active');
   });
-  updateBadges();
 }
 
-// ════════════════════════════════════
-// BUILD PROMPT — tự động mỗi lần thay đổi
-// ════════════════════════════════════
-function build(){
-  updateProgress();
-
+// ══ BUILD PROMPT ══
+function buildPrompt(){
   const srcMap={mo_ta:'Mô tả tay',excel:'Excel/Sheet',url:'URL mẫu',idea:'Ý tưởng thô'};
-  const srcDetails={mo_ta:gv('fSrcMoTa'),excel:gv('fSrcExcel'),url:gv('fSrcUrl'),idea:gv('fSrcIdea')};
-  const prod=gv('fProd'),ind=document.getElementById('fInd')?.value||'';
-  const aud=gv('fAud'),cta=gv('fCta'),old=gv('fOld'),prc=gv('fPrc');
-  const deal=gv('fDeal'),head=gv('fHead'),usp=gv('fUsp'),test=gv('fTest');
-  const stats=gv('fStats'),content=gv('fContent');
-
-  const hasAny=prod||content||S.style||S.goal||S.source||S.color||gv('fSrcMoTa')||gv('fSrcIdea');
-
-  const out=document.getElementById('outBody');
-  if(!hasAny){
-    out.innerHTML='<span class="prompt-empty">Điền thông tin ở trên — prompt tự tạo ở đây...</span>';
-    return;
-  }
+  const srcDetails={mo_ta:v('fSrcMoTa'),excel:v('fSrcExcel'),url:v('fSrcUrl'),idea:v('fSrcIdea')};
 
   const L=[];
-  L.push('Bạn là chuyên gia thiết kế landing page 10+ năm kinh nghiệm. Tạo MỘT file HTML hoàn chỉnh, chuyên nghiệp:\n');
+  L.push('Bạn là chuyên gia thiết kế landing page chuyển đổi cao. Tạo MỘT file HTML hoàn chỉnh, đẹp và chuyên nghiệp:\n');
   L.push('═══════════════════════════════════════════');
   L.push('  THÔNG TIN SẢN PHẨM');
   L.push('═══════════════════════════════════════════');
-  if(prod)  L.push('Tên sản phẩm    : '+prod);
-  if(ind)   L.push('Ngành           : '+ind);
-  if(aud)   L.push('Khách hàng      : '+aud);
-  if(cta)   L.push('CTA chính       : '+cta);
-  if(old)   L.push('Giá gốc         : '+old);
-  if(prc)   L.push('Giá bán         : '+prc);
-  if(deal)  L.push('Deadline        : '+deal);
-  if(head)  L.push('Headline gợi ý  : '+head);
-  if(stats) {L.push('\nSố liệu ấn tượng:');stats.split('\n').filter(Boolean).forEach(s=>L.push('  • '+s))}
-  if(usp)   {L.push('\nUSP / Lợi ích:');usp.split('\n').filter(Boolean).forEach(u=>L.push('  • '+u))}
-  if(test)  {L.push('\nTestimonials:');test.split('\n').filter(Boolean).forEach(t=>L.push('  • '+t))}
+  if(v('fProd')) L.push('Tên sản phẩm    : '+v('fProd'));
+  if(document.getElementById('fInd')?.value) L.push('Ngành           : '+document.getElementById('fInd').value);
+  if(v('fAud'))  L.push('Khách hàng      : '+v('fAud'));
+  if(v('fCta'))  L.push('CTA chính       : '+v('fCta'));
+  if(v('fOld'))  L.push('Giá gốc         : '+v('fOld'));
+  if(v('fPrc'))  L.push('Giá bán         : '+v('fPrc'));
+  if(v('fDeal')) L.push('Deadline        : '+v('fDeal'));
+  if(v('fHead')) L.push('Headline gợi ý  : '+v('fHead'));
+  if(v('fContact')) L.push('Liên hệ         : '+v('fContact'));
+  if(v('fStats')){L.push('\nSố liệu ấn tượng:');v('fStats').split('\n').filter(Boolean).forEach(s=>L.push('  • '+s))}
+  if(v('fUsp'))  {L.push('\nUSP / Lợi ích:');v('fUsp').split('\n').filter(Boolean).forEach(u=>L.push('  • '+u))}
+  if(v('fTest')) {L.push('\nTestimonials:');v('fTest').split('\n').filter(Boolean).forEach(t=>L.push('  • '+t))}
 
   L.push('\n═══════════════════════════════════════════');
-  L.push('  ĐỊNH HƯỚNG & MỤC TIÊU');
+  L.push('  ĐỊNH HƯỚNG');
   L.push('═══════════════════════════════════════════');
   if(S.source){L.push('Nguồn dữ liệu   : '+(srcMap[S.source]||S.source));const det=srcDetails[S.source];if(det)L.push('Chi tiết        : '+det)}
   if(S.goal) L.push('Mục tiêu LP     : '+S.goal);
@@ -1010,16 +1010,17 @@ function build(){
 
   const onSecs=SECS.filter(s=>secState[s.id]?.on);
   if(onSecs.length){
-    L.push('\n── Sections theo thứ tự ──');
+    L.push('\n── Sections (theo thứ tự) ──');
     onSecs.forEach((sec,i)=>{
       const{layout,cols}=secState[sec.id];
-      let line=`  ${i+1}. ${sec.ico} ${sec.name}`;
+      let line=`  ${i+1}. ${sec.name}`;
       if(layout) line+=`  →  [${layout}]`;
       if(cols)   line+=`  ·  ${cols} cột`;
       L.push(line);
     });
   }
 
+  // Images
   const catImgs=IMG_CATS.filter(c=>imgStore[c.id].length>0);
   if(catImgs.length){
     L.push('\n── Ảnh upload theo vị trí ──');
@@ -1028,22 +1029,23 @@ function build(){
       L.push(`  [${cat.name}] — ${imgs.length} ảnh:`);
       imgs.forEach((img,j)=>L.push(`     ${j+1}. ${img.name} (${img.sz}) → vị trí "${cat.name}"`));
     });
-    L.push('  → Placeholder: https://placehold.co/WxH + comment <!-- REPLACE: tên -->');
+    L.push('  → Dùng https://placehold.co/WxH cho placeholder, comment <!-- REPLACE: tên --> để dễ tìm');
   }
 
+  // Advanced
   const extras=Object.keys(S.extras);
   if(extras.length){
     L.push('\n── Tùy chọn nâng cao ──');
     const dm={
-      urgency:  ()=>'Countdown Timer/FOMO'+(gv('inUrg')?': '+gv('inUrg'):''),
-      sticky:   ()=>'Sticky CTA bar'+(gv('inStk')?', text: "'+gv('inStk')+'"':''),
-      popup:    ()=>'Exit-intent popup'+(gv('inPop')?': '+gv('inPop'):''),
-      zalo:     ()=>'Zalo floating button'+(gv('inZalo')?', SĐT: '+gv('inZalo'):''),
-      messenger:()=>'Messenger bubble'+(gv('inMess')?', Page: '+gv('inMess'):''),
-      seo:      ()=>'SEO + Open Graph'+(gv('inSeo')?', description: '+gv('inSeo'):''),
+      urgency:()=>'Countdown Timer/FOMO'+(v('inUrg')?': '+v('inUrg'):''),
+      sticky:()=>'Sticky CTA bar'+(v('inStk')?', text: "'+v('inStk')+'"':''),
+      popup:()=>'Exit-intent popup'+(v('inPop')?': '+v('inPop'):''),
+      zalo:()=>'Zalo floating button'+(v('inZalo')?', SĐT: '+v('inZalo'):''),
+      messenger:()=>'Messenger bubble'+(v('inMess')?', Page: '+v('inMess'):''),
+      seo:()=>'SEO + Open Graph'+(v('inSeo')?', description: '+v('inSeo'):''),
       animation:()=>'Scroll animation: '+(document.getElementById('inAnim')?.value||'fade-up'),
-      ladipage: ()=>'Tối ưu LadiPage: CSS inline, section ID rõ, comment phân chia',
-      mobile:   ()=>'Mobile-first: sticky bottom CTA, touch-friendly',
+      ladipage:()=>'Tối ưu LadiPage: CSS inline, section ID rõ, comment phân chia',
+      mobile:()=>'Mobile-first: sticky bottom CTA, touch-friendly',
     };
     extras.forEach(k=>{if(dm[k])L.push('  • '+dm[k]())});
   }
@@ -1051,44 +1053,106 @@ function build(){
   L.push('\n═══════════════════════════════════════════');
   L.push('  YÊU CẦU KỸ THUẬT BẮT BUỘC');
   L.push('═══════════════════════════════════════════');
-  L.push('✅ 1 file HTML duy nhất — đầy đủ <!DOCTYPE html> → </html>');
+  L.push('✅ MỘT file HTML duy nhất, đầy đủ <!DOCTYPE html> đến </html>');
   L.push('✅ CSS thuần trong <style> — KHÔNG Bootstrap/Tailwind/CDN ngoài');
   L.push('✅ Responsive: mobile 375px · tablet 768px · desktop 1280px');
   L.push('✅ Placeholder ảnh: https://placehold.co/WxH/BGCOLOR/FFF?text=Label');
-  L.push('✅ Section xen kẽ nền sáng/tối tạo nhịp thị giác hấp dẫn');
-  L.push('✅ Mỗi section: id rõ ràng + comment /* ── SECTION NAME ── */');
-  L.push('✅ Copywriting: headline power words, benefit-focused, CTA màu nổi bật');
-  L.push('✅ Tối thiểu 800 dòng HTML để LP đủ nội dung và đẹp');
+  L.push('✅ Section xen kẽ nền sáng/tối tạo nhịp thị giác');
+  L.push('✅ Mỗi section: id="..." + comment /* ── SECTION ── */');
+  L.push('✅ Copywriting: power words, benefit-focused, CTA màu nổi bật');
+  L.push('✅ Tối thiểu 800 dòng HTML để landing page đủ nội dung và đẹp');
   L.push('✅ Google Fonts import trong <head> nếu cần font đặc biệt');
   L.push('✅ KHÔNG alert(), confirm() hay JS phức tạp gây lỗi LadiPage');
+  L.push('✅ Trả về CODE HTML THUẦN — không giải thích, không markdown, không ```html```');
 
-  L.push('\n═══════════════════════════════════════════');
-  L.push('  NỘI DUNG / DỮ LIỆU');
-  L.push('═══════════════════════════════════════════');
-  L.push(content||'[Chưa có nội dung — dán tài liệu vào Block 9 để prompt hoàn chỉnh hơn]');
+  if(v('fExtra')){
+    L.push('\n═══════════════════════════════════════════');
+    L.push('  NỘI DUNG / DỮ LIỆU BỔ SUNG');
+    L.push('═══════════════════════════════════════════');
+    L.push(v('fExtra'));
+  }
 
-  out.textContent=L.join('\n');
+  return L.join('\n');
 }
 
-// ════════════════════════════════════
-// COPY
-// ════════════════════════════════════
-function copyPrompt(){
-  const text=document.getElementById('outBody').textContent;
-  if(!text||text.includes('Điền thông tin')){alert('Vui lòng điền ít nhất tên sản phẩm hoặc chọn nguồn dữ liệu!');return}
-  navigator.clipboard.writeText(text).then(()=>{
-    ['mainCopy','qcopyBtn'].forEach(id=>{
-      const b=document.getElementById(id);if(!b)return;
-      const orig=b.textContent;b.textContent='✓ Đã copy!';b.classList.add('ok');
-      setTimeout(()=>{b.textContent=orig;b.classList.remove('ok')},2500);
+// ══ GENERATE ══
+async function generate(){
+  const btn=document.getElementById('genBtn');
+  const errBox=document.getElementById('errBox');
+  errBox.className='error-box';
+
+  // Validate
+  if(!v('fProd')&&!v('fExtra')&&!v('fSrcMoTa')&&!v('fSrcIdea')){
+    errBox.textContent='⚠️ Vui lòng điền ít nhất tên sản phẩm hoặc mô tả sơ bộ trước khi tạo!';
+    errBox.className='error-box show';return;
+  }
+
+  btn.disabled=true;btn.classList.add('generating');
+  const prompt=buildPrompt();
+
+  try{
+    const res=await fetch('/api/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({prompt})
     });
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||'Lỗi server');
+
+    generatedHtml=data.html;
+    showOutput(generatedHtml);
+  }catch(err){
+    errBox.textContent='❌ Lỗi: '+err.message+'. Vui lòng thử lại.';
+    errBox.className='error-box show';
+  }finally{
+    btn.disabled=false;btn.classList.remove('generating');
+  }
+}
+
+function showOutput(html){
+  const wrap=document.getElementById('outputSection');
+  wrap.classList.add('show');
+  // Inject into iframe
+  const frame=document.getElementById('previewFrame');
+  const doc=frame.contentDocument||frame.contentWindow.document;
+  doc.open();doc.write(html);doc.close();
+  // Show source
+  document.getElementById('htmlSrc').textContent=html;
+  // Scroll to output
+  wrap.scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('outLbl').textContent='Landing Page · '+new Date().toLocaleTimeString('vi-VN');
+}
+
+// ══ OUTPUT TABS ══
+function switchTab(tab){
+  document.querySelectorAll('.out-tab').forEach((t,i)=>t.classList.toggle('on',i===(tab==='preview'?0:1)));
+  document.getElementById('previewFrame').style.display=tab==='preview'?'block':'none';
+  document.getElementById('htmlSrc').style.display=tab==='source'?'block':'none';
+}
+
+// ══ ACTIONS ══
+function copyHtml(){
+  if(!generatedHtml){alert('Chưa có HTML — nhấn Tạo Landing Page trước!');return}
+  navigator.clipboard.writeText(generatedHtml).then(()=>{
+    const b=document.getElementById('copyHtmlBtn');
+    b.textContent='✓ Đã copy!';b.classList.add('ok');
+    setTimeout(()=>{b.textContent='📋 Copy HTML';b.classList.remove('ok')},2500);
   });
 }
+function downloadHtml(){
+  if(!generatedHtml){alert('Chưa có HTML!');return}
+  const prod=(v('fProd')||'landing-page').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+  const a=document.createElement('a');
+  a.href='data:text/html;charset=utf-8,'+encodeURIComponent(generatedHtml);
+  a.download=prod+'.html';a.click();
+}
+function openFullPreview(){
+  if(!generatedHtml){alert('Chưa có HTML!');return}
+  const w=window.open('','_blank');
+  w.document.write(generatedHtml);w.document.close();
+}
 
-// ════════════════════════════════════
-// RESET & NAV
-// ════════════════════════════════════
-function resetAll(){if(!confirm('Reset toàn bộ dữ liệu?'))return;location.reload()}
+// ══ NAV ══
 function goTo(id){
   const el=document.getElementById(id);if(!el)return;
   el.scrollIntoView({behavior:'smooth',block:'start'});
@@ -1097,13 +1161,11 @@ function goTo(id){
   if(body&&!body.classList.contains('open')){body.classList.add('open');if(head)head.classList.add('open')}
 }
 
-// ════════════════════════════════════
-// INIT
-// ════════════════════════════════════
+// ══ INIT ══
 initImgCats();
 initSections();
 updB7();
-build();
+updateProgress();
 </script>
 </body>
 </html>
