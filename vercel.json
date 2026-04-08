@@ -1,5 +1,4 @@
-FILE 1: vercel.json
-════════════════════════════════════════════
+
 {
   "functions": {
     "api/generate.js": {
