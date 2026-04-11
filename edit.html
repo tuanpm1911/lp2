@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>WordPress Hosting – Tenten.vn | Tốc Độ Cao, Từ 52K/tháng</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --b1:#0a2463;--b2:#1565c0;--b3:#1976d2;--b4:#42a5f5;--b5:#e3f2fd;
+  --orange:#ff6b2b;--orange-d:#e55a1f;--teal:#00d4aa;
+  --dark:#0d1b3e;--gray:#546e7a;--gray2:#78909c;--gray3:#cfd8dc;
+  --bg:#f0f4ff;--white:#fff;
+  --r:12px;--rl:20px;--font:'Be Vietnam Pro',sans-serif;
+  --sh:0 4px 24px rgba(21,101,192,.14);
+  --shl:0 12px 48px rgba(21,101,192,.22);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:#1a2b5c;background:var(--white);overflow-x:hidden;line-height:1.65;padding-bottom:80px}
+img{max-width:100%;display:block}a{text-decoration:none;color:inherit}ul{list-style:none}
+
+/* ═══ BUILDER TOOLBAR ═══ */
+#toolbar{
+  position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+  z-index:9999;display:flex;gap:6px;align-items:center;
+  background:rgba(8,16,40,.97);backdrop-filter:blur(20px);
+  padding:8px 14px;border-radius:100px;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 8px 48px rgba(0,0,0,.6);
+  flex-wrap:wrap;justify-content:center;
+  max-width:calc(100vw - 32px);
+}
+.tb{
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.88);
+  border:1px solid rgba(255,255,255,.15);
+  font-weight:600;font-size:.78rem;padding:7px 13px;
+  border-radius:100px;cursor:pointer;transition:all .2s;
+  font-family:var(--font);display:flex;align-items:center;gap:5px;
+  white-space:nowrap;
+}
+.tb:hover{background:rgba(255,255,255,.2);color:#fff;transform:translateY(-1px)}
+.tb.on{background:var(--b2);color:#fff;border-color:var(--b2);box-shadow:0 3px 14px rgba(21,101,192,.5)}
+.tb.grn{background:rgba(5,150,105,.2);border-color:rgba(5,150,105,.4);color:#6ee7b7}
+.tb.grn:hover{background:rgba(5,150,105,.35)}
+.tb.red{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.3);color:#fca5a5}
+.tb.red:hover{background:rgba(239,68,68,.3)}
+.tb-sep{width:1px;height:22px;background:rgba(255,255,255,.12);flex-shrink:0}
+.tb-lbl{color:rgba(255,255,255,.3);font-size:.68rem;font-weight:600;padding:0 2px}
+
+/* ═══ TOAST ═══ */
+#toast{
+  position:fixed;bottom:76px;left:50%;transform:translateX(-50%) translateY(6px);
+  background:rgba(8,16,40,.96);color:#fff;
+  padding:9px 20px;border-radius:100px;font-size:.82rem;font-weight:600;
+  z-index:10000;opacity:0;transition:all .35s ease;pointer-events:none;
+  border:1px solid rgba(255,255,255,.12);white-space:nowrap;max-width:90vw;text-align:center;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ═══ TEXT EDIT MODE ═══ */
+body.MODE-text section [data-ed]{
+  outline:2px dashed rgba(21,101,192,.5);border-radius:3px;
+  cursor:text;transition:outline .15s;
+}
+body.MODE-text section [data-ed]:hover{outline-color:var(--b2);background:rgba(21,101,192,.04)}
+body.MODE-text section [data-ed]:focus{outline:2px solid var(--b2);background:rgba(21,101,192,.06)}
+
+/* ═══ IMG EDIT MODE ═══ */
+body.MODE-img section img{cursor:pointer;transition:all .2s}
+body.MODE-img section img:hover{outline:3px solid var(--orange);outline-offset:3px;opacity:.85}
+
+/* ═══ DRAG MODE ═══ */
+.sec-drag-handle{
+  display:none;position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  background:rgba(21,101,192,.92);color:#fff;padding:5px 16px;
+  border-radius:100px;font-size:.72rem;font-weight:700;cursor:grab;
+  z-index:500;align-items:center;gap:6px;white-space:nowrap;
+  box-shadow:0 4px 16px rgba(21,101,192,.4);user-select:none;
+}
+body.MODE-drag section{cursor:grab;position:relative}
+body.MODE-drag .sec-drag-handle{display:flex}
+body.MODE-drag section:active{cursor:grabbing}
+section.drag-over-top{border-top:3px solid var(--b2)!important}
+section.drag-over-bottom{border-bottom:3px solid var(--b2)!important}
+section.dragging{opacity:.4;border:2px dashed rgba(21,101,192,.5)!important}
+
+/* ═══ SEC EDIT BTN (hover) ═══ */
+.sec-btn{
+  display:none;position:absolute;top:8px;right:8px;
+  background:rgba(21,101,192,.9);color:#fff;border:none;
+  border-radius:8px;padding:5px 11px;font-size:.7rem;font-weight:700;
+  cursor:pointer;z-index:400;align-items:center;gap:4px;
+  backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(21,101,192,.3);
+  font-family:var(--font);
+}
+section:hover .sec-btn{display:flex}
+section{position:relative}
+
+/* ═══ PANEL OVERLAY ═══ */
+.panel-bg{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:9990;align-items:flex-end;justify-content:center;
+}
+.panel-bg.open{display:flex}
+.panel{
+  background:#fff;border-radius:20px 20px 0 0;padding:0;
+  width:100%;max-width:520px;max-height:90vh;overflow-y:auto;
+  animation:slideUp .3s ease;
+}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.panel-head{
+  background:linear-gradient(135deg,var(--b1),var(--b2));
+  padding:16px 20px;display:flex;align-items:center;justify-content:space-between;
+  border-radius:20px 20px 0 0;position:sticky;top:0;z-index:1;
+}
+.panel-head h3{color:#fff;font-size:1rem;font-weight:800}
+.panel-close{color:rgba(255,255,255,.7);background:none;border:none;font-size:1.4rem;cursor:pointer;line-height:1;padding:2px 6px;border-radius:6px;transition:.2s}
+.panel-close:hover{color:#fff;background:rgba(255,255,255,.15)}
+.panel-tabs{display:flex;border-bottom:1px solid #f0f0f0;background:#fff;position:sticky;top:52px;z-index:1}
+.ptab{flex:1;padding:10px 8px;font-size:.78rem;font-weight:600;cursor:pointer;text-align:center;color:#94a3b8;border-bottom:2px solid transparent;transition:.2s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font)}
+.ptab.on{color:var(--b2);border-bottom-color:var(--b2)}
+.panel-body{padding:16px}
+.pane{display:none}.pane.on{display:block}
+
+/* Layout grid */
+.layout-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.lo{border:2px solid #e5e7eb;border-radius:10px;padding:8px 4px 6px;cursor:pointer;text-align:center;transition:.2s;background:#fff}
+.lo:hover{border-color:var(--b2);background:var(--b5)}
+.lo.sel{border-color:var(--b2);background:var(--b5)}
+.lo svg{width:38px;height:26px;margin:0 auto 4px;display:block}
+.lo span{font-size:.62rem;color:#64748b;font-weight:600;display:block}
+
+/* Color swatches */
+.swatch-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.sw{height:36px;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:.2s}
+.sw:hover{transform:scale(1.1)}
+.sw.sel{border-color:var(--b2);box-shadow:0 0 0 2px rgba(21,101,192,.4)}
+
+/* Padding buttons */
+.pad-btns{display:flex;gap:8px}
+.pad-btn{flex:1;padding:9px;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;text-align:center;transition:.2s;border:1.5px solid #e5e7eb;background:#fff;font-family:var(--font)}
+.pad-btn:hover{border-color:var(--b2);background:var(--b5);color:var(--b2)}
+
+/* AI input */
+.ai-area{width:100%;border:1.5px solid #e5e7eb;border-radius:10px;padding:10px 12px;font-size:.83rem;font-family:var(--font);resize:none;outline:none;min-height:72px;line-height:1.5}
+.ai-area:focus{border-color:var(--b2)}
+.ai-run{width:100%;background:linear-gradient(135deg,var(--b2),#0288d1);color:#fff;border:none;border-radius:9px;padding:11px;font-size:.85rem;font-weight:700;cursor:pointer;margin-top:8px;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:6px}
+.ai-run:disabled{opacity:.6;cursor:not-allowed}
+#ai-result{margin-top:8px;font-size:.78rem;line-height:1.55;color:#64748b;min-height:20px}
+
+/* Section actions */
+.sec-actions{display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid #f0f0f0}
+.sa{flex:1;padding:9px 6px;border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;text-align:center;transition:.2s;border:none;font-family:var(--font)}
+.sa.dup{background:#e0f2fe;color:#0288d1}.sa.dup:hover{background:#bae6fd}
+.sa.hid{background:#f1f5f9;color:#64748b}.sa.hid:hover{background:#e2e8f0}
+.sa.del{background:#fee2e2;color:#ef4444}.sa.del:hover{background:#fecaca}
+
+/* ═══ IMAGE MODAL ═══ */
+#imgPanel .panel-body{padding:14px}
+.itabs{display:flex;gap:6px;margin-bottom:12px}
+.itab{flex:1;padding:8px;text-align:center;border-radius:8px;font-size:.77rem;font-weight:600;cursor:pointer;border:1.5px solid #e5e7eb;color:#64748b;transition:.2s;background:#fff}
+.itab.on{border-color:var(--b2);background:var(--b5);color:var(--b2)}
+.ipane{display:none}.ipane.on{display:block}
+#img-preview-box{width:100%;height:160px;object-fit:cover;border-radius:10px;border:2px solid #e5e7eb;margin-bottom:12px;background:#f8fafc}
+.drop-zone{
+  border:2px dashed #cbd5e1;border-radius:10px;
+  padding:28px 16px;text-align:center;cursor:pointer;transition:.2s;margin-bottom:10px;
+}
+.drop-zone:hover,.drop-zone.over{border-color:var(--b2);background:var(--b5)}
+.dz-ic{font-size:2.2rem;margin-bottom:6px}
+.dz-tx{font-size:.8rem;color:#94a3b8;line-height:1.5}
+.url-inp{width:100%;border:1.5px solid #e5e7eb;border-radius:8px;padding:9px 12px;font-size:.84rem;font-family:var(--font);outline:none;margin-bottom:8px;transition:.2s}
+.url-inp:focus{border-color:var(--b2)}
+.url-prev-btn{padding:7px 14px;background:var(--b5);color:var(--b2);border:1.5px solid var(--b2);border-radius:7px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:var(--font)}
+.unsplash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;max-height:200px;overflow-y:auto;margin-bottom:10px}
+.unsplash-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:7px;cursor:pointer;border:2px solid transparent;transition:.2s}
+.unsplash-grid img:hover,.unsplash-grid img.sel{border-color:var(--b2);opacity:.85}
+.usq-inp{width:100%;border:1.5px solid #e5e7eb;border-radius:8px;padding:8px 12px;font-size:.82rem;font-family:var(--font);outline:none;margin-bottom:8px;transition:.2s}
+.usq-inp:focus{border-color:var(--b2)}
+.usq-btn{width:100%;background:var(--b2);color:#fff;border:none;border-radius:7px;padding:9px;font-size:.82rem;font-weight:700;cursor:pointer;margin-bottom:8px;font-family:var(--font)}
+.img-acts{display:flex;gap:8px;margin-top:6px}
+.img-cancel{flex:1;padding:10px;background:#f1f5f9;color:#64748b;border:none;border-radius:8px;font-size:.83rem;font-weight:700;cursor:pointer;font-family:var(--font)}
+.img-apply{flex:2;padding:10px;background:var(--b2);color:#fff;border:none;border-radius:8px;font-size:.83rem;font-weight:700;cursor:pointer;font-family:var(--font)}
+
+/* ═══ PREVIEW PANEL ═══ */
+#previewPanel{
+  display:none;position:fixed;inset:0;z-index:9998;
+  background:#1a1a2e;flex-direction:column;
+}
+#previewPanel.open{display:flex}
+.prev-head{
+  background:rgba(8,16,40,.98);padding:10px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;
+  gap:12px;flex-wrap:wrap;
+}
+.prev-title{color:#fff;font-weight:700;font-size:.88rem;white-space:nowrap}
+.prev-devs{display:flex;gap:6px}
+.pdev{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);padding:6px 14px;border-radius:100px;font-size:.76rem;font-weight:600;cursor:pointer;transition:.2s;white-space:nowrap}
+.pdev.on{background:var(--b2);color:#fff;border-color:var(--b2)}
+.prev-close{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#fca5a5;padding:7px 16px;border-radius:100px;font-size:.76rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.prev-close:hover{background:rgba(239,68,68,.3)}
+.prev-wrap{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:16px;overflow:auto;background:#2d2d44}
+#prev-iframe{background:#fff;border-radius:8px;box-shadow:0 20px 80px rgba(0,0,0,.5);transition:width .3s ease;border:none;flex-shrink:0}
+
+/* ═══ SECTIONS ═══ */
+.W{max-width:1200px;margin:0 auto;padding:0 24px}
+.H1{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;line-height:1.15;color:var(--dark)}
+.H2{font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:800;line-height:1.22;color:var(--dark)}
+.sub{font-size:.97rem;color:var(--gray);line-height:1.72;margin-top:12px}
+.tc{text-align:center}.tc .sub{max-width:580px;margin:12px auto 0}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:12px}
+.tag-b{background:rgba(21,101,192,.1);color:var(--b2)}
+.tag-o{background:#fff3ee;color:var(--orange-d)}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:13px 26px;border-radius:var(--r);font-weight:700;font-size:.95rem;cursor:pointer;border:none;transition:all .2s;line-height:1;font-family:var(--font)}
+.btn-blue{background:var(--b2);color:#fff;box-shadow:0 4px 18px rgba(21,101,192,.35)}
+.btn-blue:hover{background:var(--b1);transform:translateY(-2px)}
+.btn-orange{background:var(--orange);color:#fff;box-shadow:0 4px 18px rgba(255,107,43,.35)}
+.btn-orange:hover{background:var(--orange-d);transform:translateY(-2px)}
+.btn-ow{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5)}
+.btn-ow:hover{background:rgba(255,255,255,.15)}
+.btn-lg{padding:17px 36px;font-size:1.05rem;border-radius:14px}
+.btn-block{width:100%;justify-content:center}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.25)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-12px)}60%{transform:translateY(-6px)}}
+.fade-in{animation:float 0s}
+
+/* ── HERO ── */
+#hero{min-height:100vh;background:linear-gradient(160deg,#0a2463 0%,#1565c0 50%,#0288d1 100%);display:flex;align-items:center;padding:100px 0 60px;position:relative;overflow:hidden}
+.hero-mesh{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.055) 1px,transparent 1px);background-size:44px 44px;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none}
+.o1{width:500px;height:500px;background:rgba(255,255,255,.07);top:-150px;right:-100px;animation:float 12s ease-in-out infinite}
+.o2{width:350px;height:350px;background:rgba(255,107,43,.1);bottom:-80px;left:5%;animation:float 15s ease-in-out infinite reverse}
+.hero-2col{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}
+.hero-live{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.77rem;font-weight:700;padding:8px 16px;border-radius:100px;margin-bottom:18px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#69ff85;animation:pulse 2s infinite;flex-shrink:0}
+.hero-price{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px 20px;margin:18px 0;display:flex;align-items:center;gap:16px;backdrop-filter:blur(8px)}
+.hp-num{font-size:2.3rem;font-weight:900;color:#fff;line-height:1}
+.hp-num s{font-size:.95rem;color:rgba(255,255,255,.4);display:block;text-decoration:line-through;font-weight:400}
+.hp-desc{color:rgba(255,255,255,.78);font-size:.87rem;line-height:1.55}
+.hp-desc strong{color:#fff}
+.hero-acts{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.hero-trust{display:flex;flex-wrap:wrap;gap:14px}
+.ht{display:flex;align-items:center;gap:6px;font-size:.8rem;color:rgba(255,255,255,.62)}
+.ht .ck{color:#69ff85;font-weight:800}
+.hero-scores{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:18px}
+.hs{text-align:center}
+.hs-n{font-size:1.5rem;font-weight:900;color:#fff;line-height:1}
+.hs-n.tl{color:#69ffec}.hs-n.yl{color:#ffd740}
+.hs-l{font-size:.6rem;color:rgba(255,255,255,.48);margin-top:2px}
+.hero-visual{position:relative}
+.hero-img-wrap{border-radius:20px;overflow:hidden;box-shadow:0 28px 80px rgba(0,0,0,.4);border:2px solid rgba(255,255,255,.1);animation:float 9s ease-in-out infinite}
+.hero-img-wrap img{width:100%;display:block}
+.hfc{position:absolute;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-radius:13px;padding:11px 14px;box-shadow:0 8px 30px rgba(0,0,0,.18);display:flex;align-items:center;gap:10px;z-index:5}
+.hfc.c1{bottom:60px;left:-24px;animation:float 6s ease-in-out infinite}
+.hfc.c2{top:50px;right:-24px;animation:float 7s ease-in-out infinite 1.5s}
+.hfc-ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;background:var(--b5)}
+.hfc-tx{font-size:.74rem;line-height:1.3;color:#1a2b5c}
+.hfc-tx strong{font-size:.82rem;color:var(--b2);display:block}
+
+/* ── LOGOS ── */
+#logos{padding:44px 0;background:#fff;border-bottom:1px solid var(--gray3)}
+.logo-label{text-align:center;font-size:.72rem;color:var(--gray2);font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-bottom:18px}
+.logo-row{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+.lchip{display:flex;align-items:center;gap:7px;padding:8px 16px;border-radius:10px;border:1.5px solid var(--gray3);background:var(--bg);transition:.2s;font-size:.78rem;font-weight:700;color:var(--gray)}
+.lchip:hover{border-color:var(--b2);background:var(--b5);color:var(--b2)}
+
+/* ── FEATURES ── */
+#features{padding:80px 0;background:var(--bg)}
+.tabs-nav{display:flex;gap:6px;justify-content:center;margin:32px 0 40px;flex-wrap:wrap}
+.tnav{padding:9px 20px;border-radius:100px;font-size:.85rem;font-weight:600;cursor:pointer;border:2px solid var(--gray3);background:#fff;color:var(--gray);transition:.2s;font-family:var(--font)}
+.tnav.on{background:var(--b2);color:#fff;border-color:var(--b2);box-shadow:0 4px 14px rgba(21,101,192,.3)}
+.tpane{display:none}.tpane.on{display:block}
+.feat4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.fcard{background:#fff;border-radius:var(--rl);padding:22px 18px;border:1.5px solid var(--gray3);transition:.2s;position:relative;overflow:hidden}
+.fcard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--b2),var(--b4));opacity:0;transition:.2s}
+.fcard:hover{transform:translateY(-3px);box-shadow:var(--shl);border-color:rgba(21,101,192,.2)}
+.fcard:hover::after{opacity:1}
+.fcard-ic{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin-bottom:12px}
+.ib{background:var(--b5)}.ig{background:#e8f5e9}.io{background:#fff3e0}.ip{background:#f3e5f5}.ir{background:#fce4ec}.iy{background:#fffde7}
+.fcard-t{font-size:.96rem;font-weight:700;color:var(--dark);margin-bottom:5px}
+.fcard-d{font-size:.83rem;color:var(--gray);line-height:1.65}
+.fcard-tag{display:inline-block;font-size:.67rem;font-weight:700;color:var(--b2);background:var(--b5);padding:2px 8px;border-radius:100px;margin-top:7px}
+
+/* ── STATS ── */
+#stats{padding:76px 0;background:linear-gradient(160deg,#0d1b3e,#0f2460)}
+.stats4{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{text-align:center;padding:36px 20px;border-right:1px solid rgba(255,255,255,.08)}
+.stat:last-child{border-right:none}
+.stat-ic{font-size:2.1rem;margin-bottom:13px;display:block}
+.stat-n{font-size:clamp(1.9rem,3vw,3rem);font-weight:900;color:#fff;line-height:1;margin-bottom:7px}
+.stat-n em{font-style:normal;color:#00d4aa}
+.stat-l{font-size:.86rem;color:rgba(255,255,255,.5)}
+.stat-note{font-size:.7rem;color:rgba(105,255,236,.6);margin-top:4px}
+
+/* ── PROOF ── */
+#proof{padding:80px 0;background:#f0f4ff}
+.proof-2{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center}
+.vid-wrap{border-radius:18px;overflow:hidden;box-shadow:var(--shl);position:relative;cursor:pointer;margin-bottom:14px;aspect-ratio:16/9}
+.vid-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.play-ov{position:absolute;inset:0;background:rgba(10,36,99,.2);display:flex;align-items:center;justify-content:center;transition:.2s}
+.play-ov:hover{background:rgba(10,36,99,.38)}
+.play-ring{width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,.96);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 28px rgba(0,0,0,.18);transition:.2s}
+.play-ov:hover .play-ring{transform:scale(1.1)}
+.play-tri{width:0;height:0;border:solid transparent;border-left-color:var(--b2);border-width:11px 0 11px 20px;margin-left:4px}
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ba-item{border-radius:var(--r);overflow:hidden;border:2px solid var(--gray3);cursor:pointer;transition:.2s}
+.ba-item:hover{border-color:var(--b2);transform:scale(1.02)}
+.ba-lbl{background:var(--b2);color:#fff;font-size:.7rem;font-weight:700;padding:4px 8px;text-align:center}
+.ba-item img{width:100%;height:120px;object-fit:cover;display:block}
+.proof-cl{display:flex;flex-direction:column;gap:12px;margin:18px 0 22px}
+.pc{display:flex;align-items:flex-start;gap:11px;font-size:.9rem;color:var(--dark)}
+.pc .ck{color:#00c896;font-weight:900;font-size:1rem;flex-shrink:0;margin-top:1px}
+.proof-sc{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:20px}
+.ps{background:#fff;border-radius:var(--r);padding:12px;text-align:center;border:1.5px solid var(--gray3)}
+.ps-n{font-size:1.4rem;font-weight:900;color:var(--b2);line-height:1}
+.ps-n.g{color:#00a040}
+.ps-l{font-size:.68rem;color:var(--gray);margin-top:2px}
+
+/* ── BEFORE AFTER ── */
+#before-after{padding:80px 0;background:#fff}
+.ba2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:44px}
+.bac{border-radius:18px;padding:32px 28px}
+.bac.bef{background:#fff5f5;border:1.5px solid #fecaca}
+.bac.aft{background:#f0f8ff;border:1.5px solid #bfdbfe}
+.bac-head{display:flex;align-items:flex-start;gap:13px;margin-bottom:22px}
+.bac-ic{font-size:2.2rem;line-height:1;flex-shrink:0}
+.bac-ht{font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:2px}
+.bac-hs{font-size:.8rem;color:var(--gray)}
+.bac-items{display:flex;flex-direction:column;gap:11px}
+.brow{display:flex;align-items:flex-start;gap:11px;font-size:.88rem;line-height:1.5}
+.brow-ic{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0;margin-top:1px}
+.brow-ic.bad{background:#fee2e2;color:#ef4444}
+.brow-ic.good{background:#d1fae5;color:#059669}
+.brow.bad-r{color:#78909c}.brow.good-r{color:var(--dark)}
+
+/* ── TESTIMONIALS ── */
+#testimonials{padding:80px 0;background:var(--bg)}
+.testi3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+.tc-card{border-radius:var(--rl);padding:26px;border:1.5px solid var(--gray3);transition:.2s;position:relative;background:#fff}
+.tc-card:hover{transform:translateY(-3px);box-shadow:var(--shl);border-color:rgba(21,101,192,.18)}
+.tc-card.feat{background:linear-gradient(135deg,#0d1b3e,#1565c0);border-color:transparent}
+.tc-stars{display:flex;gap:3px;margin-bottom:11px}
+.tc-stars span{color:#ffc107;font-size:.9rem}
+.tc-card.feat .tc-stars span{color:#ffd740}
+.tc-body{font-size:.87rem;line-height:1.7;font-style:italic;color:var(--dark);margin-bottom:16px}
+.tc-card.feat .tc-body{color:rgba(255,255,255,.88)}
+.tc-author{display:flex;align-items:center;gap:11px}
+.tc-ava{width:42px;height:42px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2.5px solid var(--b5)}
+.tc-card.feat .tc-ava{border-color:rgba(255,255,255,.22)}
+.tc-ava img{width:100%;height:100%;object-fit:cover}
+.tc-name{font-weight:700;font-size:.88rem;color:var(--dark)}
+.tc-card.feat .tc-name{color:#fff}
+.tc-role{font-size:.74rem;color:var(--gray)}
+.tc-card.feat .tc-role{color:rgba(255,255,255,.6)}
+.tc-q{position:absolute;top:16px;right:18px;font-size:3.5rem;color:rgba(21,101,192,.07);font-family:Georgia,serif;line-height:1}
+.tc-card.feat .tc-q{color:rgba(255,255,255,.08)}
+.proof-bar{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-radius:var(--rl);border:1px solid var(--gray3);overflow:hidden;margin-top:36px}
+.pb-item{text-align:center;padding:16px 10px;border-right:1px solid var(--gray3)}
+.pb-item:last-child{border-right:none}
+.pb-n{font-size:1.6rem;font-weight:900;color:var(--b2)}
+.pb-l{font-size:.73rem;color:var(--gray);margin-top:2px}
+
+/* ── PRICING ── */
+#pricing{padding:80px 0;background:var(--bg)}
+.pricing3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px;align-items:start}
+.pk{background:#fff;border-radius:20px;border:2px solid var(--gray3);padding:30px 24px;position:relative;overflow:hidden;transition:.2s}
+.pk::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--b2),var(--b4));opacity:0;transition:.2s}
+.pk.feat{border-color:var(--b2);box-shadow:0 8px 40px rgba(21,101,192,.2);transform:scale(1.04)}
+.pk.feat::before,.pk:hover::before{opacity:1}
+.pk:hover{transform:translateY(-3px);box-shadow:var(--shl)}
+.pk.feat:hover{transform:scale(1.04) translateY(-3px)}
+.pk-badge{position:absolute;top:16px;right:16px;background:var(--orange);color:#fff;font-size:.68rem;font-weight:700;padding:4px 11px;border-radius:100px}
+.pk-name{font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:5px}
+.pk-desc{font-size:.8rem;color:var(--gray);margin-bottom:18px;line-height:1.55}
+.pk-price{display:flex;align-items:flex-end;gap:4px;margin-bottom:3px}
+.pk-num{font-size:2.4rem;font-weight:900;color:var(--b2);line-height:1}
+.pk-unit{font-size:.84rem;color:var(--gray);padding-bottom:4px}
+.pk-old{font-size:.8rem;color:var(--gray2);text-decoration:line-through;margin-bottom:3px}
+.pk-save{font-size:.7rem;font-weight:700;color:var(--orange);background:#fff3ee;padding:2px 8px;border-radius:100px;margin-bottom:18px;display:inline-block}
+.pk-feats{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.pkf{display:flex;align-items:center;gap:7px;font-size:.84rem;color:var(--dark)}
+.ck-ok{width:17px;height:17px;border-radius:50%;background:var(--b5);color:var(--b2);display:flex;align-items:center;justify-content:center;font-size:.58rem;flex-shrink:0;font-weight:800}
+.ck-no{width:17px;height:17px;border-radius:50%;background:#fee2e2;color:#ef4444;display:flex;align-items:center;justify-content:center;font-size:.58rem;flex-shrink:0}
+.pkf.dim{opacity:.48}
+.deal-boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.deal-box{background:#fff;border-radius:var(--rl);padding:18px;border:1.5px solid var(--gray3);text-align:center;transition:.2s}
+.deal-box:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:var(--sh)}
+.deal-ic{font-size:1.8rem;margin-bottom:8px}
+.deal-t{font-size:.88rem;font-weight:700;color:var(--dark);margin-bottom:4px}
+.deal-d{font-size:.78rem;color:var(--gray);line-height:1.5}
+.deal-tag{font-size:.7rem;font-weight:700;color:var(--orange);background:#fff3ee;padding:2px 8px;border-radius:100px;margin-top:6px;display:inline-block}
+
+/* ── FAQ ── */
+#faq{padding:80px 0;background:#fff}
+.faq-lay{display:grid;grid-template-columns:1fr 1.4fr;gap:56px;align-items:start;margin-top:44px}
+.faq-img{border-radius:18px;overflow:hidden;box-shadow:var(--shl);position:sticky;top:90px}
+.faq-img img{width:100%;display:block}
+.faq-list{display:flex;flex-direction:column;gap:9px}
+.fi{border:1.5px solid var(--gray3);border-radius:13px;overflow:hidden;transition:.2s}
+.fi.open{border-color:rgba(21,101,192,.25);box-shadow:0 4px 18px rgba(21,101,192,.08)}
+.fq{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;cursor:pointer;font-weight:600;font-size:.9rem;color:var(--dark);background:#fff;gap:10px;transition:.2s}
+.fi.open .fq{background:var(--b5);color:var(--b2)}
+.fq-ic{width:24px;height:24px;border-radius:50%;background:var(--b5);color:var(--b2);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0;border:1.5px solid #e5e7eb;transition:.2s}
+.fi.open .fq-ic{background:var(--b2);color:#fff;border-color:var(--b2);transform:rotate(45deg)}
+.fa{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.fi.open .fa{max-height:260px}
+.fa-in{padding:13px 18px;font-size:.86rem;color:var(--gray);line-height:1.72;border-top:1px solid #f0f5f9}
+
+/* ── COMPARE ── */
+#compare{padding:80px 0;background:var(--bg)}
+.cmp-tbl{border-radius:18px;overflow:hidden;border:1.5px solid var(--gray3);box-shadow:0 8px 40px rgba(0,0,0,.06);margin-top:44px}
+.cmp-head{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;background:var(--b1);color:#fff}
+.cmp-head>div{padding:14px 16px;font-size:.8rem;font-weight:700;text-align:center}
+.cmp-head>div:first-child{text-align:left}
+.cmp-head .hl{background:rgba(21,101,192,.28);color:#69ffec}
+.cmp-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border-bottom:1px solid var(--gray3)}
+.cmp-row:last-child{border-bottom:none}
+.cmp-row:nth-child(even){background:var(--bg)}
+.cmp-row>div{padding:12px 16px;font-size:.83rem;color:var(--dark);display:flex;align-items:center;justify-content:center;text-align:center}
+.cmp-row>div:first-child{justify-content:flex-start;font-weight:600}
+.cmp-row .hlc{background:rgba(21,101,192,.03)}
+.ckok{color:var(--b2);font-size:1.05rem;font-weight:800}
+.ckno{color:#ef4444;font-size:.95rem}
+
+/* ── CTA ── */
+#cta{padding:80px 0;background:linear-gradient(160deg,#0a2463,#1565c0,#0288d1);position:relative;overflow:hidden}
+#cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 25% 50%,rgba(255,255,255,.05),transparent)}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}
+.cta-left h2{color:#fff;margin-bottom:12px}
+.cta-left p{color:rgba(255,255,255,.62);font-size:.92rem;line-height:1.7;margin-bottom:24px}
+.cd-row{display:flex;gap:9px;margin-bottom:20px}
+.cd-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:11px 15px;min-width:60px;text-align:center}
+.cd-n{font-size:1.7rem;font-weight:900;color:#fff;line-height:1}
+.cd-l{font-size:.58rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+.cd-sep{font-size:1.5rem;font-weight:900;color:rgba(255,255,255,.22);display:flex;align-items:flex-start;padding-top:8px}
+.slots-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(255,107,43,.15);border:1px solid rgba(255,107,43,.28);border-radius:100px;padding:7px 14px;font-size:.8rem;color:rgba(255,255,255,.78);margin-bottom:16px}
+.sp-dot{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite;flex-shrink:0}
+.mf{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);border-radius:18px;padding:28px}
+.mf-title{font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:4px}
+.mf-sub{font-size:.79rem;color:rgba(255,255,255,.48);margin-bottom:18px}
+.mff{margin-bottom:11px}
+.mff input,.mff select{width:100%;padding:10px 12px;border:1.5px solid rgba(255,255,255,.13);border-radius:8px;background:rgba(255,255,255,.08);color:#fff;font-size:.87rem;font-family:var(--font);outline:none;transition:.2s}
+.mff input::placeholder{color:rgba(255,255,255,.3)}
+.mff input:focus,.mff select:focus{border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.12)}
+.mff select{color:rgba(255,255,255,.65);appearance:none}
+.mff select option{background:#1565c0;color:#fff}
+.mf-btn{width:100%;padding:13px;background:var(--orange);color:#fff;border:none;border-radius:10px;font-size:.95rem;font-weight:800;font-family:var(--font);cursor:pointer;transition:.2s;box-shadow:0 5px 18px rgba(255,107,43,.3)}
+.mf-btn:hover{background:var(--orange-d);transform:translateY(-1px)}
+.mf-note{text-align:center;font-size:.7rem;color:rgba(255,255,255,.28);margin-top:7px}
+
+/* ── FORM ── */
+#form{padding:80px 0;background:#fff}
+.form-lay{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.form-info h2{font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--dark);margin-bottom:11px;line-height:1.3}
+.form-info p{font-size:.9rem;color:var(--gray);line-height:1.7;margin-bottom:20px}
+.fp-list{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+.fp{display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--dark)}
+.fp-ic{width:30px;height:30px;border-radius:8px;background:var(--b5);display:flex;align-items:center;justify-content:center;font-size:.82rem;flex-shrink:0}
+.form-side-img{border-radius:var(--rl);overflow:hidden;box-shadow:var(--shl)}
+.form-side-img img{width:100%;display:block}
+.form-card{background:#fff;border-radius:20px;padding:36px;border:2px solid var(--b5);box-shadow:var(--shl)}
+.fct{font-size:1.2rem;font-weight:900;color:var(--dark);margin-bottom:4px}
+.fcs{font-size:.81rem;color:var(--gray);margin-bottom:22px}
+.fg{margin-bottom:13px}
+.fl{display:block;font-size:.78rem;font-weight:600;color:var(--dark);margin-bottom:5px}
+.fl em{color:var(--b2);font-style:normal}
+.finp{width:100%;padding:10px 12px;border:1.5px solid var(--gray3);border-radius:8px;font-size:.9rem;font-family:var(--font);color:var(--dark);background:#fff;outline:none;transition:.2s}
+.finp:focus{border-color:var(--b2);box-shadow:0 0 0 3px rgba(21,101,192,.1)}
+.finp::placeholder{color:#aab4c0}
+.fsel{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
+.fchk{display:flex;align-items:flex-start;gap:8px;font-size:.78rem;color:var(--gray);line-height:1.5}
+.fchk input{margin-top:2px;accent-color:var(--b2);flex-shrink:0}
+.fsubmit{width:100%;padding:14px;background:linear-gradient(135deg,var(--b2),#0288d1);color:#fff;border:none;border-radius:10px;font-size:.95rem;font-weight:800;font-family:var(--font);cursor:pointer;transition:.2s;box-shadow:0 5px 18px rgba(21,101,192,.32);margin-top:7px}
+.fsubmit:hover{transform:translateY(-1px);box-shadow:0 8px 26px rgba(21,101,192,.42)}
+.fpriv{text-align:center;font-size:.7rem;color:var(--gray2);margin-top:8px;display:flex;align-items:center;justify-content:center;gap:4px}
+#fs{display:none;text-align:center;padding:36px 16px}
+#fs .si{font-size:3.2rem;margin-bottom:11px}
+#fs h3{font-size:1.2rem;font-weight:900;color:var(--dark);margin-bottom:6px}
+#fs p{color:var(--gray);font-size:.87rem;line-height:1.65}
+
+/* ── FOOTER ── */
+#footer{padding:52px 0 26px;background:var(--b1)}
+.foot3{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.flogo{font-size:1.3rem;font-weight:900;margin-bottom:10px;color:#fff}
+.flogo span{color:var(--orange)}
+.fdesc{font-size:.8rem;color:rgba(255,255,255,.4);line-height:1.68;margin-bottom:16px}
+.fcontacts{display:flex;flex-direction:column;gap:6px}
+.fcon{font-size:.8rem;color:rgba(255,255,255,.48);display:flex;align-items:center;gap:7px}
+.fcon a{color:rgba(255,255,255,.58);transition:.2s}
+.fcon a:hover{color:var(--orange)}
+.fcol h4{font-size:.84rem;font-weight:700;color:rgba(255,255,255,.72);margin-bottom:13px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.08)}
+.flinks{display:flex;flex-direction:column;gap:7px}
+.flinks a{font-size:.78rem;color:rgba(255,255,255,.4);transition:.2s}
+.flinks a:hover{color:var(--orange)}
+.fbot{border-top:1px solid rgba(255,255,255,.07);padding-top:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.fcopy{font-size:.73rem;color:rgba(255,255,255,.26)}
+.flegal{display:flex;gap:14px}
+.flegal a{font-size:.73rem;color:rgba(255,255,255,.3);transition:.2s}
+.flegal a:hover{color:var(--orange)}
+
+/* ── MOBILE CTA ── */
+#mcta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9990;background:linear-gradient(135deg,var(--b1),var(--b2));padding:11px 18px;box-shadow:0 -4px 22px rgba(0,0,0,.2)}
+.mc-in{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mc-tx{color:#fff;line-height:1.3}
+.mc-tx strong{display:block;font-size:.88rem}
+.mc-tx span{font-size:.74rem;opacity:.7}
+.mc-btn{background:var(--orange);color:#fff;font-weight:800;font-size:.8rem;padding:9px 16px;border-radius:9px;white-space:nowrap;flex-shrink:0;transition:.2s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .hero-2col{grid-template-columns:1fr}.hero-visual{display:none}
+  .feat4{grid-template-columns:1fr 1fr}
+  .stats4{grid-template-columns:1fr 1fr}.stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+  .proof-2{grid-template-columns:1fr}
+  .ba2{grid-template-columns:1fr}
+  .testi3{grid-template-columns:1fr}
+  .pricing3{grid-template-columns:1fr}.pk.feat{transform:none}
+  .faq-lay{grid-template-columns:1fr}.faq-img{display:none}
+  .cmp-head,.cmp-row{grid-template-columns:1.8fr 1fr 1fr 1fr;font-size:.75rem}
+  .cta-grid{grid-template-columns:1fr}
+  .form-lay{grid-template-columns:1fr}
+  .foot3{grid-template-columns:1fr}
+  .deal-boxes{grid-template-columns:1fr}
+  .proof-bar{grid-template-columns:repeat(2,1fr)}.pb-item:nth-child(2){border-right:none}
+  #mcta{display:block}
+  body{padding-bottom:130px}
+  .tb{font-size:.72rem;padding:6px 10px}
+}
+@media(max-width:480px){
+  .feat4{grid-template-columns:1fr}.stats4{grid-template-columns:1fr}
+  .hero-acts{flex-direction:column}.btn-lg{width:100%;justify-content:center}
+  .hero-scores{grid-template-columns:repeat(2,1fr)}
+  .ba-grid{grid-template-columns:1fr}
+  .proof-sc{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ TOOLBAR ══════════════ -->
+<div id="toolbar">
+  <span class="tb-lbl">🛠️ Builder</span>
+  <button class="tb" id="btn-text" onclick="PB.toggleMode('text')">✏️ Sửa chữ</button>
+  <button class="tb" id="btn-img" onclick="PB.toggleMode('img')">🖼️ Sửa ảnh</button>
+  <button class="tb" id="btn-drag" onclick="PB.toggleMode('drag')">⠿ Kéo thả</button>
+  <div class="tb-sep"></div>
+  <button class="tb" onclick="PB.openLayoutFor(null)">⊞ Bố cục</button>
+  <button class="tb grn" onclick="PB.openPreview()">▶ Xem trước</button>
+  <div class="tb-sep"></div>
+  <button class="tb" onclick="PB.undo()" title="Hoàn tác (Ctrl+Z)">↩ Hoàn tác</button>
+  <button class="tb red" onclick="PB.download()">📥 Tải HTML</button>
+</div>
+<div id="toast"></div>
+<input type="file" id="img-file-input" accept="image/*" style="display:none">
+
+<!-- ══════════════ SECTION PANEL ══════════════ -->
+<div class="panel-bg" id="secPanel" onclick="PB.closeSecPanel(event)">
+  <div class="panel" onclick="event.stopPropagation()">
+    <div class="panel-head">
+      <h3 id="panel-sec-title">⊞ Chỉnh sửa section</h3>
+      <button class="panel-close" onclick="PB.closeSecPanel()">✕</button>
+    </div>
+    <div class="panel-tabs">
+      <button class="ptab on" onclick="PB.switchPanelTab('layout',this)">Bố cục</button>
+      <button class="ptab" onclick="PB.switchPanelTab('ai',this)">✨ AI tạo layout</button>
+      <button class="ptab" onclick="PB.switchPanelTab('style',this)">🎨 Màu sắc</button>
+      <button class="ptab" onclick="PB.switchPanelTab('more',this)">⚙️ Thêm</button>
+    </div>
+    <div class="panel-body">
+      <!-- LAYOUT TAB -->
+      <div class="pane on" id="pane-layout">
+        <p style="font-size:.78rem;color:#64748b;margin-bottom:10px">Chọn số cột cho nội dung bên trong section:</p>
+        <div class="layout-grid">
+          <div class="lo" onclick="PB.applyLayout(1,this)">
+            <svg viewBox="0 0 38 26"><rect x="2" y="2" width="34" height="22" rx="2" fill="#cbd5e1"/></svg>
+            <span>1 cột</span>
+          </div>
+          <div class="lo" onclick="PB.applyLayout(2,this)">
+            <svg viewBox="0 0 38 26"><rect x="2" y="2" width="15" height="22" rx="2" fill="#cbd5e1"/><rect x="21" y="2" width="15" height="22" rx="2" fill="#cbd5e1"/></svg>
+            <span>2 cột</span>
+          </div>
+          <div class="lo" onclick="PB.applyLayout(3,this)">
+            <svg viewBox="0 0 38 26"><rect x="1" y="2" width="10" height="22" rx="2" fill="#cbd5e1"/><rect x="14" y="2" width="10" height="22" rx="2" fill="#cbd5e1"/><rect x="27" y="2" width="10" height="22" rx="2" fill="#cbd5e1"/></svg>
+            <span>3 cột</span>
+          </div>
+          <div class="lo" onclick="PB.applyLayout(4,this)">
+            <svg viewBox="0 0 38 26"><rect x="1" y="2" width="7" height="22" rx="1" fill="#cbd5e1"/><rect x="11" y="2" width="7" height="22" rx="1" fill="#cbd5e1"/><rect x="21" y="2" width="7" height="22" rx="1" fill="#cbd5e1"/><rect x="31" y="2" width="7" height="22" rx="1" fill="#cbd5e1"/></svg>
+            <span>4 cột</span>
+          </div>
+          <div class="lo" onclick="PB.applyLayout('hero',this)">
+            <svg viewBox="0 0 38 26"><rect x="2" y="2" width="16" height="22" rx="2" fill="#93c5fd"/><rect x="21" y="2" width="15" height="5" rx="1" fill="#cbd5e1"/><rect x="21" y="9" width="15" height="3" rx="1" fill="#e2e8f0"/><rect x="21" y="14" width="10" height="3" rx="1" fill="#e2e8f0"/><rect x="21" y="19" width="11" height="5" rx="1" fill="#60a5fa"/></svg>
+            <span>Hero</span>
+          </div>
+          <div class="lo" onclick="PB.applyLayout('hero-rev',this)">
+            <svg viewBox="0 0 38 26"><rect x="20" y="2" width="16" height="22" rx="2" fill="#93c5fd"/><rect x="2" y="2" width="15" height="5" rx="1" fill="#cbd5e1"/><rect x="2" y="9" width="15" height="3" rx="1" fill="#e2e8f0"/><rect x="2" y="14" width="10" height="3" rx="1" fill="#e2e8f0"/><rect x="2" y="19" width="11" height="5" rx="1" fill="#60a5fa"/></svg>
+            <span>Hero đảo</span>
+          </div>
+          <div class="lo" onclick="PB.applyLayout('full-cta',this)">
+            <svg viewBox="0 0 38 26"><rect x="4" y="5" width="30" height="5" rx="1" fill="#cbd5e1"/><rect x="7" y="12" width="24" height="3" rx="1" fill="#e2e8f0"/><rect x="10" y="17" width="18" height="6" rx="2" fill="#60a5fa"/></svg>
+            <span>Full CTA</span>
+          </div>
+          <div class="lo" onclick="PB.applyLayout(6,this)">
+            <svg viewBox="0 0 38 26"><rect x="1" y="2" width="5" height="22" rx="1" fill="#cbd5e1"/><rect x="8" y="2" width="5" height="22" rx="1" fill="#cbd5e1"/><rect x="15" y="2" width="5" height="22" rx="1" fill="#cbd5e1"/><rect x="22" y="2" width="5" height="22" rx="1" fill="#cbd5e1"/><rect x="29" y="2" width="4" height="22" rx="1" fill="#cbd5e1"/><rect x="34" y="2" width="3" height="22" rx="1" fill="#cbd5e1"/></svg>
+            <span>6 cột</span>
+          </div>
+        </div>
+        <div class="sec-actions">
+          <button class="sa dup" onclick="PB.duplicateSec()">⧉ Nhân đôi</button>
+          <button class="sa hid" onclick="PB.hideSec()">👁 Ẩn đi</button>
+          <button class="sa del" onclick="PB.deleteSec()">✕ Xoá</button>
+        </div>
+      </div>
+
+      <!-- AI TAB -->
+      <div class="pane" id="pane-ai">
+        <p style="font-size:.78rem;color:#64748b;margin-bottom:10px">Mô tả bố cục bạn muốn bằng tiếng Việt, AI sẽ tạo lại layout cho section này:</p>
+        <textarea class="ai-area" id="ai-prompt-inp" placeholder="VD: 3 cột cards với icon lớn, nền xanh gradient, mỗi card có tiêu đề bold và 4 dòng mô tả&#10;VD: Layout 2 cột, trái ảnh tròn, phải text với 5 bullet points và CTA button màu cam&#10;VD: Bảng so sánh 4 cột với header màu navy và các hàng xen kẽ trắng/xanh nhạt"></textarea>
+        <button class="ai-run" id="ai-run-btn" onclick="PB.runAI()">
+          <span id="ai-run-ic">✨</span> <span id="ai-run-tx">Tạo layout bằng AI</span>
+        </button>
+        <div id="ai-result"></div>
+      </div>
+
+      <!-- STYLE TAB -->
+      <div class="pane" id="pane-style">
+        <p style="font-size:.78rem;color:#64748b;margin-bottom:10px">Màu nền section:</p>
+        <div class="swatch-grid">
+          <div class="sw" style="background:#fff;border:2px solid #e5e7eb" onclick="PB.applyBg('#fff',this)" title="Trắng"></div>
+          <div class="sw" style="background:#f0f4ff" onclick="PB.applyBg('#f0f4ff',this)" title="Xanh nhạt"></div>
+          <div class="sw" style="background:linear-gradient(135deg,#0d1b3e,#1565c0)" onclick="PB.applyBg('linear-gradient(135deg,#0d1b3e,#1565c0)',this)" title="Xanh đậm"></div>
+          <div class="sw" style="background:linear-gradient(160deg,#0a2463,#0288d1)" onclick="PB.applyBg('linear-gradient(160deg,#0a2463,#0288d1)',this)" title="Hero gradient"></div>
+          <div class="sw" style="background:#0d1b3e" onclick="PB.applyBg('#0d1b3e',this)" title="Navy"></div>
+          <div class="sw" style="background:linear-gradient(135deg,#065f46,#059669)" onclick="PB.applyBg('linear-gradient(135deg,#065f46,#059669)',this)" title="Xanh lá đậm"></div>
+          <div class="sw" style="background:#f0fdf4;border:2px solid #bbf7d0" onclick="PB.applyBg('#f0fdf4',this)" title="Xanh lá nhạt"></div>
+          <div class="sw" style="background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa" onclick="PB.applyBg('linear-gradient(135deg,#fff7ed,#ffedd5)',this)" title="Cam nhạt"></div>
+          <div class="sw" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)" onclick="PB.applyBg('linear-gradient(135deg,#7c3aed,#4f46e5)',this)" title="Tím"></div>
+          <div class="sw" style="background:#fafafa;border:2px solid #e5e7eb" onclick="PB.applyBg('#fafafa',this)" title="Ghi nhạt"></div>
+        </div>
+        <p style="font-size:.78rem;color:#64748b;margin:10px 0 7px">Padding section:</p>
+        <div class="pad-btns">
+          <button class="pad-btn" onclick="PB.applyPad('32px 0')">Nhỏ (32px)</button>
+          <button class="pad-btn" onclick="PB.applyPad('64px 0')">Vừa (64px)</button>
+          <button class="pad-btn" onclick="PB.applyPad('96px 0')">Lớn (96px)</button>
+          <button class="pad-btn" onclick="PB.applyPad('128px 0')">Rất lớn</button>
+        </div>
+      </div>
+
+      <!-- MORE TAB -->
+      <div class="pane" id="pane-more">
+        <p style="font-size:.78rem;color:#64748b;margin-bottom:12px">Thao tác nâng cao:</p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button class="sa dup" style="text-align:left;display:flex;align-items:center;gap:8px" onclick="PB.moveSecUp()">↑ Chuyển section lên trên</button>
+          <button class="sa dup" style="text-align:left;display:flex;align-items:center;gap:8px" onclick="PB.moveSecDown()">↓ Chuyển section xuống dưới</button>
+          <button class="sa hid" style="text-align:left;display:flex;align-items:center;gap:8px" onclick="PB.resetSecStyle()">🔄 Reset về style mặc định</button>
+          <button class="sa del" style="text-align:left;display:flex;align-items:center;gap:8px" onclick="PB.deleteSec()">✕ Xoá section này</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ IMAGE PANEL ══════════════ -->
+<div class="panel-bg" id="imgPanel" onclick="PB.closeImgPanel(event)">
+  <div class="panel" onclick="event.stopPropagation()">
+    <div class="panel-head">
+      <h3>🖼️ Thay thế hình ảnh</h3>
+      <button class="panel-close" onclick="PB.closeImgPanel()">✕</button>
+    </div>
+    <div class="panel-body">
+      <img id="img-preview-box" src="" alt="Preview ảnh mới">
+      <div class="itabs">
+        <div class="itab on" onclick="PB.switchImgTab('upload',this)">📁 Upload</div>
+        <div class="itab" onclick="PB.switchImgTab('url',this)">🔗 URL</div>
+        <div class="itab" onclick="PB.switchImgTab('unsplash',this)">🌅 Unsplash</div>
+      </div>
+      <!-- Upload -->
+      <div class="ipane on" id="ip-upload">
+        <div class="drop-zone" id="dz" onclick="document.getElementById('img-file-input').click()">
+          <div class="dz-ic">📁</div>
+          <div class="dz-tx">Click hoặc kéo thả ảnh vào đây<br><small>JPG · PNG · WebP · GIF — tối đa 10MB</small></div>
+        </div>
+      </div>
+      <!-- URL -->
+      <div class="ipane" id="ip-url">
+        <input class="url-inp" type="text" id="url-inp" placeholder="https://example.com/photo.jpg">
+        <button class="url-prev-btn" onclick="PB.previewUrl()">👁 Xem trước ảnh</button>
+      </div>
+      <!-- Unsplash -->
+      <div class="ipane" id="ip-unsplash">
+        <input class="usq-inp" type="text" id="usq-inp" placeholder="Tìm ảnh: server, laptop, hosting, business...">
+        <button class="usq-btn" onclick="PB.searchUnsplash()">🔍 Tìm ảnh Unsplash</button>
+        <div class="unsplash-grid" id="unsplash-grid"></div>
+      </div>
+      <div class="img-acts">
+        <button class="img-cancel" onclick="PB.closeImgPanel()">Huỷ</button>
+        <button class="img-apply" onclick="PB.applyImg()">✓ Áp dụng ảnh mới</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PREVIEW PANEL ══════════════ -->
+<div id="previewPanel">
+  <div class="prev-head">
+    <span class="prev-title">👁 Xem trước — Tenten WordPress Hosting</span>
+    <div class="prev-devs">
+      <button class="pdev on" onclick="PB.setDevice('desktop',this)">🖥 Desktop 1280</button>
+      <button class="pdev" onclick="PB.setDevice('tablet',this)">📱 Tablet 768</button>
+      <button class="pdev" onclick="PB.setDevice('mobile',this)">📲 Mobile 375</button>
+    </div>
+    <button class="prev-close" onclick="PB.closePreview()">✕ Đóng</button>
+  </div>
+  <div class="prev-wrap">
+    <iframe id="prev-iframe" width="1280" height="900" frameborder="0"></iframe>
+  </div>
+</div>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section id="hero">
+  <div class="hero-mesh"></div>
+  <div class="orb o1"></div><div class="orb o2"></div>
+  <div class="W">
+    <div class="hero-2col">
+      <div>
+        <div class="hero-live"><div class="live-dot"></div><span data-ed>50.000+ website đang hoạt động trên Tenten</span></div>
+        <h1 class="H1" style="color:#fff;margin-bottom:4px"><span data-ed>WordPress Hosting</span><br><span data-ed style="color:#69ffec">Tốc Độ Cao</span><br><span data-ed>Từ Người Việt</span></h1>
+        <div class="hero-price">
+          <div class="hp-num"><s data-ed>104.000đ</s><span data-ed>52.000đ</span></div>
+          <div class="hp-desc"><strong data-ed>/ tháng</strong><br><span data-ed>Gói Personal – Tiết kiệm 50%</span><br><span data-ed>Tặng SSL + Domain .vn miễn phí</span></div>
+        </div>
+        <div class="hero-acts">
+          <a href="#form" class="btn btn-orange btn-lg"><span data-ed>🎁 Đăng ký nhận tư vấn miễn phí</span></a>
+          <a href="#pricing" class="btn btn-ow btn-lg"><span data-ed>Xem bảng giá →</span></a>
+        </div>
+        <div class="hero-trust">
+          <div class="ht"><span class="ck">✓</span><span data-ed>Uptime 99.99% SLA</span></div>
+          <div class="ht"><span class="ck">✓</span><span data-ed>SSL + Domain miễn phí</span></div>
+          <div class="ht"><span class="ck">✓</span><span data-ed>Plugin 359$ tặng kèm</span></div>
+          <div class="ht"><span class="ck">✓</span><span data-ed>Hoàn tiền 30 ngày</span></div>
+        </div>
+        <div class="hero-scores">
+          <div class="hs"><div class="hs-n" data-ed>98</div><div class="hs-l" data-ed>PageSpeed</div></div>
+          <div class="hs"><div class="hs-n tl" data-ed>A+</div><div class="hs-l" data-ed>GTmetrix</div></div>
+          <div class="hs"><div class="hs-n yl" data-ed>99.9%</div><div class="hs-l" data-ed>Uptime</div></div>
+          <div class="hs"><div class="hs-n" data-ed>&lt;1s</div><div class="hs-l" data-ed>Load Time</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-img-wrap">
+          <!-- REPLACE: dangky-3112024-img1.png -->
+          <img src="dangky-3112024-img1.png" alt="Tenten Hosting" onerror="this.src='https://placehold.co/560x580/1565c0/fff?text=Tenten+WordPress+Hosting'">
+        </div>
+        <div class="hfc c1"><div class="hfc-ic">⚡</div><div class="hfc-tx"><span data-ed>Tốc độ tải trang</span><br><strong data-ed>0.8 giây</strong></div></div>
+        <div class="hfc c2"><div class="hfc-ic">📊</div><div class="hfc-tx"><span data-ed>Google PageSpeed</span><br><strong data-ed>98 / 100</strong></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ LOGOS ══════════════ -->
+<section id="logos">
+  <div class="W">
+    <div class="logo-label" data-ed>Tích hợp sẵn công cụ WordPress hàng đầu thế giới</div>
+    <div class="logo-row">
+      <div class="lchip">🚀 <span data-ed style="color:#FF6B35">WP Rocket</span></div>
+      <div class="lchip">📈 <span data-ed style="color:#4a4a8a">RankMath Pro</span></div>
+      <div class="lchip">🎨 <span data-ed style="color:#92003B">Elementor Pro</span></div>
+      <div class="lchip">🖼️ <span data-ed style="color:#0FBDE8">Imagify Pro</span></div>
+      <div class="lchip">🔒 <span data-ed style="color:#cf1717">DigiCert SSL</span></div>
+      <div class="lchip">☁️ <span data-ed>Cloudflare CDN</span></div>
+      <div class="lchip">⚡ <span data-ed>LiteSpeed Server</span></div>
+      <div class="lchip">💾 <span data-ed>NVMe SSD</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FEATURES ══════════════ -->
+<section id="features">
+  <div class="W">
+    <div class="tc">
+      <span class="tag tag-b" data-ed>⚡ Tại sao chọn Tenten?</span>
+      <h2 class="H2" data-ed>Hosting WordPress Được Tối Ưu<br>Cho Doanh Nghiệp Việt</h2>
+      <p class="sub" data-ed>Không chỉ là hosting — đây là nền tảng hoàn chỉnh để bạn xây dựng và tăng trưởng kinh doanh online.</p>
+    </div>
+    <div class="tabs-nav">
+      <button class="tnav on" onclick="sTab('speed',this)" data-ed>⚡ Tốc độ</button>
+      <button class="tnav" onclick="sTab('sec',this)" data-ed>🔒 Bảo mật</button>
+      <button class="tnav" onclick="sTab('sup',this)" data-ed>🇻🇳 Hỗ trợ</button>
+      <button class="tnav" onclick="sTab('gift',this)" data-ed>🎁 Ưu đãi</button>
+    </div>
+    <div class="tpane on" id="tab-speed">
+      <div class="feat4">
+        <div class="fcard"><div class="fcard-ic ib">⚡</div><div class="fcard-t" data-ed>NVMe SSD siêu tốc</div><div class="fcard-d" data-ed>NVMe SSD nhanh hơn SSD thường 3-5x, nhanh hơn HDD 10x. Tốc độ đọc ghi ổn định 24/7/365.</div><div class="fcard-tag" data-ed>10x nhanh hơn HDD</div></div>
+        <div class="fcard"><div class="fcard-ic ig">🚀</div><div class="fcard-t" data-ed>LiteSpeed Web Server</div><div class="fcard-d" data-ed>Nhanh hơn Apache 40x khi xử lý WordPress. Cache thông minh, tải trang dưới 0.8 giây.</div><div class="fcard-tag" data-ed>40x nhanh hơn Apache</div></div>
+        <div class="fcard"><div class="fcard-ic io">🌐</div><div class="fcard-t" data-ed>Cloudflare CDN 200+ PoP</div><div class="fcard-d" data-ed>Mạng phân phối 200+ quốc gia. Giảm ping, tối ưu tốc độ cho khách từ bất kỳ đâu.</div><div class="fcard-tag" data-ed>200+ điểm toàn cầu</div></div>
+        <div class="fcard"><div class="fcard-ic iy">📊</div><div class="fcard-t" data-ed>Google PageSpeed 98+</div><div class="fcard-d" data-ed>PageSpeed 98+, GTmetrix Grade A trên website khách hàng thực tế. Vượt chuẩn Core Web Vitals.</div><div class="fcard-tag" data-ed>Core Web Vitals Pass</div></div>
+      </div>
+    </div>
+    <div class="tpane" id="tab-sec">
+      <div class="feat4">
+        <div class="fcard"><div class="fcard-ic ir">🔒</div><div class="fcard-t" data-ed>SSL miễn phí trọn đời</div><div class="fcard-d" data-ed>Let's Encrypt SSL tự động gia hạn. Cài 1 click trong cPanel, kích hoạt 60 giây.</div><div class="fcard-tag" data-ed>DigiCert Partner</div></div>
+        <div class="fcard"><div class="fcard-ic ip">🛡️</div><div class="fcard-t" data-ed>Imunify360 AI Security</div><div class="fcard-d" data-ed>AI quét malware real-time 24/7. ModSecurity WAF chặn SQL injection, XSS tự động.</div><div class="fcard-tag" data-ed>Real-time AI Protection</div></div>
+        <div class="fcard"><div class="fcard-ic ib">🔄</div><div class="fcard-t" data-ed>Backup tự động 30 ngày</div><div class="fcard-d" data-ed>Backup hàng ngày, lưu 30 ngày. Khôi phục 1 click không mất thêm chi phí.</div><div class="fcard-tag" data-ed>1-click Restore</div></div>
+        <div class="fcard"><div class="fcard-ic ig">🔑</div><div class="fcard-t" data-ed>SLA 99.99% Uptime</div><div class="fcard-d" data-ed>Cam kết bằng hợp đồng SLA. Vi phạm → bồi thường theo quy định. Monitor 24/7.</div><div class="fcard-tag" data-ed>SLA Bồi thường</div></div>
+      </div>
+    </div>
+    <div class="tpane" id="tab-sup">
+      <div class="feat4">
+        <div class="fcard"><div class="fcard-ic ib">🇻🇳</div><div class="fcard-t" data-ed>Hỗ trợ 24/7 tiếng Việt</div><div class="fcard-d" data-ed>Đội kỹ thuật Việt Nam trực chat, hotline, Zalo. Kể cả ngày lễ, Tết. Phản hồi &lt;5 phút.</div><div class="fcard-tag" data-ed>&lt;5 phút phản hồi</div></div>
+        <div class="fcard"><div class="fcard-ic io">📱</div><div class="fcard-t" data-ed>Zalo Support tức thì</div><div class="fcard-d" data-ed>Nhắn Zalo trực tiếp với kỹ thuật viên. Gửi ảnh lỗi, nhận hướng dẫn từng bước ngay.</div><div class="fcard-tag" data-ed>Zalo 24/7</div></div>
+        <div class="fcard"><div class="fcard-ic ig">🎓</div><div class="fcard-t" data-ed>100+ Video hướng dẫn VN</div><div class="fcard-d" data-ed>Thư viện video từ A đến Z bằng tiếng Việt. Từ cài WordPress đến tối ưu SEO.</div><div class="fcard-tag" data-ed>100+ tutorials VN</div></div>
+        <div class="fcard"><div class="fcard-ic iy">🏆</div><div class="fcard-t" data-ed>Migrate website miễn phí</div><div class="fcard-d" data-ed>Đang dùng hosting khác? Tenten hỗ trợ chuyển toàn bộ website miễn phí — không downtime.</div><div class="fcard-tag" data-ed>Migrate miễn phí</div></div>
+      </div>
+    </div>
+    <div class="tpane" id="tab-gift">
+      <div class="feat4">
+        <div class="fcard"><div class="fcard-ic iy">🎁</div><div class="fcard-t" data-ed>Tặng Domain .vn miễn phí</div><div class="fcard-d" data-ed>Tên miền .vn hoặc .com miễn phí năm đầu khi đăng ký gói từ 1 năm. Toàn quyền sở hữu.</div><div class="fcard-tag" data-ed>Domain free năm 1</div></div>
+        <div class="fcard"><div class="fcard-ic io">🚀</div><div class="fcard-t" data-ed>WP Rocket Bản Quyền (89$)</div><div class="fcard-d" data-ed>Plugin tối ưu tốc độ #1 thế giới. Tự động caching, lazy load, minify CSS/JS. +30 PageSpeed điểm.</div><div class="fcard-tag" data-ed>Trị giá 89 USD</div></div>
+        <div class="fcard"><div class="fcard-ic ib">📈</div><div class="fcard-t" data-ed>RankMath Pro (129$)</div><div class="fcard-d" data-ed>Plugin SEO thông minh nhất WordPress. Schema markup tự động, audit SEO đầy đủ.</div><div class="fcard-tag" data-ed>Trị giá 129 USD</div></div>
+        <div class="fcard"><div class="fcard-ic ig">🖼️</div><div class="fcard-t" data-ed>Imagify Pro (141$)</div><div class="fcard-d" data-ed>Tối ưu ảnh tự động không giới hạn. Nén 60-80% mà mắt thường không phân biệt được.</div><div class="fcard-tag" data-ed>Trị giá 141 USD</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ STATS ══════════════ -->
+<section id="stats">
+  <div class="W">
+    <div class="stats4">
+      <div class="stat"><span class="stat-ic">🌐</span><div class="stat-n" data-ed>50<em>K+</em></div><div class="stat-l" data-ed>Website đang hoạt động</div><div class="stat-note" data-ed>Tăng 200% so với 2023</div></div>
+      <div class="stat"><span class="stat-ic">⚡</span><div class="stat-n" data-ed>99<em>.99%</em></div><div class="stat-l" data-ed>Uptime SLA đảm bảo</div><div class="stat-note" data-ed>Cam kết bồi thường vi phạm</div></div>
+      <div class="stat"><span class="stat-ic">💬</span><div class="stat-n" data-ed>&lt;<em>5</em></div><div class="stat-l" data-ed>Phút phản hồi 24/7</div><div class="stat-note" data-ed>Tiếng Việt qua Zalo/Chat</div></div>
+      <div class="stat"><span class="stat-ic">🏆</span><div class="stat-n" data-ed>10<em>+</em></div><div class="stat-l" data-ed>Năm kinh nghiệm</div><div class="stat-note" data-ed>Đối tác tin cậy từ 2013</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PROOF ══════════════ -->
+<section id="proof">
+  <div class="W">
+    <div class="proof-2">
+      <div>
+        <div class="vid-wrap" onclick="playVideo(this)">
+          <!-- REPLACE: video thumbnail -->
+          <img src="2026-04-09_104158.png" alt="Demo Tenten" onerror="this.src='https://placehold.co/700x394/1565c0/fff?text=▶+Demo+Lên+Website+5+Phút'">
+          <div class="play-ov"><div class="play-ring"><div class="play-tri"></div></div></div>
+        </div>
+        <div class="ba-grid">
+          <!-- REPLACE: HieuAI1-1.jpg, lasanedu.jpg, lighthouse.webp, GTmetrix.webp -->
+          <div class="ba-item"><div class="ba-lbl" data-ed>HieuAI: 26 → 100 điểm</div><img src="HieuAI1-1.jpg" alt="" onerror="this.src='https://placehold.co/340x120/1565c0/fff?text=HieuAI+26→100'"></div>
+          <div class="ba-item"><div class="ba-lbl" data-ed>Lasan Edu: 63 → 98</div><img src="lasanedu.jpg" alt="" onerror="this.src='https://placehold.co/340x120/0288d1/fff?text=Lasan+63→98'"></div>
+          <div class="ba-item"><div class="ba-lbl" data-ed>Lighthouse 98/100</div><img src="lighthouse.webp" alt="" onerror="this.src='https://placehold.co/340x120/00695c/fff?text=Lighthouse+98'"></div>
+          <div class="ba-item"><div class="ba-lbl" data-ed>GTmetrix Grade A</div><img src="GTmetrix.webp" alt="" onerror="this.src='https://placehold.co/340x120/1b5e20/fff?text=GTmetrix+A'"></div>
+        </div>
+      </div>
+      <div>
+        <span class="tag tag-b" data-ed>🎬 DEMO THỰC TẾ</span>
+        <h2 class="H2" data-ed>Từ Chưa Có Gì Đến Website Chuyên Nghiệp Trong 5 Phút</h2>
+        <p class="sub" style="margin-bottom:0" data-ed>Xem video thực tế không cắt — từ lúc đăng ký hosting đến khi website lên sóng và có thể nhận khách hàng.</p>
+        <div class="proof-cl">
+          <div class="pc"><span class="ck">✓</span><span data-ed>Không cần cài phần mềm hay biết code</span></div>
+          <div class="pc"><span class="ck">✓</span><span data-ed>Giao diện đẹp từ thư viện 500+ theme premium</span></div>
+          <div class="pc"><span class="ck">✓</span><span data-ed>SSL tự động kích hoạt — website an toàn ngay lập tức</span></div>
+          <div class="pc"><span class="ck">✓</span><span data-ed>Plugin WP Rocket tăng tốc WordPress tự động tối ưu</span></div>
+          <div class="pc"><span class="ck">✓</span><span data-ed>Đội hỗ trợ Tenten trực Zalo 24/7 trong suốt quá trình</span></div>
+        </div>
+        <div class="proof-sc">
+          <div class="ps"><div class="ps-n" data-ed>98</div><div class="ps-l" data-ed>PageSpeed Score</div></div>
+          <div class="ps"><div class="ps-n g" data-ed>A+</div><div class="ps-l" data-ed>GTmetrix Grade</div></div>
+          <div class="ps"><div class="ps-n" data-ed>100%</div><div class="ps-l" data-ed>Performance</div></div>
+        </div>
+        <a href="#form" class="btn btn-orange btn-lg" style="width:100%;justify-content:center"><span data-ed>🎁 Đăng ký nhận tư vấn miễn phí →</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ BEFORE/AFTER ══════════════ -->
+<section id="before-after">
+  <div class="W">
+    <div class="tc">
+      <span class="tag tag-b" data-ed>⚖️ TRƯỚC VÀ SAU KHI DÙNG TENTEN</span>
+      <h2 class="H2" data-ed>Sự Khác Biệt Mà Khách Hàng<br>Cảm Nhận Được Ngay Ngày Đầu</h2>
+    </div>
+    <div class="ba2">
+      <div class="bac bef">
+        <div class="bac-head"><div class="bac-ic">😰</div><div><div class="bac-ht" data-ed>Trước khi dùng Tenten</div><div class="bac-hs" data-ed>Những vấn đề bạn đang gặp phải</div></div></div>
+        <div class="bac-items">
+          <div class="brow bad-r"><div class="brow-ic bad">✕</div><span data-ed>Website chậm, tải lâu — khách hàng bỏ đi ngay</span></div>
+          <div class="brow bad-r"><div class="brow-ic bad">✕</div><span data-ed>Không biết IT, không dám tự làm website</span></div>
+          <div class="brow bad-r"><div class="brow-ic bad">✕</div><span data-ed>Hosting hay bị lỗi, downtime không báo trước</span></div>
+          <div class="brow bad-r"><div class="brow-ic bad">✕</div><span data-ed>Hỗ trợ tiếng Anh, chờ email cả ngày mới có phản hồi</span></div>
+          <div class="brow bad-r"><div class="brow-ic bad">✕</div><span data-ed>Chi phí plugin bản quyền tốn kém, phải tự đi mua</span></div>
+          <div class="brow bad-r"><div class="brow-ic bad">✕</div><span data-ed>Sợ bị hack, mất dữ liệu không khôi phục được</span></div>
+          <div class="brow bad-r"><div class="brow-ic bad">✕</div><span data-ed>Phải thuê người kỹ thuật, tốn tiền bảo trì hàng tháng</span></div>
+        </div>
+      </div>
+      <div class="bac aft">
+        <div class="bac-head"><div class="bac-ic">🚀</div><div><div class="bac-ht" data-ed>Sau khi dùng Tenten</div><div class="bac-hs" data-ed>Trải nghiệm khách hàng thực tế phản hồi</div></div></div>
+        <div class="bac-items">
+          <div class="brow good-r"><div class="brow-ic good">✓</div><span data-ed>Website tải &lt;1 giây — Google xếp hạng SEO cao hơn</span></div>
+          <div class="brow good-r"><div class="brow-ic good">✓</div><span data-ed>Cài WordPress 1-click, lên website 5 phút không cần biết IT</span></div>
+          <div class="brow good-r"><div class="brow-ic good">✓</div><span data-ed>Uptime 99.9% SLA — website không bao giờ tắt đột ngột</span></div>
+          <div class="brow good-r"><div class="brow-ic good">✓</div><span data-ed>Hỗ trợ tiếng Việt 24/7, phản hồi Zalo dưới 5 phút</span></div>
+          <div class="brow good-r"><div class="brow-ic good">✓</div><span data-ed>Tặng miễn phí WP Rocket, RankMath Pro, Imagify — 359$</span></div>
+          <div class="brow good-r"><div class="brow-ic good">✓</div><span data-ed>Imunify360 bảo vệ 24/7, backup tự động — không lo mất dữ liệu</span></div>
+          <div class="brow good-r"><div class="brow-ic good">✓</div><span data-ed>Tự quản lý hoàn toàn, không phụ thuộc vào người kỹ thuật</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ TESTIMONIALS ══════════════ -->
+<section id="testimonials">
+  <div class="W">
+    <div class="tc">
+      <span class="tag tag-b" data-ed>💬 Khách hàng nói gì?</span>
+      <h2 class="H2" data-ed>50.000+ Doanh Nghiệp Tin Tưởng Tenten</h2>
+    </div>
+    <div class="testi3">
+      <!-- REPLACE: khachhang-242024-img1/2/3/4.jpg -->
+      <div class="tc-card"><div class="tc-q">"</div><div class="tc-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="tc-body" data-ed>"Mình không biết gì về lập trình mà vẫn tự làm được website bán hàng chỉ trong 1 buổi sáng. Support Tenten phản hồi Zalo trong 2 phút. Website đạt PageSpeed 97 — khách khen nhanh lắm!"</div><div class="tc-author"><div class="tc-ava"><img src="khachhang-242024-img4.jpg" onerror="this.src='https://placehold.co/88x88/1565c0/fff?text=MT'"></div><div><div class="tc-name" data-ed>Nguyễn Minh Tuấn</div><div class="tc-role" data-ed>Chủ shop thời trang, HCM</div></div></div></div>
+      <div class="tc-card feat"><div class="tc-q">"</div><div class="tc-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="tc-body" data-ed>"Website công ty dùng Tenten 3 năm, GTmetrix A+, PageSpeed 98+. Chưa bao giờ downtime quá 1 giờ. Bộ plugin WP Rocket + RankMath tặng kèm cực kỳ giá trị — tôi đã từng mua riêng hết 230$!"</div><div class="tc-author"><div class="tc-ava"><img src="khachhang-242024-img3.jpg" onerror="this.src='https://placehold.co/88x88/fff/1565c0?text=TH'"></div><div><div class="tc-name" data-ed>Trần Thu Hà</div><div class="tc-role" data-ed>GĐ CTCP Truyền thông XYZ, HN</div></div></div></div>
+      <div class="tc-card"><div class="tc-q">"</div><div class="tc-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="tc-body" data-ed>"Trước dùng hosting khác PageSpeed chỉ 26 trên mobile. Chuyển sang Tenten + WP Rocket, điểm nhảy lên 100 đúng như case study. Thực sự không tin cho đến khi chính mắt tôi thấy!"</div><div class="tc-author"><div class="tc-ava"><img src="khachhang-242024-img2.jpg" onerror="this.src='https://placehold.co/88x88/0288d1/fff?text=DK'"></div><div><div class="tc-name" data-ed>Phạm Đức Khải</div><div class="tc-role" data-ed>Co-founder AI Startup, Đà Nẵng</div></div></div></div>
+    </div>
+    <div class="proof-bar">
+      <div class="pb-item"><div class="pb-n" data-ed>4.9★</div><div class="pb-l" data-ed>Google Reviews</div></div>
+      <div class="pb-item"><div class="pb-n" style="color:#1877f2" data-ed>4.8★</div><div class="pb-l" data-ed>Facebook Rating</div></div>
+      <div class="pb-item"><div class="pb-n" data-ed>3.200+</div><div class="pb-l" data-ed>Đánh giá thực</div></div>
+      <div class="pb-item"><div class="pb-n" style="color:#ffa000" data-ed>Top 1</div><div class="pb-l" data-ed>Hosting VN 2024</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PRICING ══════════════ -->
+<section id="pricing">
+  <div class="W">
+    <div class="tc">
+      <span class="tag tag-o" data-ed>💰 Bảng giá minh bạch</span>
+      <h2 class="H2" data-ed>Chọn Gói Phù Hợp —<br>Giá Cố Định, Không Phí Ẩn</h2>
+      <p class="sub" data-ed>Tất cả gói bao gồm SSL miễn phí, hỗ trợ 24/7 tiếng Việt và bảo hành hoàn tiền 30 ngày.</p>
+    </div>
+    <div class="pricing3">
+      <div class="pk">
+        <div class="pk-name" data-ed>Personal</div><div class="pk-desc" data-ed>Cá nhân, blogger, portfolio — bắt đầu online nhanh và tiết kiệm</div>
+        <div class="pk-price"><div class="pk-num" data-ed>52K</div><div class="pk-unit" data-ed>/ tháng</div></div>
+        <div class="pk-old" data-ed>Giá gốc 104.000đ/tháng</div><div class="pk-save" data-ed>🔥 Tiết kiệm 50%</div>
+        <div class="pk-feats">
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>5 GB NVMe SSD</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>1 website WordPress</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>SSL miễn phí</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>Băng thông 50 GB</span></div>
+          <div class="pkf dim"><div class="ck-no">✕</div><span data-ed>Domain miễn phí</span></div>
+          <div class="pkf dim"><div class="ck-no">✕</div><span data-ed>Plugin bản quyền</span></div>
+        </div>
+        <a href="#form" class="btn" style="width:100%;justify-content:center;border:2px solid var(--b2);color:var(--b2);background:#fff;border-radius:var(--r)"><span data-ed>Chọn Personal</span></a>
+      </div>
+      <div class="pk feat">
+        <div class="pk-badge" data-ed>🔥 Phổ biến nhất</div>
+        <div class="pk-name" style="color:var(--b2)" data-ed>Startup</div><div class="pk-desc" data-ed>Doanh nghiệp vừa nhỏ muốn có website chuyên nghiệp với PageSpeed 98+</div>
+        <div class="pk-price"><div class="pk-num" data-ed>73K</div><div class="pk-unit" data-ed>/ tháng</div></div>
+        <div class="pk-old" data-ed>Giá gốc 146.000đ/tháng</div><div class="pk-save" data-ed>🔥 Tiết kiệm 50% + Tặng Plugin 359$</div>
+        <div class="pk-feats">
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>10 GB NVMe SSD</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>5 website WordPress</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>SSL miễn phí trọn đời</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>Băng thông không giới hạn</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>Domain .vn miễn phí</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>WP Rocket + RankMath Pro</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>Backup 30 ngày</span></div>
+        </div>
+        <a href="#form" class="btn btn-orange btn-block"><span data-ed>🎁 Đăng ký nhận tư vấn miễn phí</span></a>
+        <div style="text-align:center;font-size:.7rem;color:var(--gray);margin-top:7px" data-ed>🔒 Bảo hành hoàn tiền 30 ngày</div>
+      </div>
+      <div class="pk">
+        <div class="pk-name" data-ed>Standard</div><div class="pk-desc" data-ed>Doanh nghiệp lớn, sàn TMĐT, agency cần hiệu suất cao</div>
+        <div class="pk-price"><div class="pk-num" style="color:#2e7d32" data-ed>144K</div><div class="pk-unit" data-ed>/ tháng</div></div>
+        <div class="pk-old" data-ed>Giá gốc 288.000đ/tháng</div><div class="pk-save" style="color:#2e7d32;background:#e8f5e9" data-ed>🔥 Tiết kiệm 50%</div>
+        <div class="pk-feats">
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>30 GB NVMe SSD</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>Không giới hạn website</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>SSL Premium + Wildcard</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>Băng thông không giới hạn</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>Domain .vn + .com miễn phí</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>Toàn bộ plugin bản quyền</span></div>
+          <div class="pkf"><div class="ck-ok">✓</div><span data-ed>Priority SLA &lt;15 phút</span></div>
+        </div>
+        <a href="#form" class="btn btn-blue btn-block"><span data-ed>Liên hệ tư vấn</span></a>
+      </div>
+    </div>
+    <div class="deal-boxes">
+      <div class="deal-box"><div class="deal-ic">📅</div><div class="deal-t" data-ed>Mua 2 năm tặng 6 tháng</div><div class="deal-d" data-ed>Tiết kiệm hơn 25% so với gia hạn hàng năm.</div><div class="deal-tag" data-ed>+6 tháng free</div></div>
+      <div class="deal-box"><div class="deal-ic">🎯</div><div class="deal-t" data-ed>Mua 3 năm (4 năm) tặng 1 năm</div><div class="deal-d" data-ed>Đăng ký 3 năm, Tenten tính là 4 năm — 1 năm miễn phí.</div><div class="deal-tag" data-ed>+1 năm free</div></div>
+      <div class="deal-box"><div class="deal-ic">🎁</div><div class="deal-t" data-ed>Tặng bộ plugin bản quyền 359$</div><div class="deal-d" data-ed>WP Rocket + RankMath Pro + Imagify Pro tặng kèm gói từ Startup.</div><div class="deal-tag" data-ed>Trị giá 359 USD free</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FAQ ══════════════ -->
+<section id="faq">
+  <div class="W">
+    <div class="tc">
+      <span class="tag tag-b" data-ed>❓ FAQ</span>
+      <h2 class="H2" data-ed>Bạn Vẫn Còn Băn Khoăn?</h2>
+      <p class="sub" data-ed>Giải đáp những câu hỏi phổ biến nhất từ khách hàng.</p>
+    </div>
+    <div class="faq-lay">
+      <div class="faq-img">
+        <!-- REPLACE: 532024-faq-img.png -->
+        <img src="532024-faq-img.png" alt="FAQ" onerror="this.src='https://placehold.co/520x620/1565c0/fff?text=FAQ+Tenten'">
+      </div>
+      <div class="faq-list">
+        <div class="fi open"><div class="fq" onclick="tFaq(this)"><span data-ed>Tôi không biết gì về IT, có dùng được không?</span><div class="fq-ic">+</div></div><div class="fa"><div class="fa-in" data-ed>Hoàn toàn được! Giao diện cPanel tiếng Việt rất trực quan. WordPress cài tự động 1 click. Đội hỗ trợ Tenten hướng dẫn từng bước qua Zalo 24/7.</div></div></div>
+        <div class="fi"><div class="fq" onclick="tFaq(this)"><span data-ed>Hosting Tenten có nhanh không? Khác gì bên khác?</span><div class="fq-ic">+</div></div><div class="fa"><div class="fa-in" data-ed>Tenten dùng NVMe SSD (nhanh 3-5x), LiteSpeed (nhanh 40x), Cloudflare CDN. Kết quả thực: PageSpeed 98/100, GTmetrix Grade A.</div></div></div>
+        <div class="fi"><div class="fq" onclick="tFaq(this)"><span data-ed>Nếu không hài lòng, có được hoàn tiền không?</span><div class="fq-ic">+</div></div><div class="fa"><div class="fa-in" data-ed>Có. Tenten cam kết hoàn tiền 100% trong 30 ngày đầu nếu không hài lòng — không hỏi thêm, không giữ lại.</div></div></div>
+        <div class="fi"><div class="fq" onclick="tFaq(this)"><span data-ed>Bộ plugin bản quyền 359$ gồm những gì?</span><div class="fq-ic">+</div></div><div class="fa"><div class="fa-in" data-ed>WP Rocket (89$) + RankMath Pro (129$) + Imagify Pro (141$). 3 plugin hàng triệu website WordPress hàng đầu thế giới đang dùng.</div></div></div>
+        <div class="fi open"><div class="fq" onclick="tFaq(this)"><span data-ed>Website của tôi có bị hack không? Bảo mật thế nào?</span><div class="fq-ic">+</div></div><div class="fa"><div class="fa-in" data-ed>Tenten trang bị Imunify360 (AI quét malware real-time), ModSecurity WAF, SSL 256-bit, backup hàng ngày. Nếu bị hack, hỗ trợ khôi phục miễn phí trong 2 giờ.</div></div></div>
+        <div class="fi"><div class="fq" onclick="tFaq(this)"><span data-ed>Hỗ trợ 24/7 thực sự không, hay chỉ giờ hành chính?</span><div class="fq-ic">+</div></div><div class="fa"><div class="fa-in" data-ed>Thực sự 24/7 — kể cả lễ, Tết. Đội ngũ trực chat website và Zalo. Thời gian phản hồi dưới 5 phút cho mọi khách hàng.</div></div></div>
+        <div class="fi"><div class="fq" onclick="tFaq(this)"><span data-ed>Tôi có thể nâng cấp gói hosting sau này không?</span><div class="fq-ic">+</div></div><div class="fa"><div class="fa-in" data-ed>Hoàn toàn có thể. Nâng cấp VPS/Cloud Server chỉ vài click — không cần di chuyển dữ liệu thủ công, không downtime.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ COMPARE ══════════════ -->
+<section id="compare">
+  <div class="W">
+    <div class="tc">
+      <span class="tag tag-o" data-ed>⚖️ So sánh</span>
+      <h2 class="H2" data-ed>Tenten vs Đối Thủ — Con Số Không Biết Nói Dối</h2>
+    </div>
+    <div class="cmp-tbl">
+      <div class="cmp-head"><div data-ed>Tiêu chí</div><div class="hl" data-ed>Tenten.vn ★</div><div data-ed>Matbao.net</div><div data-ed>PA Vietnam</div></div>
+      <div class="cmp-row"><div data-ed>Tốc độ server (NVMe SSD)</div><div class="hlc"><span class="ckok">✓</span></div><div><span class="ckno">✕</span></div><div><span class="ckno">✕</span></div></div>
+      <div class="cmp-row"><div data-ed>Google PageSpeed 98+ cam kết</div><div class="hlc"><span class="ckok">✓</span></div><div><span class="ckno">✕</span></div><div><span class="ckno">✕</span></div></div>
+      <div class="cmp-row"><div data-ed>WP Rocket bản quyền tặng kèm</div><div class="hlc"><span class="ckok">✓</span></div><div><span class="ckno">✕</span></div><div><span class="ckno">✕</span></div></div>
+      <div class="cmp-row"><div data-ed>Uptime SLA đảm bảo</div><div class="hlc" data-ed>99.99%</div><div data-ed>99.9%</div><div data-ed>99.9%</div></div>
+      <div class="cmp-row"><div data-ed>Backup tự động giữ</div><div class="hlc" data-ed>30 ngày</div><div data-ed>14 ngày</div><div data-ed>7 ngày</div></div>
+      <div class="cmp-row"><div data-ed>Hoàn tiền 30 ngày không điều kiện</div><div class="hlc"><span class="ckok">✓</span></div><div><span class="ckno">✕</span></div><div><span class="ckno">✕</span></div></div>
+      <div class="cmp-row" style="background:var(--b5)"><div style="font-weight:800;color:var(--b1)" data-ed>Giá bắt đầu / tháng</div><div class="hlc" style="font-weight:800;color:var(--b2);font-size:1rem" data-ed>52.000đ</div><div data-ed>89.000đ</div><div data-ed>45.571đ</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA ══════════════ -->
+<section id="cta">
+  <div class="W">
+    <div class="cta-grid">
+      <div>
+        <div class="slots-pill"><div class="sp-dot"></div><span data-ed>Còn 47/100 slot với giá ưu đãi</span></div>
+        <h2 class="H2" style="color:#fff;margin-top:10px;margin-bottom:12px" data-ed>Đừng Để Đối Thủ Có Website Nhanh Hơn Bạn</h2>
+        <p style="color:rgba(255,255,255,.62);font-size:.92rem;line-height:1.7;margin-bottom:24px" data-ed>Mỗi giây website chậm = mất 7% chuyển đổi. Đăng ký ngay — miễn phí tư vấn, không cần cam kết.</p>
+        <div style="font-size:.72rem;color:rgba(255,255,255,.36);text-transform:uppercase;letter-spacing:.09em;margin-bottom:8px" data-ed>Ưu đãi kết thúc sau:</div>
+        <div class="cd-row">
+          <div><div class="cd-box"><div class="cd-n" id="cdH">23</div><div class="cd-l">Giờ</div></div></div>
+          <div class="cd-sep">:</div>
+          <div><div class="cd-box"><div class="cd-n" id="cdM">59</div><div class="cd-l">Phút</div></div></div>
+          <div class="cd-sep">:</div>
+          <div><div class="cd-box"><div class="cd-n" id="cdS">47</div><div class="cd-l">Giây</div></div></div>
+        </div>
+      </div>
+      <div class="mf">
+        <div class="mf-title" data-ed>Đăng ký tư vấn miễn phí</div>
+        <div class="mf-sub" data-ed>Chuyên gia liên hệ trong 30 phút ⚡</div>
+        <div class="mff"><input type="text" placeholder="Họ và tên *" id="cN"></div>
+        <div class="mff"><input type="tel" placeholder="Số điện thoại *" id="cP"></div>
+        <div class="mff"><input type="email" placeholder="Email doanh nghiệp *" id="cE"></div>
+        <div class="mff"><select id="cND"><option value="">-- Nhu cầu của bạn --</option><option>Làm website mới từ đầu</option><option>Chuyển hosting từ bên khác</option><option>Nâng cấp hosting đang dùng</option><option>Website + Hosting trọn gói</option></select></div>
+        <button class="mf-btn" onclick="subCTA()"><span data-ed>🎁 Nhận tư vấn miễn phí ngay →</span></button>
+        <div class="mf-note" data-ed>🔒 Thông tin được bảo mật tuyệt đối</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FORM ══════════════ -->
+<section id="form">
+  <div class="W">
+    <div class="form-lay">
+      <div>
+        <div class="form-info">
+          <h2 data-ed>Nhận Tư Vấn Miễn Phí &<br>Báo Giá Chi Tiết Ngay</h2>
+          <p data-ed>Chuyên gia Tenten liên hệ trong <strong>30 phút</strong> để tư vấn giải pháp hosting phù hợp nhất.</p>
+        </div>
+        <div class="fp-list">
+          <div class="fp"><div class="fp-ic">🎁</div><span data-ed>Tư vấn 1-1 miễn phí với chuyên gia WordPress</span></div>
+          <div class="fp"><div class="fp-ic">🚀</div><span data-ed>Tặng plugin WP Rocket + RankMath + Imagify (359$)</span></div>
+          <div class="fp"><div class="fp-ic">⚡</div><span data-ed>Migrate website miễn phí từ nhà cung cấp khác</span></div>
+          <div class="fp"><div class="fp-ic">🛡️</div><span data-ed>Cam kết hoàn tiền 30 ngày không điều kiện</span></div>
+          <div class="fp"><div class="fp-ic">📊</div><span data-ed>Tặng báo cáo PageSpeed audit miễn phí</span></div>
+        </div>
+        <div class="form-side-img">
+          <!-- REPLACE: 532024-form-img.png -->
+          <img src="532024-form-img.png" alt="Văn phòng Tenten" onerror="this.src='https://placehold.co/540x260/1565c0/fff?text=Tenten+Office'">
+        </div>
+      </div>
+      <div>
+        <div class="form-card">
+          <div class="fct" data-ed>Đăng ký nhận tư vấn miễn phí</div>
+          <div class="fcs" data-ed>Chuyên gia liên hệ trong 30 phút ⚡</div>
+          <div id="fWrap">
+            <div class="fg"><label class="fl">Họ và tên <em>*</em></label><input class="finp" type="text" placeholder="Nguyễn Văn A" id="fN"></div>
+            <div class="fg"><label class="fl">Số điện thoại <em>*</em></label><input class="finp" type="tel" placeholder="0901 234 567" id="fP"></div>
+            <div class="fg"><label class="fl">Email doanh nghiệp <em>*</em></label><input class="finp" type="email" placeholder="ten@congty.vn" id="fE"></div>
+            <div class="fg"><label class="fl">Tên công ty / Website</label><input class="finp" type="text" placeholder="Công ty TNHH ABC" id="fC"></div>
+            <div class="fg"><label class="fl">Nhu cầu <em>*</em></label><select class="finp fsel" id="fND"><option value="">-- Chọn nhu cầu --</option><option>Làm website mới từ đầu</option><option>Chuyển hosting từ nhà cung cấp khác</option><option>Nâng cấp hosting đang dùng</option><option>Cần website + hosting trọn gói</option><option>Tư vấn giải pháp doanh nghiệp</option></select></div>
+            <div class="fg"><label class="fl">Ngân sách / tháng</label><select class="finp fsel" id="fB"><option value="">-- Chọn khoảng ngân sách --</option><option>Dưới 200.000đ</option><option>200.000 – 500.000đ</option><option>500.000 – 1.000.000đ</option><option>Trên 1.000.000đ</option></select></div>
+            <div class="fg"><label class="fl">Ghi chú</label><textarea class="finp" rows="3" placeholder="Mô tả thêm yêu cầu..." id="fNote" style="resize:vertical"></textarea></div>
+            <div class="fg"><div class="fchk"><input type="checkbox" id="fA" checked><label for="fA">Tôi đồng ý nhận thông tin tư vấn từ Tenten.vn theo <a href="https://tenten.vn" style="color:var(--b2)">Chính sách bảo mật</a>.</label></div></div>
+            <button class="fsubmit" onclick="subForm()">🎁 Nhận tư vấn miễn phí ngay →</button>
+            <div class="fpriv">🔒 Thông tin được mã hóa & bảo mật tuyệt đối</div>
+          </div>
+          <div id="fs"><div class="si">🎉</div><h3>Đăng ký thành công!</h3><p>Chuyên gia sẽ liên hệ trong <strong>30 phút</strong>!<br>Cảm ơn bạn đã tin tưởng Tenten.vn 🙏</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer id="footer">
+  <div class="W">
+    <div class="foot3">
+      <div>
+        <div class="flogo">ten<span>ten</span>.vn</div>
+        <div class="fdesc" data-ed>Công ty Cổ phần Công nghệ và Truyền thông Tenten — đối tác WordPress Hosting tin cậy cho 50.000+ doanh nghiệp Việt từ 2013.</div>
+        <div class="fcontacts">
+          <div class="fcon">📍 <span data-ed>Tầng 6, 240 Nguyễn Đình Chiểu, Q.3, TP.HCM</span></div>
+          <div class="fcon">📞 <a href="tel:18008100" data-ed>1800 8100</a></div>
+          <div class="fcon">📧 <a href="mailto:support@tenten.vn" data-ed>support@tenten.vn</a></div>
+        </div>
+      </div>
+      <div class="fcol">
+        <h4 data-ed>Dịch vụ</h4>
+        <div class="flinks">
+          <a href="#" data-ed>WordPress Hosting</a><a href="#" data-ed>Web Hosting</a><a href="#" data-ed>VPS Cloud Server</a>
+          <a href="#" data-ed>Domain .vn / .com</a><a href="#" data-ed>SSL Certificate</a><a href="#" data-ed>Email doanh nghiệp</a>
+        </div>
+      </div>
+      <div class="fcol">
+        <h4 data-ed>Hỗ trợ</h4>
+        <div class="flinks">
+          <a href="#" data-ed>Hướng dẫn sử dụng</a><a href="#" data-ed>Video tutorial</a>
+          <a href="#" data-ed>Kiểm tra tốc độ</a><a href="#" data-ed>Về chúng tôi</a>
+          <a href="#" data-ed>Chính sách bảo mật</a><a href="#" data-ed>Điều khoản dịch vụ</a>
+        </div>
+      </div>
+    </div>
+    <div class="fbot">
+      <div class="fcopy" data-ed>© 2024 Tenten.vn – Mã số thuế: 0316234578</div>
+      <div class="flegal"><a href="#" data-ed>Bảo mật</a><a href="#" data-ed>Điều khoản</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile CTA -->
+<div id="mcta"><div class="W"><div class="mc-in"><div class="mc-tx"><strong data-ed>WordPress Hosting từ 52K/tháng</strong><span data-ed>Tặng Domain + SSL + Plugin 359$</span></div><a href="#form" class="mc-btn" data-ed>Đăng ký →</a></div></div></div>
+
+<script>
+/* ════════════════════════════════════════
+   PAGE BUILDER ENGINE — Fully Working
+════════════════════════════════════════ */
+var PB = (function(){
+  var state = {
+    mode: null,           // 'text' | 'img' | 'drag'
+    activeSec: null,      // active section element
+    activeImg: null,      // active img element
+    pendingImgSrc: null,  // new img src
+    dragSrc: null,        // dragged section
+    history: [],          // undo stack
+    maxHist: 20
+  };
+
+  /* ── Toast ── */
+  function toast(msg, dur) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._tid);
+    t._tid = setTimeout(function(){ t.classList.remove('show'); }, dur || 2600);
+  }
+
+  /* ── History ── */
+  function saveHist() {
+    var html = '';
+    document.querySelectorAll('body > section').forEach(function(s){
+      html += s.outerHTML + '||SPLIT||';
+    });
+    state.history.push(html);
+    if (state.history.length > state.maxHist) state.history.shift();
+  }
+
+  function undo() {
+    if (!state.history.length) { toast('⚠️ Không có thao tác nào để hoàn tác!'); return; }
+    var snap = state.history.pop();
+    var segs = snap.split('||SPLIT||').filter(function(s){ return s.trim(); });
+    // Remove all sections
+    document.querySelectorAll('body > section').forEach(function(s){ s.remove(); });
+    // Find reference (before footer)
+    var foot = document.getElementById('footer');
+    segs.forEach(function(html){
+      var tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      var sec = tmp.firstElementChild;
+      if (sec) document.body.insertBefore(sec, foot);
+    });
+    reinitAll();
+    toast('↩ Đã hoàn tác!');
+  }
+
+  /* ── Mode toggle ── */
+  function toggleMode(mode) {
+    var same = state.mode === mode;
+    exitModes();
+    if (same) { toast('💡 Đã tắt chế độ ' + mode); return; }
+    state.mode = mode;
+    document.body.classList.add('MODE-' + mode);
+    document.getElementById('btn-' + mode).classList.add('on');
+
+    if (mode === 'text') {
+      enableText();
+      toast('✏️ Chế độ Sửa Chữ: Click vào bất kỳ văn bản màu xanh dương để chỉnh sửa');
+    } else if (mode === 'img') {
+      enableImgMode();
+      toast('🖼️ Chế độ Sửa Ảnh: Click vào hình ảnh bất kỳ để thay thế');
+    } else if (mode === 'drag') {
+      enableDrag();
+      toast('⠿ Chế độ Kéo Thả: Kéo thanh xanh dương ở đầu mỗi section để đổi vị trí');
+    }
+  }
+
+  function exitModes() {
+    if (state.mode === 'text') disableText();
+    if (state.mode === 'img') disableImgMode();
+    if (state.mode === 'drag') disableDrag();
+    state.mode = null;
+    document.body.classList.remove('MODE-text', 'MODE-img', 'MODE-drag');
+    ['btn-text','btn-img','btn-drag'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.classList.remove('on');
+    });
+  }
+
+  /* ════ TEXT EDIT ════ */
+  function enableText() {
+    document.querySelectorAll('section [data-ed]').forEach(function(el){
+      el.setAttribute('contenteditable', 'true');
+      el.setAttribute('spellcheck', 'false');
+    });
+  }
+  function disableText() {
+    document.querySelectorAll('[contenteditable]').forEach(function(el){
+      el.removeAttribute('contenteditable');
+    });
+  }
+
+  /* ════ IMG EDIT ════ */
+  function enableImgMode() {
+    document.querySelectorAll('section img').forEach(function(img){
+      img._pb_click = function(){ openImgPanel(img); };
+      img.addEventListener('click', img._pb_click);
+    });
+    // File input
+    var fi = document.getElementById('img-file-input');
+    fi._pb_handler = function(e){
+      var f = e.target.files[0];
+      if (!f) return;
+      var r = new FileReader();
+      r.onload = function(ev){
+        state.pendingImgSrc = ev.target.result;
+        document.getElementById('img-preview-box').src = ev.target.result;
+        toast('✓ Ảnh đã tải lên — nhấn "Áp dụng ảnh mới" để xác nhận');
+      };
+      r.readAsDataURL(f);
+      fi.value = '';
+    };
+    fi.addEventListener('change', fi._pb_handler);
+  }
+  function disableImgMode() {
+    document.querySelectorAll('section img').forEach(function(img){
+      if (img._pb_click) img.removeEventListener('click', img._pb_click);
+    });
+    var fi = document.getElementById('img-file-input');
+    if (fi._pb_handler) fi.removeEventListener('change', fi._pb_handler);
+  }
+  function openImgPanel(img) {
+    state.activeImg = img;
+    state.pendingImgSrc = null;
+    document.getElementById('img-preview-box').src = img.src;
+    document.getElementById('img-preview-box').style.objectFit = 'cover';
+    document.getElementById('imgPanel').classList.add('open');
+    // Load default unsplash
+    loadDefaultUnsplash();
+    document.getElementById('url-inp').value = '';
+  }
+  function closeImgPanel(evt) {
+    if (evt && evt.target !== document.getElementById('imgPanel')) return;
+    document.getElementById('imgPanel').classList.remove('open');
+    state.activeImg = null;
+    state.pendingImgSrc = null;
+  }
+  function switchImgTab(tab, btn) {
+    document.querySelectorAll('.itab').forEach(function(b){ b.classList.remove('on'); });
+    document.querySelectorAll('.ipane').forEach(function(p){ p.classList.remove('on'); });
+    btn.classList.add('on');
+    document.getElementById('ip-' + tab).classList.add('on');
+  }
+  function previewUrl() {
+    var url = document.getElementById('url-inp').value.trim();
+    if (!url) { toast('⚠️ Vui lòng nhập URL ảnh!'); return; }
+    state.pendingImgSrc = url;
+    var prev = document.getElementById('img-preview-box');
+    prev.src = url;
+    prev.onerror = function(){ toast('⚠️ Không tải được ảnh từ URL này'); state.pendingImgSrc = null; };
+    toast('👁 Đang tải xem trước...');
+  }
+  function applyImg() {
+    if (!state.activeImg || !state.pendingImgSrc) {
+      toast('⚠️ Chưa chọn ảnh nào! Hãy upload, nhập URL hoặc chọn từ Unsplash.');
+      return;
+    }
+    saveHist();
+    state.activeImg.src = state.pendingImgSrc;
+    state.activeImg.removeAttribute('onerror');
+    document.getElementById('imgPanel').classList.remove('open');
+    state.activeImg = null;
+    state.pendingImgSrc = null;
+    toast('✓ Ảnh đã được thay thế thành công!');
+  }
+
+  /* Unsplash via source (no key needed) */
+  var UNSPLASH_CATS = ['wordpress hosting','server technology','business laptop','website design','digital marketing','office workspace'];
+  function loadDefaultUnsplash() {
+    var q = UNSPLASH_CATS[Math.floor(Math.random() * UNSPLASH_CATS.length)];
+    renderUnsplash(q);
+  }
+  function searchUnsplash() {
+    var q = document.getElementById('usq-inp').value.trim() || 'technology';
+    renderUnsplash(q);
+    toast('🔍 Đang tải ảnh Unsplash...');
+  }
+  function renderUnsplash(q) {
+    var g = document.getElementById('unsplash-grid');
+    g.innerHTML = '';
+    var kw = encodeURIComponent(q.replace(/\s+/g, ','));
+    for (var i = 0; i < 9; i++) {
+      var img = document.createElement('img');
+      var sig = Math.floor(Math.random() * 99999) + i * 111;
+      img.src = 'https://source.unsplash.com/featured/240x180/?' + kw + '&sig=' + sig;
+      img.loading = 'lazy';
+      img.alt = q;
+      img.dataset.src = img.src;
+      img.onclick = (function(el){
+        return function(){
+          document.querySelectorAll('.unsplash-grid img').forEach(function(x){ x.classList.remove('sel'); });
+          el.classList.add('sel');
+          state.pendingImgSrc = el.src;
+          document.getElementById('img-preview-box').src = el.src;
+          toast('✓ Đã chọn ảnh — Nhấn "Áp dụng ảnh mới"');
+        };
+      })(img);
+      g.appendChild(img);
+    }
+  }
+
+  /* Drop zone drag-over */
+  setTimeout(function(){
+    var dz = document.getElementById('dz');
+    if (!dz) return;
+    ['dragover','dragenter'].forEach(function(ev){
+      dz.addEventListener(ev, function(e){ e.preventDefault(); dz.classList.add('over'); });
+    });
+    ['dragleave','dragend'].forEach(function(ev){
+      dz.addEventListener(ev, function(){ dz.classList.remove('over'); });
+    });
+    dz.addEventListener('drop', function(e){
+      e.preventDefault();
+      dz.classList.remove('over');
+      var f = e.dataTransfer.files[0];
+      if (!f || !f.type.startsWith('image/')) { toast('⚠️ Vui lòng chọn file ảnh!'); return; }
+      var r = new FileReader();
+      r.onload = function(ev){
+        state.pendingImgSrc = ev.target.result;
+        document.getElementById('img-preview-box').src = ev.target.result;
+        toast('✓ Ảnh đã tải lên — nhấn "Áp dụng ảnh mới"');
+      };
+      r.readAsDataURL(f);
+    });
+  }, 500);
+
+  /* ════ DRAG & DROP SECTIONS (native HTML5) ════ */
+  function enableDrag() {
+    // Add drag handles
+    document.querySelectorAll('body > section').forEach(function(sec){
+      if (sec.querySelector('.sec-drag-handle')) return;
+      var h = document.createElement('div');
+      h.className = 'sec-drag-handle';
+      h.innerHTML = '⠿ Kéo để di chuyển — <strong>#' + sec.id + '</strong>';
+      h.setAttribute('draggable', 'false');
+      sec.insertBefore(h, sec.firstChild);
+    });
+    // Make sections draggable
+    document.querySelectorAll('body > section').forEach(function(sec){
+      sec.setAttribute('draggable', 'true');
+      sec._drag_start = function(e){
+        state.dragSrc = sec;
+        sec.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', sec.id);
+      };
+      sec._drag_end = function(){
+        sec.classList.remove('dragging');
+        document.querySelectorAll('section.drag-over-top, section.drag-over-bottom').forEach(function(s){
+          s.classList.remove('drag-over-top','drag-over-bottom');
+        });
+      };
+      sec._drag_over = function(e){
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if (sec === state.dragSrc) return;
+        var rect = sec.getBoundingClientRect();
+        var mid = rect.top + rect.height / 2;
+        sec.classList.remove('drag-over-top','drag-over-bottom');
+        if (e.clientY < mid) sec.classList.add('drag-over-top');
+        else sec.classList.add('drag-over-bottom');
+      };
+      sec._drag_leave = function(){
+        sec.classList.remove('drag-over-top','drag-over-bottom');
+      };
+      sec._drop = function(e){
+        e.preventDefault();
+        if (!state.dragSrc || sec === state.dragSrc) return;
+        saveHist();
+        var rect = sec.getBoundingClientRect();
+        var mid = rect.top + rect.height / 2;
+        var parent = sec.parentNode;
+        sec.classList.remove('drag-over-top','drag-over-bottom');
+        if (e.clientY < mid) {
+          parent.insertBefore(state.dragSrc, sec);
+        } else {
+          parent.insertBefore(state.dragSrc, sec.nextSibling);
+        }
+        toast('✓ Đã di chuyển section #' + state.dragSrc.id + '!');
+        state.dragSrc = null;
+      };
+      sec.addEventListener('dragstart', sec._drag_start);
+      sec.addEventListener('dragend', sec._drag_end);
+      sec.addEventListener('dragover', sec._drag_over);
+      sec.addEventListener('dragleave', sec._drag_leave);
+      sec.addEventListener('drop', sec._drop);
+    });
+  }
+
+  function disableDrag() {
+    document.querySelectorAll('body > section').forEach(function(sec){
+      sec.removeAttribute('draggable');
+      if (sec._drag_start) sec.removeEventListener('dragstart', sec._drag_start);
+      if (sec._drag_end) sec.removeEventListener('dragend', sec._drag_end);
+      if (sec._drag_over) sec.removeEventListener('dragover', sec._drag_over);
+      if (sec._drag_leave) sec.removeEventListener('dragleave', sec._drag_leave);
+      if (sec._drop) sec.removeEventListener('drop', sec._drop);
+    });
+    document.querySelectorAll('.sec-drag-handle').forEach(function(h){ h.remove(); });
+  }
+
+  /* ════ SECTION PANEL ════ */
+  function openLayoutFor(sec) {
+    if (!sec) {
+      sec = document.querySelector('body > section');
+    }
+    state.activeSec = sec;
+    var title = sec ? '#' + sec.id : 'section';
+    document.getElementById('panel-sec-title').textContent = '⊞ Chỉnh sửa: ' + title;
+    document.getElementById('secPanel').classList.add('open');
+    document.getElementById('ai-result').textContent = '';
+    document.getElementById('ai-prompt-inp').value = '';
+  }
+
+  function closeSecPanel(evt) {
+    if (evt && evt.target !== document.getElementById('secPanel')) return;
+    document.getElementById('secPanel').classList.remove('open');
+  }
+
+  function switchPanelTab(tab, btn) {
+    document.querySelectorAll('.ptab').forEach(function(b){ b.classList.remove('on'); });
+    document.querySelectorAll('.pane').forEach(function(p){ p.classList.remove('on'); });
+    btn.classList.add('on');
+    document.getElementById('pane-' + tab).classList.add('on');
+  }
+
+  /* ── Layout ── */
+  function applyLayout(cols, el) {
+    if (!state.activeSec) { toast('⚠️ Chưa chọn section nào!'); return; }
+    saveHist();
+    document.querySelectorAll('.lo').forEach(function(o){ o.classList.remove('sel'); });
+    if (el) el.classList.add('sel');
+
+    var sec = state.activeSec;
+    // Find grid container
+    var grid = sec.querySelector('[class*="2col"],[class*="grid"],[class*="3"],[class*="4"],[class*="proof-2"],[class*="ba2"],[class*="testi3"],[class*="pricing3"],[class*="feat4"],[class*="cta-grid"],[class*="form-lay"],[class*="faq-lay"],[class*="foot3"],[class*="cmp-tbl"]');
+    if (!grid) {
+      // Look for any direct child div with multiple children
+      var children = sec.querySelectorAll('.W > div, .W');
+      grid = children[children.length - 1] || sec.querySelector('.W') || sec;
+    }
+
+    var templates = {
+      1: '1fr',
+      2: '1fr 1fr',
+      3: 'repeat(3,1fr)',
+      4: 'repeat(4,1fr)',
+      5: 'repeat(5,1fr)',
+      6: 'repeat(6,1fr)',
+      'hero': '1fr 1fr',
+      'hero-rev': '1fr 1fr',
+      'full-cta': '1fr'
+    };
+
+    grid.style.display = 'grid';
+    grid.style.gridTemplateColumns = templates[cols] || '1fr';
+    grid.style.gap = '22px';
+
+    if (cols === 'hero-rev') {
+      var items = Array.from(grid.children);
+      items.reverse().forEach(function(c){ grid.appendChild(c); });
+    }
+    toast('✓ Đã áp dụng bố cục ' + (typeof cols === 'number' ? cols + ' cột' : cols) + '!');
+  }
+
+  /* ── Background ── */
+  function applyBg(bg, el) {
+    if (!state.activeSec) { toast('⚠️ Chưa chọn section!'); return; }
+    saveHist();
+    state.activeSec.style.background = bg;
+    var isDark = bg.includes('#0d1b3e') || bg.includes('#0a2463') || bg.includes('#065f46') || bg.includes('7c3aed');
+    // Adjust inner text colors hint
+    document.querySelectorAll('.sw').forEach(function(s){ s.classList.remove('sel'); });
+    if (el) el.classList.add('sel');
+    toast('✓ Đã thay đổi màu nền section!');
+  }
+
+  /* ── Padding ── */
+  function applyPad(p) {
+    if (!state.activeSec) { toast('⚠️ Chưa chọn section!'); return; }
+    saveHist();
+    state.activeSec.style.padding = p;
+    toast('✓ Đã thay đổi padding section!');
+  }
+
+  /* ── Duplicate ── */
+  function duplicateSec() {
+    if (!state.activeSec) { toast('⚠️ Chưa chọn section!'); return; }
+    saveHist();
+    var clone = state.activeSec.cloneNode(true);
+    clone.id = state.activeSec.id + '-copy';
+    // Remove builder artifacts
+    clone.querySelectorAll('.sec-drag-handle, .sec-btn').forEach(function(el){ el.remove(); });
+    state.activeSec.parentNode.insertBefore(clone, state.activeSec.nextSibling);
+    // Re-add sec btn
+    addSecBtn(clone);
+    if (state.mode === 'drag') {
+      enableDragOnSec(clone);
+    }
+    closeSecPanel();
+    toast('⧉ Đã nhân đôi section #' + state.activeSec.id);
+  }
+
+  /* ── Hide ── */
+  function hideSec() {
+    if (!state.activeSec) { toast('⚠️ Chưa chọn section!'); return; }
+    saveHist();
+    state.activeSec.style.display = 'none';
+    closeSecPanel();
+    toast('👁 Đã ẩn section — Nhấn ↩ để hoàn tác');
+  }
+
+  /* ── Delete ── */
+  function deleteSec() {
+    if (!state.activeSec) { toast('⚠️ Chưa chọn section!'); return; }
+    if (!confirm('Xoá section #' + state.activeSec.id + '? Nhấn ↩ để hoàn tác.')) return;
+    saveHist();
+    state.activeSec.remove();
+    state.activeSec = null;
+    closeSecPanel();
+    toast('✕ Đã xoá section!');
+  }
+
+  /* ── Move up/down ── */
+  function moveSecUp() {
+    if (!state.activeSec) { toast('⚠️ Chưa chọn section!'); return; }
+    var prev = state.activeSec.previousElementSibling;
+    while (prev && prev.tagName !== 'SECTION') prev = prev.previousElementSibling;
+    if (!prev) { toast('⚠️ Section đã ở vị trí đầu tiên!'); return; }
+    saveHist();
+    state.activeSec.parentNode.insertBefore(state.activeSec, prev);
+    toast('↑ Đã chuyển section lên trên!');
+  }
+  function moveSecDown() {
+    if (!state.activeSec) { toast('⚠️ Chưa chọn section!'); return; }
+    var next = state.activeSec.nextElementSibling;
+    while (next && next.tagName !== 'SECTION') next = next.nextElementSibling;
+    if (!next) { toast('⚠️ Section đã ở vị trí cuối!'); return; }
+    saveHist();
+    state.activeSec.parentNode.insertBefore(next, state.activeSec);
+    toast('↓ Đã chuyển section xuống dưới!');
+  }
+  function resetSecStyle() {
+    if (!state.activeSec) { toast('⚠️ Chưa chọn section!'); return; }
+    saveHist();
+    state.activeSec.removeAttribute('style');
+    toast('🔄 Đã reset style section về mặc định!');
+  }
+
+  /* ════ AI LAYOUT ════ */
+  async function runAI() {
+    var prompt = document.getElementById('ai-prompt-inp').value.trim();
+    if (!prompt) { toast('⚠️ Vui lòng nhập mô tả layout!'); return; }
+    if (!state.activeSec) { toast('⚠️ Chưa chọn section! Hover lên section và click ⊞'); return; }
+
+    var btn = document.getElementById('ai-run-btn');
+    var ic = document.getElementById('ai-run-ic');
+    var tx = document.getElementById('ai-run-tx');
+    var res = document.getElementById('ai-result');
+
+    btn.disabled = true;
+    ic.textContent = '⏳';
+    tx.textContent = 'AI đang tạo layout...';
+    res.innerHTML = '<span style="color:#64748b">✨ AI đang phân tích và tạo HTML layout mới...</span>';
+
+    try {
+      var curHTML = state.activeSec.innerHTML.substring(0, 2000);
+      var sysMsg = 'Bạn là chuyên gia thiết kế HTML/CSS. Nhiệm vụ: chỉnh sửa innerHTML của một section landing page theo yêu cầu người dùng. CHỈ trả về HTML thuần (KHÔNG markdown, KHÔNG code block, KHÔNG giải thích). Giữ nguyên nội dung text và src ảnh. Chỉ thay đổi cấu trúc HTML và CSS inline. Dùng CSS grid/flex inline. Màu brand: #1565c0 (blue), #ff6b2b (orange). Font: Be Vietnam Pro.';
+      var userMsg = 'HTML section hiện tại (rút gọn 2000 ký tự):\n' + curHTML + '\n\n---\nYêu cầu thay đổi bố cục: ' + prompt + '\n\nHãy trả về innerHTML mới. Giữ nguyên văn bản và ảnh, chỉ thay cấu trúc HTML + CSS inline.';
+
+      var resp = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 2000,
+          system: sysMsg,
+          messages: [{ role: 'user', content: userMsg }]
+        })
+      });
+
+      var data = await resp.json();
+      if (!data.content || !data.content[0]) throw new Error('API không trả về kết quả');
+
+      var newHTML = data.content[0].text
+        .replace(/^```html?\s*/i, '')
+        .replace(/```\s*$/i, '')
+        .trim();
+
+      if (newHTML && newHTML.length > 80) {
+        saveHist();
+        state.activeSec.querySelectorAll('.sec-drag-handle,.sec-btn').forEach(function(e){ e.remove(); });
+        state.activeSec.innerHTML = newHTML;
+        addSecBtn(state.activeSec);
+        res.innerHTML = '<span style="color:#059669;font-weight:700">✓ AI đã tạo layout mới thành công! Nhấn ↩ Hoàn tác nếu không hài lòng.</span>';
+        toast('✨ AI đã áp dụng layout mới!');
+      } else {
+        res.innerHTML = '<span style="color:#f59e0b">⚠️ AI trả về kết quả không đầy đủ. Thử mô tả cụ thể hơn.</span>';
+        toast('⚠️ AI không tạo được layout phù hợp, thử lại với mô tả rõ hơn');
+      }
+    } catch (err) {
+      res.innerHTML = '<span style="color:#ef4444;font-weight:600">✕ Lỗi: ' + err.message + '</span>';
+      toast('✕ Lỗi khi gọi AI: ' + err.message);
+    }
+
+    btn.disabled = false;
+    ic.textContent = '✨';
+    tx.textContent = 'Tạo layout bằng AI';
+  }
+
+  /* ════ PREVIEW ════ */
+  function openPreview() {
+    var prev = document.getElementById('previewPanel');
+    prev.classList.add('open');
+
+    // Build clean HTML for iframe
+    var clone = document.documentElement.cloneNode(true);
+    // Remove builder elements
+    var toRemove = ['#toolbar','#toast','#secPanel','#imgPanel','#previewPanel',
+                    '#img-file-input','.sec-btn','.sec-drag-handle','#mcta'];
+    toRemove.forEach(function(sel){
+      clone.querySelectorAll(sel).forEach(function(el){ el.remove(); });
+    });
+    clone.querySelectorAll('[contenteditable]').forEach(function(el){
+      el.removeAttribute('contenteditable');
+    });
+    clone.querySelectorAll('body').forEach(function(b){
+      b.style.paddingBottom = '0';
+    });
+    // Remove builder CSS (last style block)
+    var scripts = clone.querySelectorAll('script');
+    scripts[scripts.length - 1] && scripts[scripts.length - 1].remove();
+
+    var html = '<!DOCTYPE html>\n' + clone.outerHTML;
+    var iframe = document.getElementById('prev-iframe');
+    iframe.srcdoc = html;
+    toast('▶ Đang tải xem trước...');
+  }
+
+  function closePreview() {
+    document.getElementById('previewPanel').classList.remove('open');
+  }
+
+  function setDevice(d, btn) {
+    document.querySelectorAll('.pdev').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+    var dims = { desktop: 1280, tablet: 768, mobile: 375 };
+    document.getElementById('prev-iframe').style.width = dims[d] + 'px';
+  }
+
+  /* ════ DOWNLOAD ════ */
+  function download() {
+    var clone = document.documentElement.cloneNode(true);
+    var toRemove = ['#toolbar','#toast','#secPanel','#imgPanel','#previewPanel',
+                    '#img-file-input','.sec-btn','.sec-drag-handle'];
+    toRemove.forEach(function(sel){
+      clone.querySelectorAll(sel).forEach(function(el){ el.remove(); });
+    });
+    clone.querySelectorAll('[contenteditable]').forEach(function(el){
+      el.removeAttribute('contenteditable');
+    });
+    clone.querySelectorAll('body').forEach(function(b){
+      b.style.paddingBottom = '0';
+    });
+    var html = '<!DOCTYPE html>\n' + clone.outerHTML;
+    var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'tenten-landing-page.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast('📥 Đã tải file tenten-landing-page.html — Sẵn sàng upload!');
+  }
+
+  /* ════ SECTION EDIT BUTTONS ════ */
+  function addSecBtn(sec) {
+    if (sec.querySelector('.sec-btn')) return;
+    var btn = document.createElement('button');
+    btn.className = 'sec-btn';
+    btn.innerHTML = '⊞ Bố cục / Màu sắc';
+    btn.onclick = function(e) {
+      e.stopPropagation();
+      openLayoutFor(sec);
+    };
+    sec.appendChild(btn);
+  }
+
+  function enableDragOnSec(sec) {
+    sec.setAttribute('draggable', 'true');
+    var h = document.createElement('div');
+    h.className = 'sec-drag-handle';
+    h.innerHTML = '⠿ Kéo để di chuyển — <strong>#' + sec.id + '</strong>';
+    sec.insertBefore(h, sec.firstChild);
+  }
+
+  function reinitAll() {
+    document.querySelectorAll('body > section').forEach(function(sec){
+      addSecBtn(sec);
+    });
+    if (state.mode === 'text') enableText();
+    if (state.mode === 'img') enableImgMode();
+    if (state.mode === 'drag') enableDrag();
+  }
+
+  /* ════ INIT ════ */
+  function init() {
+    document.querySelectorAll('body > section').forEach(function(sec){
+      addSecBtn(sec);
+    });
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e){
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z') { e.preventDefault(); undo(); }
+      if (e.key === 'Escape') {
+        exitModes();
+        closeSecPanel();
+        closeImgPanel();
+        closePreview();
+      }
+    });
+    toast('🛠️ Tenten Page Builder sẵn sàng — Click vào các nút bên dưới để bắt đầu chỉnh sửa!', 4000);
+  }
+
+  // Wait for DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    setTimeout(init, 100);
+  }
+
+  // Public API
+  return {
+    toggleMode: toggleMode,
+    openImgPanel: openImgPanel,
+    closeImgPanel: closeImgPanel,
+    switchImgTab: switchImgTab,
+    previewUrl: previewUrl,
+    searchUnsplash: searchUnsplash,
+    applyImg: applyImg,
+    openLayoutFor: openLayoutFor,
+    closeSecPanel: closeSecPanel,
+    switchPanelTab: switchPanelTab,
+    applyLayout: applyLayout,
+    applyBg: applyBg,
+    applyPad: applyPad,
+    duplicateSec: duplicateSec,
+    hideSec: hideSec,
+    deleteSec: deleteSec,
+    moveSecUp: moveSecUp,
+    moveSecDown: moveSecDown,
+    resetSecStyle: resetSecStyle,
+    runAI: runAI,
+    openPreview: openPreview,
+    closePreview: closePreview,
+    setDevice: setDevice,
+    download: download,
+    undo: undo,
+    saveHist: saveHist,
+    state: state
+  };
+})();
+
+/* ════ LANDING PAGE FUNCTIONS ════ */
+/* FAQ accordion */
+function tFaq(el) {
+  var item = el.closest('.fi');
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.fi').forEach(function(i){ i.classList.remove('open'); });
+  if (!isOpen) item.classList.add('open');
+}
+
+/* Feature tabs */
+function sTab(id, btn) {
+  document.querySelectorAll('.tpane').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.tnav').forEach(function(b){ b.classList.remove('on'); });
+  document.getElementById('tab-' + id).classList.add('on');
+  btn.classList.add('on');
+}
+
+/* Video */
+function playVideo(el) {
+  el.innerHTML = '<iframe width="100%" height="100%" style="border:none;border-radius:18px" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>';
+}
+
+/* Countdown */
+(function(){
+  var t = 23 * 3600 + 59 * 60 + 47;
+  function tick() {
+    if (--t < 0) t = 86399;
+    var hEl = document.getElementById('cdH');
+    var mEl = document.getElementById('cdM');
+    var sEl = document.getElementById('cdS');
+    if (hEl) hEl.textContent = String(Math.floor(t / 3600)).padStart(2, '0');
+    if (mEl) mEl.textContent = String(Math.floor(t % 3600 / 60)).padStart(2, '0');
+    if (sEl) sEl.textContent = String(t % 60).padStart(2, '0');
+  }
+  setInterval(tick, 1000);
+})();
+
+/* Forms */
+function subCTA() {
+  var n = document.getElementById('cN').value.trim();
+  var p = document.getElementById('cP').value.trim();
+  var e = document.getElementById('cE').value.trim();
+  if (!n || !p || !e) { alert('Vui lòng điền đầy đủ họ tên, điện thoại và email!'); return; }
+  document.querySelector('.mf').innerHTML = '<div style="text-align:center;padding:28px 0"><div style="font-size:2.8rem;margin-bottom:11px">🎉</div><h3 style="color:#fff;font-size:1.1rem;font-weight:900;margin-bottom:7px">Đăng ký thành công!</h3><p style="color:rgba(255,255,255,.6);font-size:.84rem">Chuyên gia sẽ liên hệ trong <strong style="color:#69ffec">30 phút</strong>!</p></div>';
+}
+function subForm() {
+  var n = document.getElementById('fN').value.trim();
+  var p = document.getElementById('fP').value.trim();
+  var e = document.getElementById('fE').value.trim();
+  var nd = document.getElementById('fND').value;
+  if (!n || !p || !e || !nd) { alert('Vui lòng điền đầy đủ các trường bắt buộc!'); return; }
+  document.getElementById('fWrap').style.display = 'none';
+  document.getElementById('fs').style.display = 'block';
+}
+</script>
+</body>
+</html>
