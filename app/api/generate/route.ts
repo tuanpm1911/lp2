@@ -10,6 +10,7 @@ Do not invent testimonials, customer counts, awards, certifications, prices or p
 Build a concise conversion flow, normally 6-10 sections. Always include HeroSplit near the top and FinalCTA near the end. Footer may be included.
 Each section must have id, component, variant, purpose, props, images, analytics.
 For props use plain strings and arrays suitable for the component. For FAQ use items as [{question,answer}]. For benefits use items as string[].
+If the brief contains heroImageUrl, use that exact URL in the HeroSplit section image data and use heroImageAlt as alt text. Never replace an uploaded image URL with an invented URL.
 SEO must include title, description, canonical, ogTitle, ogDescription, ogImageRequirement, schemaTypes.
 Output shape exactly:
 {"page":{"name":"","locale":"vi-VN","conversionGoal":"","primaryCTA":{"label":"","href":"#contact","event":"cta_click"}},"seo":{"title":"","description":"","canonical":"","ogTitle":"","ogDescription":"","ogImageRequirement":"1200x630","schemaTypes":[]},"sections":[],"qualityHints":{"primaryMessage":"","mainObjections":[],"proofRequired":[],"mobileNotes":[]}}`;
