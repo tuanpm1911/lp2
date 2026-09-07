@@ -47,6 +47,27 @@ export async function POST(req:Request){
     if(!response.ok) throw new Error(data?.error?.message||'Anthropic API error');
     const text=(data?.content||[]).filter((x:any)=>x.type==='text').map((x:any)=>x.text).join('\n');
     const parsed=JSON.parse(cleanJson(text));
+
+    parsed.design={
+      brandColor:brief.brandColor||'#2563eb',
+      fontStyle:'modern',
+      radius:'14px'
+    };
+
+    if(brief.heroImageUrl&&Array.isArray(parsed.sections)){
+      const hero=parsed.sections.find((section:any)=>section?.component==='HeroSplit');
+      if(hero){
+        hero.images=[{
+          purpose:'hero',
+          src:brief.heroImageUrl,
+          alt:brief.heroImageAlt||brief.productName,
+          aspectRatio:'4:3',
+          lcp:true,
+          lazy:false
+        }];
+      }
+    }
+
     const spec=PageSpecSchema.parse(parsed);
     return NextResponse.json({spec});
   }catch(error:any){
