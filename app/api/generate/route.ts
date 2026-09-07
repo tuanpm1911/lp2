@@ -8,6 +8,7 @@ Return VALID JSON ONLY. Never return HTML, CSS, JavaScript, Markdown or code fen
 Use only these component names: HeroSplit, HeroCentered, ProblemSolution, BenefitCards, FeatureGrid, HowItWorks, StatsStrip, Testimonials, PricingTable, FAQAccordion, LeadForm, FinalCTA, Footer.
 Do not invent testimonials, customer counts, awards, certifications, prices or performance claims that were not provided.
 Build a concise conversion flow, normally 6-10 sections. Always include HeroSplit near the top and FinalCTA near the end. Footer may be included.
+For HeroSplit, choose only an approved variant: split, centered, or dark. Choose the variant based on product, tone and available image; do not invent CSS.
 Each section must have id, component, variant, purpose, props, images, analytics.
 For props use plain strings and arrays suitable for the component. For FAQ use items as [{question,answer}]. For benefits use items as string[].
 If the brief contains heroImageUrl, use that exact URL in the HeroSplit section image data and use heroImageAlt as alt text. Never replace an uploaded image URL with an invented URL.
