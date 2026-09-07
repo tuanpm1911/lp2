@@ -17,7 +17,9 @@ const RequestSchema=z.object({
 });
 
 function specFor(assetType:'hero'|'section'|'og',mode:'draft'|'final'){
-  if(assetType==='og') return {size:'1200x630',quality:mode==='final'?'high':'medium',count:mode==='final'?1:2};
+  // GPT-Image-2 requires both dimensions to be multiples of 16.
+  // OG assets are generated at 1200x640 and can be cropped to 1200x630 in the optimization pipeline.
+  if(assetType==='og') return {size:'1200x640',quality:mode==='final'?'high':'medium',count:mode==='final'?1:2};
   if(assetType==='section') return {size:'1536x1024',quality:mode==='final'?'high':'medium',count:mode==='final'?1:2};
   return {size:mode==='final'?'2048x1152':'1536x1024',quality:mode==='final'?'high':'medium',count:mode==='final'?1:2};
 }
