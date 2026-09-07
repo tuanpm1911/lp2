@@ -64,5 +64,7 @@ export type MarketingBrief = {
   referenceUrl?: string;
   brandColor?: string;
   tone?: string;
+  heroImageUrl?: string;
+  heroImageAlt?: string;
   extra?: string;
 };
