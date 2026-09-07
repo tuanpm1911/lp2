@@ -2,7 +2,7 @@ import type { Config, Data } from '@puckeditor/core';
 import type { PageSpec } from './page-spec';
 
 type Components = {
-  HeroSplit: { eyebrow:string; title:string; description:string; ctaLabel:string; ctaHref:string };
+  HeroSplit: { eyebrow:string; title:string; description:string; ctaLabel:string; ctaHref:string; imageUrl:string; imageAlt:string };
   BenefitCards: { title:string; items:string };
   ProblemSolution: { title:string; problem:string; solution:string };
   HowItWorks: { title:string; steps:string };
@@ -15,7 +15,6 @@ type Components = {
 
 const shell: React.CSSProperties={maxWidth:1160,margin:'0 auto',padding:'0 24px'};
 const btn: React.CSSProperties={display:'inline-block',padding:'13px 22px',borderRadius:10,background:'#2563eb',color:'#fff',fontWeight:700,textDecoration:'none'};
-
 const lines=(value:string)=>value.split('\n').map(x=>x.trim()).filter(Boolean);
 
 export const puckConfig: Config<Components> = {
@@ -26,9 +25,9 @@ export const puckConfig: Config<Components> = {
   },
   components:{
     HeroSplit:{
-      fields:{eyebrow:{type:'text'},title:{type:'text'},description:{type:'textarea'},ctaLabel:{type:'text'},ctaHref:{type:'text'}},
-      defaultProps:{eyebrow:'SẢN PHẨM MỚI',title:'Một headline rõ giá trị',description:'Mô tả ngắn gọn lợi ích chính.',ctaLabel:'Bắt đầu ngay',ctaHref:'#contact'},
-      render:({eyebrow,title,description,ctaLabel,ctaHref})=><section style={{padding:'88px 0',background:'linear-gradient(135deg,#eff6ff,#fff)'}}><div style={shell}><div style={{maxWidth:760}}><div style={{fontSize:13,fontWeight:800,letterSpacing:1.3,color:'#2563eb',marginBottom:14}}>{eyebrow}</div><h1 style={{fontSize:'clamp(38px,6vw,68px)',lineHeight:1.02,letterSpacing:-2.5,margin:'0 0 20px',color:'#0f172a'}}>{title}</h1><p style={{fontSize:19,lineHeight:1.7,color:'#475569',margin:'0 0 28px'}}>{description}</p><a href={ctaHref} style={btn}>{ctaLabel}</a></div></div></section>
+      fields:{eyebrow:{type:'text'},title:{type:'text'},description:{type:'textarea'},ctaLabel:{type:'text'},ctaHref:{type:'text'},imageUrl:{type:'text'},imageAlt:{type:'text'}},
+      defaultProps:{eyebrow:'SẢN PHẨM MỚI',title:'Một headline rõ giá trị',description:'Mô tả ngắn gọn lợi ích chính.',ctaLabel:'Bắt đầu ngay',ctaHref:'#contact',imageUrl:'',imageAlt:''},
+      render:({eyebrow,title,description,ctaLabel,ctaHref,imageUrl,imageAlt})=><section style={{padding:'72px 0',background:'linear-gradient(135deg,#eff6ff,#fff)'}}><div style={{...shell,display:'grid',gridTemplateColumns:imageUrl?'repeat(auto-fit,minmax(320px,1fr))':'1fr',alignItems:'center',gap:42}}><div style={{maxWidth:760}}><div style={{fontSize:13,fontWeight:800,letterSpacing:1.3,color:'#2563eb',marginBottom:14}}>{eyebrow}</div><h1 style={{fontSize:'clamp(38px,6vw,68px)',lineHeight:1.02,letterSpacing:-2.5,margin:'0 0 20px',color:'#0f172a'}}>{title}</h1><p style={{fontSize:19,lineHeight:1.7,color:'#475569',margin:'0 0 28px'}}>{description}</p><a href={ctaHref} style={btn}>{ctaLabel}</a></div>{imageUrl&&<figure style={{margin:0,borderRadius:22,overflow:'hidden',boxShadow:'0 24px 70px rgba(15,23,42,.16)',background:'#e2e8f0',aspectRatio:'4 / 3'}}><img src={imageUrl} alt={imageAlt} fetchPriority="high" style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}} /></figure>}</div></section>
     },
     ProblemSolution:{
       fields:{title:{type:'text'},problem:{type:'textarea'},solution:{type:'textarea'}},defaultProps:{title:'Vấn đề → Giải pháp',problem:'Vấn đề khách hàng đang gặp',solution:'Cách sản phẩm giải quyết'},
@@ -52,7 +51,7 @@ export function pageSpecToPuck(spec:PageSpec):Data{
     const p=s.props as Record<string,unknown>;
     const id=`${s.component}-${s.id}-${index}`;
     switch(s.component){
-      case 'HeroSplit': return {type:'HeroSplit',props:{id,eyebrow:String(p.eyebrow||''),title:String(p.title||spec.page.name),description:String(p.description||''),ctaLabel:String(p.ctaLabel||spec.page.primaryCTA.label),ctaHref:String(p.ctaHref||spec.page.primaryCTA.href)}};
+      case 'HeroSplit': return {type:'HeroSplit',props:{id,eyebrow:String(p.eyebrow||''),title:String(p.title||spec.page.name),description:String(p.description||''),ctaLabel:String(p.ctaLabel||spec.page.primaryCTA.label),ctaHref:String(p.ctaHref||spec.page.primaryCTA.href),imageUrl:String(p.imageUrl||s.images?.[0]?.src||''),imageAlt:String(p.imageAlt||s.images?.[0]?.alt||'')}};
       case 'ProblemSolution': return {type:'ProblemSolution',props:{id,title:String(p.title||'Vấn đề và giải pháp'),problem:String(p.problem||''),solution:String(p.solution||'')}};
       case 'BenefitCards': case 'FeatureGrid': return {type:'BenefitCards',props:{id,title:String(p.title||'Lợi ích nổi bật'),items:Array.isArray(p.items)?p.items.join('\n'):String(p.items||'')}};
       case 'HowItWorks': return {type:'HowItWorks',props:{id,title:String(p.title||'Cách hoạt động'),steps:Array.isArray(p.steps)?p.steps.join('\n'):String(p.steps||'')}};
