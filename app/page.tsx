@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Puck, type Data } from '@puckeditor/core';
 import { pageSpecToPuck, puckConfig } from '@/lib/puck-config';
+import { evaluatePageSpec } from '@/lib/quality';
 import type { MarketingBrief, PageSpec } from '@/lib/page-spec';
 
 const initialBrief:MarketingBrief={
@@ -30,6 +31,7 @@ export default function Home(){
   },[]);
 
   const ready=useMemo(()=>Boolean(brief.productName.trim()&&brief.audience.trim()&&brief.cta.trim()),[brief]);
+  const quality=useMemo(()=>spec?evaluatePageSpec(spec):null,[spec]);
   const set=(key:keyof MarketingBrief,value:string)=>setBrief(prev=>({...prev,[key]:value}));
 
   async function generate(){
@@ -84,6 +86,7 @@ export default function Home(){
         {error&&<div className="error">{error}</div>}
         <div className="hint">V1 yêu cầu Vercel Environment Variable <b>ANTHROPIC_API_KEY</b>. API key không được lưu trong browser.</div>
         {spec&&<div className="status"><strong>✓ PageSpec hợp lệ</strong> · {spec.sections.length} sections · {spec.seo.schemaTypes.length} schema types</div>}
+        {quality&&<div style={{marginTop:12,padding:12,border:'1px solid #263249',borderRadius:10,background:'#172033'}}><div style={{display:'flex',justifyContent:'space-between',gap:12,alignItems:'center',marginBottom:8}}><strong>Quality Gate</strong><strong style={{color:quality.score>=85?'#23c483':quality.score>=70?'#fbbf24':'#ff6b6b'}}>{quality.score}/100</strong></div><div style={{display:'grid',gap:5}}>{quality.checks.map(c=><div key={c.id} style={{fontSize:11,color:c.ok?'#8ee6bd':'#ffb0b0'}}>{c.ok?'✓':'•'} {c.label}</div>)}</div></div>}
       </aside>
       <section className="canvas">
         {!data?<div className="empty"><div className="empty-card"><h2>Brief → AI → Editor</h2><p>Điền ba trường bắt buộc bên trái rồi Generate. Kết quả sẽ mở trực tiếp trong visual editor để Marketing kéo thả và sửa nội dung mà không cần chạm vào HTML/CSS.</p></div></div>:
