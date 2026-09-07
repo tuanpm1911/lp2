@@ -34,6 +34,11 @@ export const PageSpecSchema = z.object({
     conversionGoal: z.string().default('lead'),
     primaryCTA: CtaSchema
   }),
+  design: z.object({
+    brandColor: z.string().default('#2563eb'),
+    fontStyle: z.enum(['modern','editorial','classic']).default('modern'),
+    radius: z.enum(['6px','14px','24px']).default('14px')
+  }).default({brandColor:'#2563eb',fontStyle:'modern',radius:'14px'}),
   seo: z.object({
     title: z.string().default(''),
     description: z.string().default(''),
