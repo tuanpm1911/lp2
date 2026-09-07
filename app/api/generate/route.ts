@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { PageSpecSchema, type MarketingBrief } from '@/lib/page-spec';
 
+export const maxDuration = 60;
+
 const SYSTEM = `You are the Landing Page Architect for an internal marketing page builder.
 Return VALID JSON ONLY. Never return HTML, CSS, JavaScript, Markdown or code fences.
 Use only these component names: HeroSplit, HeroCentered, ProblemSolution, BenefitCards, FeatureGrid, HowItWorks, StatsStrip, Testimonials, PricingTable, FAQAccordion, LeadForm, FinalCTA, Footer.
