@@ -7,7 +7,7 @@ import { evaluatePageSpec } from '@/lib/quality';
 import type { MarketingBrief, PageSpec } from '@/lib/page-spec';
 
 const initialBrief:MarketingBrief={
-  productName:'',audience:'',goal:'Thu thập lead',usp:'',cta:'Nhận tư vấn',price:'',referenceUrl:'',brandColor:'#2563eb',tone:'Chuyên nghiệp, rõ ràng',extra:''
+  productName:'',audience:'',goal:'Thu thập lead',usp:'',cta:'Nhận tư vấn',price:'',referenceUrl:'',brandColor:'#2563eb',tone:'Chuyên nghiệp, rõ ràng',heroImageUrl:'',heroImageAlt:'',extra:''
 };
 
 function slugify(value:string){
@@ -26,6 +26,8 @@ export default function Home(){
   const [publishing,setPublishing]=useState(false);
   const [publishError,setPublishError]=useState('');
   const [publishedUrl,setPublishedUrl]=useState('');
+  const [uploadingAsset,setUploadingAsset]=useState(false);
+  const [assetError,setAssetError]=useState('');
 
   useEffect(()=>{
     try{
@@ -44,10 +46,22 @@ export default function Home(){
   const quality=useMemo(()=>spec?evaluatePageSpec(spec):null,[spec]);
   const set=(key:keyof MarketingBrief,value:string)=>setBrief(prev=>({...prev,[key]:value}));
 
-  function persistDraft(nextData:Data|null=data,nextSpec:PageSpec|null=spec,nextPublishedUrl=publishedUrl){
-    localStorage.setItem('lp-studio-draft',JSON.stringify({
-      brief,spec:nextSpec,data:nextData,publishSlug,publishedUrl:nextPublishedUrl,savedAt:new Date().toISOString()
-    }));
+  function persistDraft(nextData:Data|null=data,nextSpec:PageSpec|null=spec,nextPublishedUrl=publishedUrl,nextBrief:MarketingBrief=brief){
+    localStorage.setItem('lp-studio-draft',JSON.stringify({brief:nextBrief,spec:nextSpec,data:nextData,publishSlug,publishedUrl:nextPublishedUrl,savedAt:new Date().toISOString()}));
+  }
+
+  async function uploadHero(file:File){
+    setUploadingAsset(true);setAssetError('');
+    try{
+      const form=new FormData();form.append('file',file);
+      const res=await fetch('/api/assets',{method:'POST',body:form});
+      const json=await res.json();
+      if(!res.ok) throw new Error(json.error||'Không thể upload ảnh');
+      const nextBrief={...brief,heroImageUrl:json.url,heroImageAlt:brief.heroImageAlt||brief.productName};
+      setBrief(nextBrief);
+      persistDraft(data,spec,publishedUrl,nextBrief);
+    }catch(e:any){setAssetError(e.message||'Không thể upload ảnh.');}
+    finally{setUploadingAsset(false);}
   }
 
   async function generate(){
@@ -101,7 +115,7 @@ export default function Home(){
   }
 
   return <>
-    <header className="topbar"><div className="brand">RUN <span>LP Studio</span></div><div className="badge">V1.2 · Generate → Edit → QA → Publish</div></header>
+    <header className="topbar"><div className="brand">RUN <span>LP Studio</span></div><div className="badge">V1.3 · Brief → Assets → AI → Edit → QA → Publish</div></header>
     <main className="workspace">
       <aside className="brief">
         <h1>1. Marketing Brief</h1>
@@ -119,13 +133,20 @@ export default function Home(){
           <div className="field"><label>Brand color</label><input value={brief.brandColor||''} onChange={e=>set('brandColor',e.target.value)} /></div>
         </div>
         <div className="field"><label>Tone</label><input value={brief.tone||''} onChange={e=>set('tone',e.target.value)} /></div>
+        <div style={{padding:12,border:'1px solid #263249',borderRadius:10,background:'#172033',marginBottom:12}}>
+          <strong style={{display:'block',marginBottom:8,fontSize:12}}>Hero image</strong>
+          <input type="file" accept="image/jpeg,image/png,image/webp,image/avif" disabled={uploadingAsset} onChange={e=>{const file=e.target.files?.[0];if(file) uploadHero(file)}} style={{width:'100%',fontSize:11,color:'#9aa7bd'}} />
+          {uploadingAsset&&<div className="hint">Đang upload lên Vercel Blob...</div>}
+          {assetError&&<div className="error">{assetError}</div>}
+          {brief.heroImageUrl&&<div style={{marginTop:10}}><img src={brief.heroImageUrl} alt={brief.heroImageAlt||''} style={{width:'100%',maxHeight:160,objectFit:'cover',borderRadius:8,display:'block'}} /><div className="field" style={{marginTop:8,marginBottom:0}}><label>Alt text</label><input value={brief.heroImageAlt||''} onChange={e=>set('heroImageAlt',e.target.value)} placeholder="Mô tả ảnh cho SEO/accessibility" /></div></div>}
+        </div>
         <div className="field"><label>URL tham khảo</label><input value={brief.referenceUrl||''} onChange={e=>set('referenceUrl',e.target.value)} placeholder="https://..." /></div>
         <div className="field"><label>Nội dung bổ sung</label><textarea value={brief.extra||''} onChange={e=>set('extra',e.target.value)} placeholder="FAQ, thông tin liên hệ, proof, yêu cầu pháp lý..." /></div>
         <button className="primary" disabled={!ready||loading} onClick={generate}>{loading?'AI đang xây PageSpec...':'✨ Generate Landing Page'}</button>
         {error&&<div className="error">{error}</div>}
         <div className="hint">AI key chỉ chạy server-side qua <b>ANTHROPIC_API_KEY</b>.</div>
         {spec&&<div className="status"><strong>✓ PageSpec hợp lệ</strong> · {spec.sections.length} sections · {spec.seo.schemaTypes.length} schema types</div>}
-        {quality&&<div style={{marginTop:12,padding:12,border:'1px solid #263249',borderRadius:10,background:'#172033'}}><div style={{display:'flex',justifyContent:'space-between',gap:12,alignItems:'center',marginBottom:8}}><strong>2. Quality Gate</strong><strong style={{color:quality.score>=85?'#23c483':quality.score>=70?'#fbbf24':'#ff6b6b'}}>{quality.score}/100</strong></div><div style={{display:'grid',gap:5}}>{quality.checks.map(c=><div key={c.id} style={{fontSize:11,color:c.ok?'#8ee6bd':'#ffb0b0'}}>{c.ok?'✓':'•'} {c.label}</div>)}</div><div className="hint">V1.2 Quality Gate kiểm tra PageSpec. Vòng sau sẽ bổ sung Lighthouse + HTML runtime audit.</div></div>}
+        {quality&&<div style={{marginTop:12,padding:12,border:'1px solid #263249',borderRadius:10,background:'#172033'}}><div style={{display:'flex',justifyContent:'space-between',gap:12,alignItems:'center',marginBottom:8}}><strong>2. Quality Gate</strong><strong style={{color:quality.score>=85?'#23c483':quality.score>=70?'#fbbf24':'#ff6b6b'}}>{quality.score}/100</strong></div><div style={{display:'grid',gap:5}}>{quality.checks.map(c=><div key={c.id} style={{fontSize:11,color:c.ok?'#8ee6bd':'#ffb0b0'}}>{c.ok?'✓':'•'} {c.label}</div>)}</div><div className="hint">V1.3 Quality Gate kiểm tra PageSpec. Vòng sau sẽ bổ sung Lighthouse + HTML runtime audit.</div></div>}
         {data&&spec&&<div style={{marginTop:12,padding:12,border:'1px solid #35518a',borderRadius:10,background:'#111b31'}}>
           <strong style={{display:'block',marginBottom:8}}>3. Publish</strong>
           <div className="field" style={{marginBottom:8}}><label>Public slug</label><input value={publishSlug} onChange={e=>{setPublishSlug(slugify(e.target.value));setPublishedUrl('')}} placeholder="vibe-code-hosting" /></div>
