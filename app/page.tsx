@@ -10,6 +10,10 @@ const initialBrief:MarketingBrief={
   productName:'',audience:'',goal:'Thu thập lead',usp:'',cta:'Nhận tư vấn',price:'',referenceUrl:'',brandColor:'#2563eb',tone:'Chuyên nghiệp, rõ ràng',extra:''
 };
 
+function slugify(value:string){
+  return value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80);
+}
+
 export default function Home(){
   const [brief,setBrief]=useState(initialBrief);
   const [spec,setSpec]=useState<PageSpec|null>(null);
@@ -18,6 +22,10 @@ export default function Home(){
   const [error,setError]=useState('');
   const [editorKey,setEditorKey]=useState(0);
   const [restored,setRestored]=useState(false);
+  const [publishSlug,setPublishSlug]=useState('');
+  const [publishing,setPublishing]=useState(false);
+  const [publishError,setPublishError]=useState('');
+  const [publishedUrl,setPublishedUrl]=useState('');
 
   useEffect(()=>{
     try{
@@ -27,6 +35,8 @@ export default function Home(){
       if(draft?.brief) setBrief({...initialBrief,...draft.brief});
       if(draft?.spec) setSpec(draft.spec);
       if(draft?.data){setData(draft.data);setEditorKey(k=>k+1);setRestored(true);}
+      if(draft?.publishSlug) setPublishSlug(draft.publishSlug);
+      if(draft?.publishedUrl) setPublishedUrl(draft.publishedUrl);
     }catch{}
   },[]);
 
@@ -34,26 +44,55 @@ export default function Home(){
   const quality=useMemo(()=>spec?evaluatePageSpec(spec):null,[spec]);
   const set=(key:keyof MarketingBrief,value:string)=>setBrief(prev=>({...prev,[key]:value}));
 
+  function persistDraft(nextData:Data|null=data,nextSpec:PageSpec|null=spec,nextPublishedUrl=publishedUrl){
+    localStorage.setItem('lp-studio-draft',JSON.stringify({
+      brief,spec:nextSpec,data:nextData,publishSlug,publishedUrl:nextPublishedUrl,savedAt:new Date().toISOString()
+    }));
+  }
+
   async function generate(){
-    setLoading(true);setError('');
+    setLoading(true);setError('');setPublishError('');
     try{
       const res=await fetch('/api/generate',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(brief)});
       const json=await res.json();
       if(!res.ok) throw new Error(json.error||'Không thể generate');
       const nextSpec=json.spec as PageSpec;
       const nextData=pageSpecToPuck(nextSpec);
+      const nextSlug=publishSlug||slugify(brief.productName);
       setSpec(nextSpec);
       setData(nextData);
+      setPublishSlug(nextSlug);
+      setPublishedUrl('');
       setEditorKey(k=>k+1);
-      localStorage.setItem('lp-studio-draft',JSON.stringify({brief,spec:nextSpec,data:nextData,savedAt:new Date().toISOString()}));
+      localStorage.setItem('lp-studio-draft',JSON.stringify({brief,spec:nextSpec,data:nextData,publishSlug:nextSlug,publishedUrl:'',savedAt:new Date().toISOString()}));
     }catch(e:any){setError(e.message||'Có lỗi xảy ra');}
     finally{setLoading(false);}
   }
 
   function saveDraft(next:Data){
     setData(next);
-    localStorage.setItem('lp-studio-draft',JSON.stringify({brief,spec,data:next,savedAt:new Date().toISOString()}));
+    persistDraft(next,spec,publishedUrl);
     setRestored(false);
+  }
+
+  async function publish(){
+    if(!spec||!data) return;
+    const safeSlug=slugify(publishSlug||brief.productName);
+    if(safeSlug.length<2){setPublishError('Hãy nhập slug hợp lệ trước khi publish.');return;}
+    setPublishing(true);setPublishError('');
+    try{
+      const res=await fetch('/api/publish',{
+        method:'POST',
+        headers:{'content-type':'application/json'},
+        body:JSON.stringify({slug:safeSlug,brief,spec,puckData:data})
+      });
+      const json=await res.json();
+      if(!res.ok) throw new Error(json.error||'Không thể publish');
+      setPublishSlug(safeSlug);
+      setPublishedUrl(json.publicUrl);
+      localStorage.setItem('lp-studio-draft',JSON.stringify({brief,spec,data,publishSlug:safeSlug,publishedUrl:json.publicUrl,savedAt:new Date().toISOString()}));
+    }catch(e:any){setPublishError(e.message||'Không thể publish landing page.');}
+    finally{setPublishing(false);}
   }
 
   function exportJson(){
@@ -62,11 +101,11 @@ export default function Home(){
   }
 
   return <>
-    <header className="topbar"><div className="brand">RUN <span>LP Studio</span></div><div className="badge">V1.1 · Structured Page Builder</div></header>
+    <header className="topbar"><div className="brand">RUN <span>LP Studio</span></div><div className="badge">V1.2 · Generate → Edit → QA → Publish</div></header>
     <main className="workspace">
       <aside className="brief">
         <h1>1. Marketing Brief</h1>
-        <p className="lead">Nhập thông tin cốt lõi. AI chỉ tạo cấu trúc và nội dung PageSpec; giao diện production được dựng từ component đã duyệt.</p>
+        <p className="lead">Nhập thông tin cốt lõi. AI chỉ tạo PageSpec; giao diện production được dựng từ component đã duyệt.</p>
         {restored&&<div className="status"><strong>✓ Đã khôi phục draft gần nhất</strong></div>}
         <div className="field"><label>Tên sản phẩm *</label><input value={brief.productName} onChange={e=>set('productName',e.target.value)} placeholder="VD: Vibe Code Hosting" /></div>
         <div className="field"><label>Khách hàng mục tiêu *</label><textarea value={brief.audience} onChange={e=>set('audience',e.target.value)} placeholder="Ai sẽ đọc landing page? Họ đang gặp vấn đề gì?" /></div>
@@ -84,15 +123,22 @@ export default function Home(){
         <div className="field"><label>Nội dung bổ sung</label><textarea value={brief.extra||''} onChange={e=>set('extra',e.target.value)} placeholder="FAQ, thông tin liên hệ, proof, yêu cầu pháp lý..." /></div>
         <button className="primary" disabled={!ready||loading} onClick={generate}>{loading?'AI đang xây PageSpec...':'✨ Generate Landing Page'}</button>
         {error&&<div className="error">{error}</div>}
-        <div className="hint">V1 yêu cầu Vercel Environment Variable <b>ANTHROPIC_API_KEY</b>. API key không được lưu trong browser.</div>
+        <div className="hint">AI key chỉ chạy server-side qua <b>ANTHROPIC_API_KEY</b>.</div>
         {spec&&<div className="status"><strong>✓ PageSpec hợp lệ</strong> · {spec.sections.length} sections · {spec.seo.schemaTypes.length} schema types</div>}
-        {quality&&<div style={{marginTop:12,padding:12,border:'1px solid #263249',borderRadius:10,background:'#172033'}}><div style={{display:'flex',justifyContent:'space-between',gap:12,alignItems:'center',marginBottom:8}}><strong>Quality Gate</strong><strong style={{color:quality.score>=85?'#23c483':quality.score>=70?'#fbbf24':'#ff6b6b'}}>{quality.score}/100</strong></div><div style={{display:'grid',gap:5}}>{quality.checks.map(c=><div key={c.id} style={{fontSize:11,color:c.ok?'#8ee6bd':'#ffb0b0'}}>{c.ok?'✓':'•'} {c.label}</div>)}</div></div>}
+        {quality&&<div style={{marginTop:12,padding:12,border:'1px solid #263249',borderRadius:10,background:'#172033'}}><div style={{display:'flex',justifyContent:'space-between',gap:12,alignItems:'center',marginBottom:8}}><strong>2. Quality Gate</strong><strong style={{color:quality.score>=85?'#23c483':quality.score>=70?'#fbbf24':'#ff6b6b'}}>{quality.score}/100</strong></div><div style={{display:'grid',gap:5}}>{quality.checks.map(c=><div key={c.id} style={{fontSize:11,color:c.ok?'#8ee6bd':'#ffb0b0'}}>{c.ok?'✓':'•'} {c.label}</div>)}</div><div className="hint">V1.2 Quality Gate kiểm tra PageSpec. Vòng sau sẽ bổ sung Lighthouse + HTML runtime audit.</div></div>}
+        {data&&spec&&<div style={{marginTop:12,padding:12,border:'1px solid #35518a',borderRadius:10,background:'#111b31'}}>
+          <strong style={{display:'block',marginBottom:8}}>3. Publish</strong>
+          <div className="field" style={{marginBottom:8}}><label>Public slug</label><input value={publishSlug} onChange={e=>{setPublishSlug(slugify(e.target.value));setPublishedUrl('')}} placeholder="vibe-code-hosting" /></div>
+          <button className="primary" disabled={publishing} onClick={publish}>{publishing?'Đang publish...':'🚀 Publish Landing Page'}</button>
+          {publishError&&<div className="error">{publishError}</div>}
+          {publishedUrl&&<div style={{marginTop:10,fontSize:12,lineHeight:1.6,color:'#b8c8e8'}}>✓ Public URL<br/><a href={publishedUrl} target="_blank" rel="noreferrer" style={{color:'#8fb0ff',wordBreak:'break-all'}}>{publishedUrl}</a></div>}
+        </div>}
       </aside>
       <section className="canvas">
         {!data?<div className="empty"><div className="empty-card"><h2>Brief → AI → Editor</h2><p>Điền ba trường bắt buộc bên trái rồi Generate. Kết quả sẽ mở trực tiếp trong visual editor để Marketing kéo thả và sửa nội dung mà không cần chạm vào HTML/CSS.</p></div></div>:
         <div className="editor-wrap">
           <Puck key={editorKey} config={puckConfig} data={data} onChange={setData} onPublish={saveDraft} headerTitle={brief.productName||'Landing Page'} viewports={[{width:1440,height:'auto',label:'Desktop'},{width:768,height:'auto',label:'Tablet'},{width:375,height:'auto',label:'Mobile'}]} />
-          <div className="specbar"><button className="secondary" onClick={()=>data&&saveDraft(data)}>Lưu draft</button><button className="secondary" onClick={()=>{data&&saveDraft(data);window.open('/preview','_blank')}}>Preview</button><button className="secondary" onClick={exportJson}>Export JSON</button></div>
+          <div className="specbar"><button className="secondary" onClick={()=>data&&saveDraft(data)}>Lưu draft</button><button className="secondary" onClick={()=>{data&&saveDraft(data);window.open('/preview','_blank')}}>Preview</button><button className="secondary" disabled={publishing} onClick={publish}>Publish</button><button className="secondary" onClick={exportJson}>Export JSON</button></div>
         </div>}
       </section>
     </main>
