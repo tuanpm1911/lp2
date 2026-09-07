@@ -6,6 +6,8 @@ import { pageSpecToPuck, puckConfig } from '@/lib/puck-config';
 import { evaluatePageSpec } from '@/lib/quality';
 import type { MarketingBrief, PageSpec } from '@/lib/page-spec';
 
+type RuntimeAudit={score:number;checks:Array<{id:string;label:string;ok:boolean;severity:string;value?:string}>;summary?:Record<string,unknown>};
+
 const initialBrief:MarketingBrief={
   productName:'',audience:'',goal:'Thu thập lead',usp:'',cta:'Nhận tư vấn',price:'',referenceUrl:'',brandColor:'#2563eb',tone:'Chuyên nghiệp, rõ ràng',heroImageUrl:'',heroImageAlt:'',extra:''
 };
@@ -28,6 +30,9 @@ export default function Home(){
   const [publishedUrl,setPublishedUrl]=useState('');
   const [uploadingAsset,setUploadingAsset]=useState(false);
   const [assetError,setAssetError]=useState('');
+  const [auditing,setAuditing]=useState(false);
+  const [auditError,setAuditError]=useState('');
+  const [runtimeAudit,setRuntimeAudit]=useState<RuntimeAudit|null>(null);
 
   useEffect(()=>{
     try{
@@ -65,7 +70,7 @@ export default function Home(){
   }
 
   async function generate(){
-    setLoading(true);setError('');setPublishError('');
+    setLoading(true);setError('');setPublishError('');setRuntimeAudit(null);setAuditError('');
     try{
       const res=await fetch('/api/generate',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(brief)});
       const json=await res.json();
@@ -93,7 +98,7 @@ export default function Home(){
     if(!spec||!data) return;
     const safeSlug=slugify(publishSlug||brief.productName);
     if(safeSlug.length<2){setPublishError('Hãy nhập slug hợp lệ trước khi publish.');return;}
-    setPublishing(true);setPublishError('');
+    setPublishing(true);setPublishError('');setRuntimeAudit(null);setAuditError('');
     try{
       const res=await fetch('/api/publish',{
         method:'POST',
@@ -109,13 +114,25 @@ export default function Home(){
     finally{setPublishing(false);}
   }
 
+  async function auditPublished(){
+    if(!publishSlug) return;
+    setAuditing(true);setAuditError('');
+    try{
+      const res=await fetch('/api/audit',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slug:publishSlug})});
+      const json=await res.json();
+      if(!res.ok) throw new Error(json.error||'Không thể audit');
+      setRuntimeAudit(json as RuntimeAudit);
+    }catch(e:any){setAuditError(e.message||'Không thể audit public page.');}
+    finally{setAuditing(false);}
+  }
+
   function exportJson(){
     const payload=JSON.stringify({brief,spec,puckData:data},null,2);
     const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([payload],{type:'application/json'}));a.download=`${brief.productName||'landing-page'}.json`;a.click();URL.revokeObjectURL(a.href);
   }
 
   return <>
-    <header className="topbar"><div className="brand">RUN <span>LP Studio</span></div><div className="badge">V1.3 · Brief → Assets → AI → Edit → QA → Publish</div></header>
+    <header className="topbar"><div className="brand">RUN <span>LP Studio</span></div><div className="badge">V1.4 · Brief → Assets → AI → Edit → QA → Publish → Audit</div></header>
     <main className="workspace">
       <aside className="brief">
         <h1>1. Marketing Brief</h1>
@@ -146,13 +163,15 @@ export default function Home(){
         {error&&<div className="error">{error}</div>}
         <div className="hint">AI key chỉ chạy server-side qua <b>ANTHROPIC_API_KEY</b>.</div>
         {spec&&<div className="status"><strong>✓ PageSpec hợp lệ</strong> · {spec.sections.length} sections · {spec.seo.schemaTypes.length} schema types</div>}
-        {quality&&<div style={{marginTop:12,padding:12,border:'1px solid #263249',borderRadius:10,background:'#172033'}}><div style={{display:'flex',justifyContent:'space-between',gap:12,alignItems:'center',marginBottom:8}}><strong>2. Quality Gate</strong><strong style={{color:quality.score>=85?'#23c483':quality.score>=70?'#fbbf24':'#ff6b6b'}}>{quality.score}/100</strong></div><div style={{display:'grid',gap:5}}>{quality.checks.map(c=><div key={c.id} style={{fontSize:11,color:c.ok?'#8ee6bd':'#ffb0b0'}}>{c.ok?'✓':'•'} {c.label}</div>)}</div><div className="hint">V1.3 Quality Gate kiểm tra PageSpec. Vòng sau sẽ bổ sung Lighthouse + HTML runtime audit.</div></div>}
+        {quality&&<div style={{marginTop:12,padding:12,border:'1px solid #263249',borderRadius:10,background:'#172033'}}><div style={{display:'flex',justifyContent:'space-between',gap:12,alignItems:'center',marginBottom:8}}><strong>2. PageSpec Quality</strong><strong style={{color:quality.score>=85?'#23c483':quality.score>=70?'#fbbf24':'#ff6b6b'}}>{quality.score}/100</strong></div><div style={{display:'grid',gap:5}}>{quality.checks.map(c=><div key={c.id} style={{fontSize:11,color:c.ok?'#8ee6bd':'#ffb0b0'}}>{c.ok?'✓':'•'} {c.label}</div>)}</div></div>}
         {data&&spec&&<div style={{marginTop:12,padding:12,border:'1px solid #35518a',borderRadius:10,background:'#111b31'}}>
-          <strong style={{display:'block',marginBottom:8}}>3. Publish</strong>
-          <div className="field" style={{marginBottom:8}}><label>Public slug</label><input value={publishSlug} onChange={e=>{setPublishSlug(slugify(e.target.value));setPublishedUrl('')}} placeholder="vibe-code-hosting" /></div>
+          <strong style={{display:'block',marginBottom:8}}>3. Publish & Runtime Audit</strong>
+          <div className="field" style={{marginBottom:8}}><label>Public slug</label><input value={publishSlug} onChange={e=>{setPublishSlug(slugify(e.target.value));setPublishedUrl('');setRuntimeAudit(null)}} placeholder="vibe-code-hosting" /></div>
           <button className="primary" disabled={publishing} onClick={publish}>{publishing?'Đang publish...':'🚀 Publish Landing Page'}</button>
           {publishError&&<div className="error">{publishError}</div>}
-          {publishedUrl&&<div style={{marginTop:10,fontSize:12,lineHeight:1.6,color:'#b8c8e8'}}>✓ Public URL<br/><a href={publishedUrl} target="_blank" rel="noreferrer" style={{color:'#8fb0ff',wordBreak:'break-all'}}>{publishedUrl}</a></div>}
+          {publishedUrl&&<div style={{marginTop:10,fontSize:12,lineHeight:1.6,color:'#b8c8e8'}}>✓ Public URL<br/><a href={publishedUrl} target="_blank" rel="noreferrer" style={{color:'#8fb0ff',wordBreak:'break-all'}}>{publishedUrl}</a><button className="secondary" disabled={auditing} onClick={auditPublished} style={{width:'100%',marginTop:8}}>{auditing?'Đang audit HTML...':'Kiểm tra SEO/HTML thực tế'}</button></div>}
+          {auditError&&<div className="error">{auditError}</div>}
+          {runtimeAudit&&<div style={{marginTop:10,paddingTop:10,borderTop:'1px solid #263249'}}><div style={{display:'flex',justifyContent:'space-between',marginBottom:7}}><strong style={{fontSize:12}}>Runtime Audit</strong><strong style={{color:runtimeAudit.score>=85?'#23c483':runtimeAudit.score>=70?'#fbbf24':'#ff6b6b'}}>{runtimeAudit.score}/100</strong></div><div style={{display:'grid',gap:4}}>{runtimeAudit.checks.map(c=><div key={c.id} style={{fontSize:10.5,color:c.ok?'#8ee6bd':'#ffb0b0'}}>{c.ok?'✓':'•'} {c.label}{c.value?` · ${c.value}`:''}</div>)}</div></div>}
         </div>}
       </aside>
       <section className="canvas">
